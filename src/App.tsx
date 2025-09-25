@@ -3,7 +3,7 @@ import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SelectionsProvider } from './contexts/SelectionsContext';
 import { RecommendationsProvider } from './contexts/RecommendationsContext';
-import { prefetchImagesForScreen, prefetchAllCriticalImages } from './utils/imagePrefetch';
+import { prefetchImagesForScreen, prefetchAllCriticalImages, ScreenType } from './utils/imagePrefetch';
 import { fetchQuestions, defaultQuestions, Question } from './services/questionsService';
 import { AgeGroupScreen } from './components/AgeGroupScreen';
 import { GenderScreen } from './components/GenderScreen';
@@ -57,7 +57,7 @@ import { sendToFlutter } from './lib/quabbleFlutterChannel';
 
 function AppContent() {
   const { language } = useLanguage();
-  const [currentScreen, setCurrentScreen] = useState<'referral' | 'whyquabblewhatyouneed' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer'>('referral');
+  const [currentScreen, setCurrentScreen] = useState<ScreenType>('referral');
   
   // Add transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -128,7 +128,7 @@ function AppContent() {
     return questions.find(q => q.id === id);
   };
 
-  const performTransition = (targetScreen: typeof currentScreen) => {
+  const performTransition = (targetScreen: ScreenType) => {
     setIsTransitioning(true);
     // Wait for fade out before changing screen
     setTimeout(() => {
