@@ -3,7 +3,7 @@ import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { AuthProvider } from './contexts/AuthContext';
 import { SelectionsProvider } from './contexts/SelectionsContext';
 import { RecommendationsProvider } from './contexts/RecommendationsContext';
-import { prefetchImagesForScreen, prefetchAllCriticalImages } from './utils/imagePrefetch';
+import { prefetchImagesForScreen, prefetchAllCriticalImages, ScreenType } from './utils/imagePrefetch';
 import { fetchQuestions, defaultQuestions, Question } from './services/questionsService';
 import { AgeGroupScreen } from './components/AgeGroupScreen';
 import { GenderScreen } from './components/GenderScreen';
@@ -51,6 +51,7 @@ import { WeCanHelpScreen } from './components/WeCanHelpScreen';
 import { WhatDidYouTryScreen } from './components/WhatDidYouTryScreen';
 import { WhatFeltMissingScreen } from './components/WhatFeltMissingScreen';
 import { WhyQuabbleScreen } from './components/WhyQuabbleScreen';
+import { WhyQuabbleWhatYouNeed } from './components/WhyQuabbleWhatYouNeed';
 import { StatsScreen } from './components/StatsScreen';
 import { ImprovedProofScreen } from './components/ImprovedProofScreen';
 import { LetsFindOutScreen } from './components/LetsFindOutScreen';
@@ -68,7 +69,11 @@ import { sendToFlutter } from './lib/quabbleFlutterChannel';
 
 function AppContent() {
   const { language } = useLanguage();
+<<<<<<< HEAD
   const [currentScreen, setCurrentScreen] = useState<'referral' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer' | 'backedbyexperts' | 'personalizeroutine' | 'whileprofessionalcare' | 'sogladtohear' | 'depressionsurvey' | 'depressionsurvey1' | 'depressionsurvey2' | 'anxietysurvey' | 'anxietysurvey1' | 'anxietysurvey2' | 'report87' | 'report98'>('whyquabble');
+=======
+  const [currentScreen, setCurrentScreen] = useState<ScreenType>('referral');
+>>>>>>> 46f56259b8054d7a633eb0f15535831cc8891e05
   
   // Add transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -139,7 +144,7 @@ function AppContent() {
     return questions.find(q => q.id === id);
   };
 
-  const performTransition = (targetScreen: typeof currentScreen) => {
+  const performTransition = (targetScreen: ScreenType) => {
     setIsTransitioning(true);
     // Wait for fade out before changing screen
     setTimeout(() => {
@@ -238,6 +243,8 @@ function AppContent() {
       "event": "heptic",
     }));
     if (currentScreen === 'referral') {
+      performTransition('whyquabblewhatyouneed');
+    } else if (currentScreen === 'whyquabblewhatyouneed') {
       performTransition('age');
     } else if (currentScreen === 'age') {
       performTransition('mentalwellness3');
@@ -372,6 +379,8 @@ function AppContent() {
   };
   const handleBack = () => {
     if (currentScreen === 'age') {
+      performTransition('whyquabblewhatyouneed');
+    } else if (currentScreen === 'whyquabblewhatyouneed') {
       performTransition('referral');
     } else if (currentScreen === 'duckjar') {
       performTransition('age');
@@ -743,6 +752,7 @@ function AppContent() {
           <SpecialOfferScreen onBack={handleBack} onNext={handleNext} />
         </TransitionWrapper>;
     }
+<<<<<<< HEAD
     if (currentScreen === 'backedbyexperts') {
       return <TransitionWrapper show={!isTransitioning}>
           <BackedByExpertsScreen onBack={handleBack} onNext={handleNext} />
@@ -804,6 +814,13 @@ function AppContent() {
         </TransitionWrapper>;
     }
     
+=======
+    if (currentScreen === 'whyquabblewhatyouneed') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <WhyQuabbleWhatYouNeed onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+>>>>>>> 46f56259b8054d7a633eb0f15535831cc8891e05
     return <TransitionWrapper show={!isTransitioning}>
         <WhereDidYouHearAboutUs onNext={handleNext} onSkip={handleSkip} questionData={getQuestionById(1)} questionsLoaded={questionsLoaded} />
       </TransitionWrapper>;

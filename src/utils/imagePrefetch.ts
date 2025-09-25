@@ -1,5 +1,5 @@
-type ScreenType = 
-  | 'referral' | 'age' | 'tooyoung' | 'duckjar' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'gender' | 'duckjar' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'testimonials' 
+export type ScreenType = 
+  | 'referral' | 'whyquabblewhatyouneed' | 'age' | 'tooyoung' | 'duckjar' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'gender' | 'duckjar' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'testimonials' 
   | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' 
   | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' 
   | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' 
@@ -11,6 +11,7 @@ type ScreenType =
 
 const SCREEN_IMAGES: Record<ScreenType, string[]> = {
   referral: [],
+  whyquabblewhatyouneed: ['/images/why-quabble-duck.png'],
   age: ['/images/2-duck.png'],
   tooyoung: ['/images/too-young-duck.png'],
   duckjar: ['/images/8-duck.png'],
@@ -91,7 +92,7 @@ const SCREEN_IMAGES: Record<ScreenType, string[]> = {
 };
 
 const SCREEN_SEQUENCE: ScreenType[] = [
-  'referral', 'age', 'gender', 'focus', 'confirmation', 'testimonials', 'completion',
+  'referral', 'whyquabblewhatyouneed', 'age', 'gender', 'focus', 'confirmation', 'testimonials', 'completion',
   'mentalwellness1', 'mentalwellness2', 'chart', 'mentalwellness3', 'ducknaming',
   'tellusintro', 'wakeup', 'goodnight', 'mentalwellnessq1', 'askfeeling', 'askinterests',
   'supportsystem', 'customizeroutine', 'recommendedroutineintro', 'routine', 'specialoffer'
