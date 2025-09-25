@@ -19,49 +19,26 @@ export function MentalWellness2Screen({
   return (
     <>
     <div className="flex flex-col w-full min-h-screen bg-[#f8f8f8] text-gray-800 px-4 relative">
-      {/* Header */}
-      <div className="flex items-center justify-end mt-16 mb-4">
-        {onSkip && (
-          <button className="p-2 text-gray-500 font-medium" onClick={onSkip}>
-            Skip
-        </button>
-        )}
-      </div>
-
       {/* Main content */}
-      <div className="flex flex-col items-center flex-1">
-        {/* Duck with circular arrow illustration */}
-        <div className="relative flex justify-center mb-6 h-80 w-full">
+      <div className="flex flex-col items-center flex-1 justify-center">
+        {/* Duck illustration */}
+        <div className="relative flex justify-center mb-8 h-80 w-full">
           <img 
             src="/images/10-duck.png" 
-            alt="Duck with circular arrow" 
+            alt="Duck with mental wellness illustration" 
             className="w-full max-w-md h-auto max-h-80 object-contain" 
           />
         </div>
         
         {/* Main text */}
-        <div className="text-center mb-12 px-4">
-          <h1 className="text-2xl font-normal text-[#f2994a] leading-tight">
-            98% of regular users find Quabble helpful for managing their mental health
+        <div className="text-center mb-16 px-4">
+          <h1 className="text-2xl font-normal text-gray-800 leading-tight">
+            Mental wellness practices help you develop emotional resilience and maintain a positive mindset.
           </h1>
-        </div>
-
-        {/* Checkmarks for 7 days */}
-        <div className="flex justify-center gap-1 mb-16">
-          {[...Array(7)].map((_, index) => (
-            <div
-              key={index}
-              className="w-6 h-6 rounded-full bg-[#f2994a] flex items-center justify-center"
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M20 6L9 17L4 12" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </div>
-          ))}
         </div>
       </div>
 
-      {/* Next Button - same format as FocusScreen */}
+      {/* Next Button */}
       <div className="fixed bottom-0 left-0 right-0 z-50" 
            style={{ paddingBottom: 'max(1rem, env(safe-area-inset-bottom))' }}>
         <div className="p-5 sm:p-6">
@@ -89,4 +66,4 @@ export function MentalWellness2Screen({
     `}</style>
     </>
   );
-} 
+}

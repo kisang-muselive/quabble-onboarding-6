@@ -708,7 +708,6 @@ function AppContent() {
     </div>
   );
 }
-
 export function App() {
   return (
     <LanguageProvider>
