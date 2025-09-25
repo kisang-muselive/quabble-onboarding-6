@@ -17,7 +17,6 @@ interface LanguageProviderProps {
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguage] = useState<Language>('en');
-  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     // Get language from localStorage or default to English

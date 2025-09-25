@@ -1,14 +1,22 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface WhyQuabbleWhatYouNeedProps {
+interface EightySevenReportProps {
   onBack: () => void;
   onNext: () => void;
 }
 
-export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedProps) {
+export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
   const { t } = useLanguage();
+  const lottieRef = useRef<any>(null);
+
+  const handleLottieClick = () => {
+    if (lottieRef.current) {
+      lottieRef.current.stop();
+      lottieRef.current.play();
+    }
+  };
   
   useEffect(() => {
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
@@ -48,25 +56,41 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
             color: '#4C4A3C',
             fontSize: 'min(5vw, 1.5rem)'
           }}>
-            {t('whyQuabble.title').split('\n').map((line, index) => (
+            {t('eightySevenReport.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}
-                {index < t('whyQuabble.title').split('\n').length - 1 && <br />}
+                {index < t('eightySevenReport.title').split('\n').length - 1 && <br />}
               </span>
             ))}
           </h1>
         </div>
 
         <div className="flex items-center justify-center mb-8 mt-9 image-container">
-          <img
-            src="/images/why-quabble-duck.png"
-            alt="Why Quabble Duck"
+          <div 
             className="w-full h-auto object-contain main-image"
             style={{ 
-              maxWidth: 'min(120vw, 900px)',
-              maxHeight: 'min(95vh, 850px)'
+              maxWidth: '380px',
+              maxHeight: 'min(95vh, 850px)',
+              minHeight: '350px',
+              cursor: 'pointer'
             }}
-          />
+            onClick={handleLottieClick}
+          >
+            <lottie-player
+              ref={lottieRef}
+              src="/images/87-lottie.json"
+              background="transparent"
+              speed="1"
+              style={{
+                width: '100%',
+                height: '100%',
+                minHeight: '350px',
+                maxWidth: '380px',
+                pointerEvents: 'none'
+              }}
+              autoplay
+            />
+          </div>
         </div>
       </div>
 

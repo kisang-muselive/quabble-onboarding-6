@@ -26,6 +26,21 @@ export const translations = {
     // Glad To Hear That Screen
     "gladToHearThat.title": "So glad to hear that!\nYou can keep up your well-being with simple daily routines with us",
     
+    // Here To Help Screen
+    "hereToHelp.title": "We're here to help you through this tough time. Taking care of your mental health is vital right now, and we'll support you every step of the way.",
+    
+    // 98 Report Screen
+    "ninetyEightReport.title": "98% of our regular users\nreported Quabble helps\nmanaging their mental health",
+    
+    // 87 Report Screen
+    "eightySevenReport.title": "87% regular users report\ntheir mental health has\nimproved since they started\nusing Quabble",
+    
+    // Depression Survey 1 Screen
+    "depressionSurvey1.title": "Depression Survey 1",
+    
+    // Professional Care Is Important Screen
+    "professionalCareIsImportant.title": "Professional care is important for serious mental health conditions. Quabble can complement your treatment and support your daily wellness.",
+    
     // Duck With Jar Screen
     "duckWithJar.title": "Quabble",
     "duckWithJar.subtitle": "10M+ mental wellness routines completed",

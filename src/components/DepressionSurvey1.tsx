@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface DealingWithProps {
+interface DepressionSurvey1Props {
   onBack: () => void;
-  onNext: () => void;
+  onNext: (selectedOption?: number) => void;
 }
 
-export function DealingWith({ onBack, onNext }: DealingWithProps) {
+export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
   const { t } = useLanguage();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
@@ -30,7 +30,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-[#F5F0E8] text-gray-800 relative overflow-y-auto screen-container">
+    <div className="flex flex-col w-full h-screen bg-[#F5F0E8] text-gray-800 relative overflow-hidden screen-container">
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 bg-[#F5F0E8] header-container"
@@ -53,44 +53,35 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
         </button>
       </div>
 
-      <div className="flex flex-col items-center px-9 pb-32 main-content">
+      <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
           <h1 className="font-medium leading-relaxed title-text" style={{ 
             color: '#4C4A3C',
             fontSize: 'min(5vw, 1.5rem)'
           }}>
-            {t('dealingWith.title').split('\n').map((line, index) => (
+            {t('depressionSurvey1.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}
-                {index < t('dealingWith.title').split('\n').length - 1 && <br />}
+                {index < t('depressionSurvey1.title').split('\n').length - 1 && <br />}
               </span>
             ))}
           </h1>
-          
-          <p className="subtitle-text" style={{ 
-            color: '#605D4E',
-            fontSize: 'min(4vw, 1rem)',
-            marginTop: '6px',
-            fontWeight: 'normal'
-          }}>
-            {t('dealingWith.subtitle')}
-          </p>
         </div>
 
-        <div className="flex items-center justify-center image-container" style={{ marginTop: '20px' }}>
+        <div className="flex items-center justify-center image-container" style={{ marginTop: '16px' }}>
           <img
-            src="/images/dealing-with-duck.png"
-            alt="Dealing with duck"
+            src="/images/1-duck.png"
+            alt="Duck"
             className="w-full h-auto object-contain main-image"
             style={{ 
-              maxWidth: 'min(35vw, 250px)',
-              maxHeight: 'min(28vh, 240px)'
+              maxWidth: 'min(45vw, 320px)',
+              maxHeight: 'min(35vh, 300px)'
             }}
           />
         </div>
 
         {/* Option buttons */}
-        <div className="flex flex-col w-full option-buttons-container" style={{ gap: '10px', marginTop: '20px' }}>
+        <div className="flex flex-col w-full option-buttons-container" style={{ gap: '10px', marginTop: '16px' }}>
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
             style={{ 
@@ -101,7 +92,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Depression
+            I've been going through<br />something difficult recently
           </button>
           
           <button
@@ -114,7 +105,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            Anxiety
+            I've been living with ongoing<br />mental health challenges
           </button>
           
           <button
@@ -127,72 +118,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            Panic attacks
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 3 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 3 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(3)}
-          >
-            OCD
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 4 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 4 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(4)}
-          >
-            Bipolar disorder
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 5 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 5 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(5)}
-          >
-            Eating disorder
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 6 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 6 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(6)}
-          >
-            PTSD
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 7 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 7 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(7)}
-          >
-            Something else
+            I'm mostly doing okay
           </button>
         </div>
       </div>
