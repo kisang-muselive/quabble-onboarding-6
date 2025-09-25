@@ -30,10 +30,11 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-screen bg-[#F5F0E8] text-gray-800 relative overflow-y-auto screen-container">
+    <div className="flex flex-col w-full min-h-screen text-gray-800 relative overflow-y-auto screen-container" style={{ backgroundColor: '#FAF9F2' }}>
       {/* Header with back button */}
       <div 
-        className="flex items-center justify-start px-4 bg-[#F5F0E8] header-container"
+        className="flex items-center justify-start px-4 header-container"
+        style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'

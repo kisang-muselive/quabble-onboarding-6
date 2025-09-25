@@ -87,7 +87,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
       </div>
 
       {/* Next Button - matching WhereDidYouHearAboutUs layout */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container">
+      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container" style={{ backgroundColor: 'transparent' }}>
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button

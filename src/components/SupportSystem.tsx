@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface DealingWithProps {
+interface SupportSystemProps {
   onBack: () => void;
   onNext: () => void;
 }
 
-export function DealingWith({ onBack, onNext }: DealingWithProps) {
+export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
   const { t } = useLanguage();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
@@ -31,11 +31,11 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
 
   return (
     <div className="flex flex-col w-full min-h-screen text-gray-800 relative overflow-y-auto screen-container" style={{ backgroundColor: '#FAF9F2' }}>
-      {/* Header with back button */}
+      {/* Header with back button and indicator */}
       <div 
-        className="flex items-center justify-start px-4 header-container"
-        style={{ backgroundColor: '#FAF9F2' }}
+        className="flex items-center justify-between px-4 header-container"
         style={{ 
+          backgroundColor: '#FAF9F2',
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
         }}
@@ -52,20 +52,67 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             style={{ width: '24px', height: '24px' }}
           />
         </button>
+        
+        {/* 5-segment indicator */}
+        <div className="flex items-center justify-center indicator-container" style={{ gap: '4px' }}>
+          <div 
+            className="indicator-item"
+            style={{
+              width: '10px',
+              height: '6px',
+              borderRadius: '8px',
+              backgroundColor: '#F28C39'
+            }}
+          />
+          <div 
+            className="indicator-item"
+            style={{
+              width: '10px',
+              height: '6px',
+              borderRadius: '8px',
+              backgroundColor: '#F28C39'
+            }}
+          />
+          <div 
+            className="indicator-item"
+            style={{
+              width: '10px',
+              height: '6px',
+              borderRadius: '8px',
+              backgroundColor: '#F28C39'
+            }}
+          />
+          <div 
+            className="indicator-item"
+            style={{
+              width: '10px',
+              height: '6px',
+              borderRadius: '8px',
+              backgroundColor: '#E1E0D3'
+            }}
+          />
+          <div 
+            className="indicator-item"
+            style={{
+              width: '10px',
+              height: '6px',
+              borderRadius: '8px',
+              backgroundColor: '#E1E0D3'
+            }}
+          />
+        </div>
+        
+        {/* Empty div to balance the layout */}
+        <div style={{ width: '40px', height: '40px' }} />
       </div>
 
       <div className="flex flex-col items-center px-9 pb-32 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
-                 <h1 className="font-medium leading-snug title-text" style={{ 
-                   color: '#4C4A3C',
-                   fontSize: 'min(5.5vw, 1.625rem)'
-                 }}>
-            {t('dealingWith.title').split('\n').map((line, index) => (
-              <span key={index} className="text-span">
-                {line}
-                {index < t('dealingWith.title').split('\n').length - 1 && <br />}
-              </span>
-            ))}
+          <h1 className="font-medium leading-snug title-text" style={{ 
+            color: '#4C4A3C',
+            fontSize: 'min(5.5vw, 1.625rem)'
+          }}>
+            How strong is your<br />support system?
           </h1>
           
           <p className="subtitle-text" style={{ 
@@ -74,24 +121,24 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             marginTop: '6px',
             fontWeight: 'normal'
           }}>
-            {t('dealingWith.subtitle')}
+            Family, friends, teachers, peers, etc.
           </p>
         </div>
 
-        <div className="flex items-center justify-center image-container" style={{ marginTop: '20px' }}>
+        <div className="flex items-center justify-center image-container">
           <img
-            src="/images/dealing-with-duck.png"
-            alt="Dealing with duck"
+            src="/images/supportingduck.png"
+            alt="Supporting duck"
             className="w-full h-auto object-contain main-image"
             style={{ 
-              maxWidth: 'min(35vw, 250px)',
-              maxHeight: 'min(28vh, 240px)'
+              maxWidth: 'min(55vw, 380px)',
+              maxHeight: 'min(40vh, 360px)'
             }}
           />
         </div>
 
         {/* Option buttons */}
-        <div className="flex flex-col w-full option-buttons-container" style={{ gap: '10px', marginTop: '20px' }}>
+        <div className="flex flex-col w-full option-buttons-container" style={{ gap: '10px' }}>
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
             style={{ 
@@ -102,7 +149,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Depression
+            Excellent
           </button>
           
           <button
@@ -115,7 +162,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            Anxiety
+            Good
           </button>
           
           <button
@@ -128,7 +175,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            Panic attacks
+            Limited
           </button>
           
           <button
@@ -141,59 +188,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
             }}
             onClick={() => handleOptionClick(3)}
           >
-            OCD
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 4 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 4 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(4)}
-          >
-            Bipolar disorder
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 5 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 5 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(5)}
-          >
-            Eating disorder
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 6 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 6 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(6)}
-          >
-            PTSD
-          </button>
-          
-          <button
-            className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
-              fontSize: 'min(4.5vw, 1.125rem)',
-              borderRadius: '28px',
-              border: `2px solid ${selectedOption === 7 ? '#F28C39' : '#E1E0D3'}`,
-              color: selectedOption === 7 ? '#F28C39' : '#4C4A3C'
-            }}
-            onClick={() => handleOptionClick(7)}
-          >
-            Something else
+            Poor
           </button>
         </div>
       </div>
@@ -231,7 +226,7 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
-                onNext(selectedOption!);
+                onNext();
               }}
             >
               {t('next')}

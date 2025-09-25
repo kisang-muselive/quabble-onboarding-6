@@ -16,12 +16,20 @@ import { DepressionSurvey3 } from './components/DepressionSurvey3';
 import { AnxietySurvey1 } from './components/AnxietySurvey1';
 import { AnxietySurvey2 } from './components/AnxietySurvey2';
 import { AnxietySurvey3 } from './components/AnxietySurvey3';
+import { BackedByExperts } from './components/BackedByExperts';
+import { FinalStep } from './components/FinalStep';
+import { WakeUp } from './components/WakeUp';
+import { GoToBed } from './components/GoToBed';
+import { InterestGrid } from './components/InterestGrid';
+import { SupportSystem } from './components/SupportSystem';
+import { AgeGroup } from './components/AgeGroup';
+import { Customizing } from './components/Customizing';
 import { ProfessionalCareIsImportant } from './components/ProfessionalCareIsImportant';
 import { TransitionWrapper } from './components/TransitionWrapper';
 import { sendToFlutter } from './lib/quabbleFlutterChannel';
 import { prefetchAllCriticalImages } from './utils/imagePrefetch';
 
-type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
+type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'backedbyexperts' | 'finalstep' | 'wakeup' | 'gotobed' | 'interestgrid' | 'supportsystem' | 'agegroup' | 'customizing' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
 
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('whyquabblewhatyouneed');
@@ -86,6 +94,22 @@ function AppContent() {
     } else if (currentScreen === '98report') {
       performTransition('87report');
     } else if (currentScreen === '87report') {
+      performTransition('backedbyexperts');
+    } else if (currentScreen === 'backedbyexperts') {
+      performTransition('finalstep');
+    } else if (currentScreen === 'finalstep') {
+      performTransition('wakeup');
+    } else if (currentScreen === 'wakeup') {
+      performTransition('gotobed');
+    } else if (currentScreen === 'gotobed') {
+      performTransition('interestgrid');
+    } else if (currentScreen === 'interestgrid') {
+      performTransition('supportsystem');
+    } else if (currentScreen === 'supportsystem') {
+      performTransition('agegroup');
+    } else if (currentScreen === 'agegroup') {
+      performTransition('customizing');
+    } else if (currentScreen === 'customizing') {
       // End of flow - fire completion event
       sendToFlutter("onboarding-complete");
     } else if (currentScreen === 'depressionsurvey1') {
@@ -136,6 +160,22 @@ function AppContent() {
       }
     } else if (currentScreen === '87report') {
       performTransition('98report');
+    } else if (currentScreen === 'backedbyexperts') {
+      performTransition('87report');
+    } else if (currentScreen === 'finalstep') {
+      performTransition('backedbyexperts');
+    } else if (currentScreen === 'wakeup') {
+      performTransition('finalstep');
+    } else if (currentScreen === 'gotobed') {
+      performTransition('wakeup');
+    } else if (currentScreen === 'interestgrid') {
+      performTransition('gotobed');
+    } else if (currentScreen === 'supportsystem') {
+      performTransition('interestgrid');
+    } else if (currentScreen === 'agegroup') {
+      performTransition('supportsystem');
+    } else if (currentScreen === 'customizing') {
+      performTransition('agegroup');
     } else if (currentScreen === 'depressionsurvey1') {
       performTransition('dealingwith');
     } else if (currentScreen === 'depressionsurvey2') {
@@ -232,6 +272,70 @@ function AppContent() {
       return (
         <TransitionWrapper show={!isTransitioning}>
           <EightySevenReport onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'backedbyexperts') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <BackedByExperts onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'finalstep') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <FinalStep onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'wakeup') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <WakeUp onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'gotobed') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <GoToBed onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'interestgrid') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <InterestGrid onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'supportsystem') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <SupportSystem onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'agegroup') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <AgeGroup onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'customizing') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <Customizing onBack={handleBack} onNext={handleNext} />
         </TransitionWrapper>
       );
     }

@@ -1,17 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface ProfessionalCareIsImportantProps {
+interface FinalStepProps {
   onBack: () => void;
   onNext: () => void;
 }
 
-export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCareIsImportantProps) {
+export function FinalStep({ onBack, onNext }: FinalStepProps) {
   const { t } = useLanguage();
   
   useEffect(() => {
-    // Send the new event for onboarding survey
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
       "eventProperties": {
         "onboarding_version": 4.0
@@ -20,15 +19,11 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
   }, []);
 
   return (
-    <div 
-      className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: 'url(/images/we-can-help-background.png)'
-      }}
-    >
+    <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
+        style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
@@ -43,30 +38,41 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
             src="/images/arrow_left.svg" 
             alt="Back" 
             className="w-6 h-6 header-back-icon"
-            style={{ 
-              width: '24px', 
-              height: '24px',
-              filter: 'brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(7500%) hue-rotate(109deg) brightness(105%) contrast(105%)'
-            }}
+            style={{ width: '24px', height: '24px' }}
           />
         </button>
       </div>
 
       <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
+          <p className="subtitle-text" style={{ 
+            color: '#F28C39',
+            fontSize: 'min(4.5vw, 1.125rem)',
+            marginBottom: '10px',
+            fontWeight: 'medium'
+          }}>
+            You're doing great. Final step!
+          </p>
+          
           <h1 className="font-medium leading-snug title-text" style={{ 
-            color: '#FFFFFF',
+            color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            {t('professionalCareIsImportant.title').split('\n').map((line, index) => (
-              <span key={index} className="text-span">
-                {line}
-                {index < t('professionalCareIsImportant.title').split('\n').length - 1 && <br />}
-              </span>
-            ))}
+            Let's personalize your<br />Quabble routine to improve<br />your mental health with us.<br />The setup will be quick!
           </h1>
         </div>
 
+        <div className="flex items-center justify-center mb-8 mt-9 image-container">
+          <img
+            src="/images/reportduck.png"
+            alt="Report Duck"
+            className="w-full h-auto object-contain main-image"
+            style={{ 
+              maxWidth: 'min(70vw, 420px)',
+              maxHeight: 'min(95vh, 480px)'
+            }}
+          />
+        </div>
       </div>
 
       {/* Gradient frame above CTA */}
@@ -74,13 +80,13 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
         <div 
           className="w-full h-full"
           style={{
-            background: 'transparent'
+            background: 'linear-gradient(to top, #FAF9F2 0%, rgba(250, 249, 242, 0) 100%)'
           }}
         />
       </div>
 
-      {/* Next Button */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container" style={{ backgroundColor: 'transparent' }}>
+      {/* Next Button - matching WhereDidYouHearAboutUs layout */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container" style={{ backgroundColor: '#FAF9F2' }}>
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button
