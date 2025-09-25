@@ -173,9 +173,10 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
         </div>
 
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container">
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="leading-snug title-text" style={{ 
             color: '#FFFFFF',
-            fontSize: 'min(6.5vw, 2rem)'
+            fontSize: 'min(6.5vw, 2rem)',
+            fontWeight: '500'
           }}>
             When do you<br />usually go to bed?
           </h1>

@@ -49,7 +49,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
             color: '#F28C39',
             fontSize: 'min(4.5vw, 1.125rem)',
             marginBottom: '10px',
-            fontWeight: 'medium'
+            fontWeight: '500'
           }}>
             You're doing great. Final step!
           </p>

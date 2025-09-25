@@ -100,7 +100,7 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
           alt="Review Stars"
           className="h-auto object-contain review-stars-image"
           style={{ 
-            height: '64px'
+            height: '56px'
           }}
         />
       </div>

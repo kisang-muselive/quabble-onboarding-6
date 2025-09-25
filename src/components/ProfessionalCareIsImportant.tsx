@@ -54,9 +54,10 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
 
       <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="leading-snug title-text" style={{ 
             color: '#FFFFFF',
-            fontSize: 'min(5.5vw, 1.625rem)'
+            fontSize: 'min(5.5vw, 1.625rem)',
+            fontWeight: '500'
           }}>
             {t('professionalCareIsImportant.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">
