@@ -17,22 +17,32 @@ interface LanguageProviderProps {
 
 export function LanguageProvider({ children }: LanguageProviderProps) {
   const [language, setLanguage] = useState<Language>('en');
+  const [isInitialized, setIsInitialized] = useState(false);
 
   useEffect(() => {
     // Get language from localStorage or default to English
-    const savedLanguage = localStorage.getItem('quabble-language') as Language;
-    if (savedLanguage && ['en', 'ko', 'ja'].includes(savedLanguage)) {
-      setLanguage(savedLanguage);
+    try {
+      const savedLanguage = localStorage.getItem('quabble-language') as Language;
+      if (savedLanguage && ['en', 'ko', 'ja'].includes(savedLanguage)) {
+        setLanguage(savedLanguage);
+      }
+    } catch (error) {
+      console.warn('Failed to access localStorage:', error);
+      // Default to English if localStorage is not available
     }
   }, []);
 
   const handleSetLanguage = (lang: Language) => {
     setLanguage(lang);
-    localStorage.setItem('quabble-language', lang);
+    try {
+      localStorage.setItem('quabble-language', lang);
+    } catch (error) {
+      console.warn('Failed to save language to localStorage:', error);
+    }
   };
 
   const t = (key: string): string => {
-    const translation = translations[language][key as keyof typeof translations[Language]];
+    const translation = translations[language]?.[key as keyof typeof translations.en];
     return translation || key;
   };
 

@@ -2,15 +2,16 @@ import { useEffect } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface WhyQuabbleWhatYouNeedProps {
+interface FoundationOfMeaningfulLifeProps {
   onBack: () => void;
   onNext: () => void;
 }
 
-export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedProps) {
+export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeaningfulLifeProps) {
   const { t } = useLanguage();
   
   useEffect(() => {
+    // Send the new event for onboarding survey
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
       "eventProperties": {
         "onboarding_version": 4.0
@@ -19,10 +20,15 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-screen bg-[#F5F0E8] text-gray-800 relative overflow-hidden screen-container">
+    <div 
+      className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container bg-cover bg-center bg-no-repeat"
+      style={{
+        backgroundImage: 'url(/images/mind-quote-background.png)'
+      }}
+    >
       {/* Header with back button */}
       <div 
-        className="flex items-center justify-start px-4 bg-[#F5F0E8] header-container"
+        className="flex items-center justify-start px-4 header-container"
         style={{ 
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
@@ -48,26 +54,15 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
             color: '#4C4A3C',
             fontSize: 'min(5vw, 1.5rem)'
           }}>
-            {t('whyQuabble.title').split('\n').map((line, index) => (
+            {t('foundationOfMeaningfulLife.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}
-                {index < t('whyQuabble.title').split('\n').length - 1 && <br />}
+                {index < t('foundationOfMeaningfulLife.title').split('\n').length - 1 && <br />}
               </span>
             ))}
           </h1>
         </div>
 
-        <div className="flex items-center justify-center mb-8 mt-9 image-container">
-          <img
-            src="/images/why-quabble-duck.png"
-            alt="Why Quabble Duck"
-            className="w-full h-auto object-contain main-image"
-            style={{ 
-              maxWidth: 'min(120vw, 900px)',
-              maxHeight: 'min(95vh, 850px)'
-            }}
-          />
-        </div>
       </div>
 
       {/* Gradient frame above CTA */}
@@ -75,13 +70,13 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
         <div 
           className="w-full h-full"
           style={{
-            background: 'linear-gradient(to top, #FAF9F2 0%, rgba(250, 249, 242, 0) 100%)'
+            background: 'transparent'
           }}
         />
       </div>
 
       {/* Next Button - matching WhereDidYouHearAboutUs layout */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#F5F0E8] z-50 cta-container">
+      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container">
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button

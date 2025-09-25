@@ -62,3 +62,107 @@
     font-family: 'Fredoka', sans-serif;
   }
 }
+
+/* 🚧 개발용 가이드라인 - 나중에 제거할 예정 🚧 */
+@layer utilities {
+  .dev-guidelines * {
+    /* 모든 요소에 기본 아웃라인 추가 - 실제 크기에 영향 없음 */
+    outline: 1px solid rgba(200, 200, 200, 0.3) !important;
+    outline-offset: -1px !important;
+  }
+  
+  /* UI 구성요소별 색상 분류 */
+  
+  /* 메인 컨테이너 */
+  .dev-guidelines .screen-container {
+    outline-color: rgba(255, 0, 0, 0.8) !important; /* 빨간색 - 전체 화면 컨테이너 */
+  }
+  
+  /* 타이틀 영역 */
+  .dev-guidelines .title-container {
+    outline-color: rgba(255, 20, 147, 0.8) !important; /* 핑크색 - 타이틀 컨테이너 */
+  }
+  
+  .dev-guidelines .title-text {
+    outline-color: rgba(138, 43, 226, 0.9) !important; /* 보라색 - 타이틀 텍스트 */
+  }
+  
+  .dev-guidelines .subtitle-text {
+    outline-color: rgba(75, 0, 130, 0.8) !important; /* 인디고 - 서브타이틀 텍스트 */
+  }
+  
+  /* 이미지 영역 */
+  .dev-guidelines .image-container {
+    outline-color: rgba(255, 165, 0, 0.8) !important; /* 주황색 - 이미지 컨테이너 */
+  }
+  
+  .dev-guidelines .main-image {
+    outline-color: rgba(255, 140, 0, 0.9) !important; /* 다크오렌지 - 메인 이미지 */
+  }
+  
+  /* CTA 영역 */
+  .dev-guidelines .cta-container {
+    outline-color: rgba(0, 128, 0, 0.8) !important; /* 초록색 - CTA 컨테이너 */
+  }
+  
+  .dev-guidelines .cta-button-wrapper {
+    outline-color: rgba(50, 205, 50, 0.8) !important; /* 라임그린 - CTA 버튼 래퍼 */
+  }
+  
+  .dev-guidelines .cta-button {
+    outline-color: rgba(0, 255, 0, 0.9) !important; /* 밝은 초록색 - CTA 버튼 */
+  }
+  
+  /* 그라디언트 프레임 */
+  .dev-guidelines .gradient-frame {
+    outline-color: rgba(0, 191, 255, 0.8) !important; /* 하늘색 - 그라디언트 프레임 */
+  }
+  
+  /* 헤더 영역 */
+  .dev-guidelines .header-container {
+    outline-color: rgba(255, 99, 71, 0.8) !important; /* 토마토색 - 헤더 컨테이너 */
+  }
+  
+  /* 메인 콘텐츠 영역 */
+  .dev-guidelines .main-content {
+    outline-color: rgba(64, 224, 208, 0.8) !important; /* 터쿠아즈 - 메인 콘텐츠 */
+  }
+  
+  /* 스페이서/패딩 요소들 */
+  .dev-guidelines .spacer {
+    outline-color: rgba(220, 220, 220, 0.5) !important; /* 연한 회색 - 스페이서 */
+  }
+  
+  /* 텍스트 스팬 요소들 */
+  .dev-guidelines .text-span {
+    outline-color: rgba(0, 0, 255, 0.6) !important; /* 파란색 - 텍스트 스팬 */
+  }
+  
+  /* 새로 추가된 헤더 관련 요소들 */
+  .dev-guidelines .header-back-button {
+    outline-color: rgba(255, 20, 147, 0.9) !important; /* 딥핑크 - 뒤로가기 버튼 */
+  }
+  
+  .dev-guidelines .header-back-icon {
+    outline-color: rgba(255, 215, 0, 0.9) !important; /* 골드 - 뒤로가기 아이콘 */
+  }
+  
+  .dev-guidelines .header-button-area {
+    outline-color: rgba(138, 43, 226, 0.8) !important; /* 블루바이올렛 - 버튼 터치 영역 */
+  }
+  
+  /* 새로 추가된 옵션 버튼 요소들 */
+  .dev-guidelines .option-buttons-container {
+    outline-color: rgba(255, 192, 203, 0.8) !important; /* 핑크 - 옵션 버튼 컨테이너 */
+  }
+  
+  .dev-guidelines .option-button {
+    outline-color: rgba(173, 216, 230, 0.9) !important; /* 라이트블루 - 개별 옵션 버튼 */
+  }
+}
+
+/* CTA 버튼 오렌지 색상 강제 적용 */
+.cta-orange-button {
+  background-color: #F28C39 !important;
+  background: #F28C39 !important;
+}
