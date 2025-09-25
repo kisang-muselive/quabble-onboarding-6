@@ -34,8 +34,8 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
-        style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
+          backgroundColor: '#FAF9F2',
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
         }}
@@ -173,23 +173,6 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
         </div>
       </div>
 
-      {/* Pointing duck image - fixed position bottom left */}
-      <div 
-        className="fixed left-0 z-30 pointer-events-none"
-        style={{
-          bottom: '20px'
-        }}
-      >
-        <img
-          src="/images/pointingduck.png"
-          alt="Pointing duck"
-          className="w-auto h-auto object-contain"
-          style={{ 
-            maxWidth: 'min(50vw, 350px)',
-            maxHeight: 'min(45vh, 265px)'
-          }}
-        />
-      </div>
 
       {/* CTA Container with integrated gradient */}
       <div 
@@ -203,7 +186,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
           className="w-full gradient-frame"
           style={{ 
             height: '36px',
-            background: 'linear-gradient(to top, #FAF9F2 0%, rgba(250, 249, 242, 0) 100%)'
+            background: 'transparent'
           }}
         />
         

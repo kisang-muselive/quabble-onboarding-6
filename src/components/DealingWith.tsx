@@ -5,18 +5,32 @@ import { useLanguage } from '../contexts/LanguageContext';
 interface DealingWithProps {
   onBack: () => void;
   onNext: () => void;
+  onOptionSelect?: (option: string) => void;
 }
 
-export function DealingWith({ onBack, onNext }: DealingWithProps) {
+export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps) {
   const { t } = useLanguage();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
+  const options = [
+    'Depression',
+    'Anxiety', 
+    'Panic attacks',
+    'OCD',
+    'Bipolar disorder',
+    'Eating disorder',
+    'PTSD',
+    'Something else'
+  ];
+
   const handleOptionClick = (optionIndex: number) => {
     // Toggle functionality - if same option is clicked, deselect it
     if (selectedOption === optionIndex) {
       setSelectedOption(null);
+      onOptionSelect?.(null);
     } else {
       setSelectedOption(optionIndex);
+      onOptionSelect?.(options[optionIndex]);
     }
   };
   
