@@ -35,6 +35,18 @@ import { AskFeelingV2Screen } from './components/AskFeelingV2Screen';
 import { SorryToHeartScreen } from './components/SorryToHeartScreen';
 import { HaveMentalIssueScreen } from './components/HaveMentalIssueScreen';
 import { WhatDealingWithScreen } from './components/WhatDealingWithScreen';
+import { BackedByExpertsScreen } from './components/BackedByExpertsScreen';
+import { PersonalizeYourQuabbleRoutineScreen } from './components/PersonalizeYourQuabbleRoutineScreen';
+import { WhileProfessionalCareIsImportantScreen } from './components/WhileProfessionalCareIsImportantScreen';
+import { SoGladToHearScreen } from './components/SoGladToHearScreen';
+import { DepressionSurveyScreen } from './components/DepressionSurveyScreen';
+import { DepressionSurvey1Screen } from './components/DepressionSurvey1Screen';
+import { DepressionSurvey2Screen } from './components/DepressionSurvey2Screen';
+import { AnxietySurveyScreen } from './components/AnxietySurveyScreen';
+import { AnxietySurvey1Screen } from './components/AnxietySurvey1Screen';
+import { AnxietySurvey2Screen } from './components/AnxietySurvey2Screen';
+import { ReportScreen87 } from './components/87reportScreen';
+import { ReportScreen98 } from './components/98reportScreen';
 import { WeCanHelpScreen } from './components/WeCanHelpScreen';
 import { WhatDidYouTryScreen } from './components/WhatDidYouTryScreen';
 import { WhatFeltMissingScreen } from './components/WhatFeltMissingScreen';
@@ -56,7 +68,7 @@ import { sendToFlutter } from './lib/quabbleFlutterChannel';
 
 function AppContent() {
   const { language } = useLanguage();
-  const [currentScreen, setCurrentScreen] = useState<'referral' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer'>('referral');
+  const [currentScreen, setCurrentScreen] = useState<'referral' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer' | 'backedbyexperts' | 'personalizeroutine' | 'whileprofessionalcare' | 'sogladtohear' | 'depressionsurvey' | 'depressionsurvey1' | 'depressionsurvey2' | 'anxietysurvey' | 'anxietysurvey1' | 'anxietysurvey2' | 'report87' | 'report98'>('whyquabble');
   
   // Add transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -336,7 +348,7 @@ function AppContent() {
     } else if (currentScreen === 'supportsystem') {
       performTransition('customizeroutine');
     } else if (currentScreen === 'customizeroutine') {
-      performTransition('recommendedroutineintro');
+      performTransition('routine');
     } else if (currentScreen === 'recommendedroutineintro') {
       performTransition('routine');
     } else if (currentScreen === 'routine') {
@@ -352,6 +364,10 @@ function AppContent() {
       //     "event": "onboarding-complete",
       //   }));
       // }
+    } else if (currentScreen === 'report87') {
+      performTransition('report98');
+    } else if (currentScreen === 'report98') {
+      performTransition('mentalwellness2');
     }
   };
   const handleBack = () => {
@@ -437,7 +453,7 @@ function AppContent() {
     } else if (currentScreen === 'appfinale') {
       performTransition('routine');
     } else if (currentScreen === 'wakeup') {
-      performTransition('areyouready');
+      performTransition('personalizeroutine');
     } else if (currentScreen === 'goodnight') {
       performTransition('wakeup');
     } else if (currentScreen === 'mentalwellnessq1') {
@@ -454,6 +470,28 @@ function AppContent() {
       performTransition('customizeroutine');
     } else if (currentScreen === 'specialoffer') {
       performTransition('routine');
+    } else if (currentScreen === 'personalizeroutine') {
+      performTransition('backedbyexperts');
+    } else if (currentScreen === 'wakeup') {
+      performTransition('personalizeroutine');
+    } else if (currentScreen === 'whileprofessionalcare') {
+      performTransition('whatdealingwith');
+    } else if (currentScreen === 'depressionsurvey') {
+      performTransition('whatdealingwith');
+    } else if (currentScreen === 'depressionsurvey1') {
+      performTransition('depressionsurvey');
+    } else if (currentScreen === 'depressionsurvey2') {
+      performTransition('depressionsurvey1');
+    } else if (currentScreen === 'anxietysurvey') {
+      performTransition('whatdealingwith');
+    } else if (currentScreen === 'anxietysurvey1') {
+      performTransition('anxietysurvey');
+    } else if (currentScreen === 'anxietysurvey2') {
+      performTransition('anxietysurvey1');
+    } else if (currentScreen === 'report87') {
+      performTransition('stats');
+    } else if (currentScreen === 'report98') {
+      performTransition('report87');
     }
   };
   const handleSkip = () => {
@@ -589,7 +627,14 @@ function AppContent() {
     }
     if (currentScreen === 'whatdealingwith') {
       return <TransitionWrapper show={!isTransitioning}>
-          <WhatDealingWithScreen onBack={handleBack} onNext={handleNext} onSkip={handleSkip} />
+          <WhatDealingWithScreen 
+            onBack={handleBack} 
+            onNext={handleNext} 
+            onSkip={handleSkip} 
+            onDepressionSurvey={() => performTransition('depressionsurvey')}
+            onAnxietySurvey={() => performTransition('anxietysurvey')}
+            onWhileProfessionalCare={() => performTransition('whileprofessionalcare')}
+          />
         </TransitionWrapper>;
     }
     if (currentScreen === 'wecanhelp') {
@@ -698,6 +743,67 @@ function AppContent() {
           <SpecialOfferScreen onBack={handleBack} onNext={handleNext} />
         </TransitionWrapper>;
     }
+    if (currentScreen === 'backedbyexperts') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <BackedByExpertsScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'personalizeroutine') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <PersonalizeYourQuabbleRoutineScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'whileprofessionalcare') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <WhileProfessionalCareIsImportantScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'sogladtohear') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <SoGladToHearScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'depressionsurvey') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <DepressionSurveyScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'depressionsurvey1') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <DepressionSurvey1Screen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'depressionsurvey2') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <DepressionSurvey2Screen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'anxietysurvey') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurveyScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'anxietysurvey1') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurvey1Screen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'anxietysurvey2') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurvey2Screen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'report87') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <ReportScreen87 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'report98') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <ReportScreen98 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    
     return <TransitionWrapper show={!isTransitioning}>
         <WhereDidYouHearAboutUs onNext={handleNext} onSkip={handleSkip} questionData={getQuestionById(1)} questionsLoaded={questionsLoaded} />
       </TransitionWrapper>;

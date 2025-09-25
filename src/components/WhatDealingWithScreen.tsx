@@ -6,12 +6,18 @@ interface WhatDealingWithScreenProps {
   onBack: () => void;
   onNext: () => void;
   onSkip: () => void;
+  onDepressionSurvey?: () => void;
+  onAnxietySurvey?: () => void;
+  onWhileProfessionalCare?: () => void;
 }
 
 export function WhatDealingWithScreen({
   onBack,
   onNext,
-  onSkip
+  onSkip,
+  onDepressionSurvey,
+  onAnxietySurvey,
+  onWhileProfessionalCare
 }: WhatDealingWithScreenProps) {
   const { t } = useLanguage();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
@@ -168,7 +174,17 @@ export function WhatDealingWithScreen({
                       "onboarding_version": 4.0
                     }
                   }));
-                  onNext();
+
+                  // Conditional navigation based on selected option
+                  if (systemName === 'depression' && onDepressionSurvey) {
+                    onDepressionSurvey();
+                  } else if (systemName === 'anxiety' && onAnxietySurvey) {
+                    onAnxietySurvey();
+                  } else if (systemName && systemName !== 'depression' && systemName !== 'anxiety' && onWhileProfessionalCare) {
+                    onWhileProfessionalCare();
+                  } else {
+                    onNext();
+                  }
                 }}
               >
                 {t('next')}

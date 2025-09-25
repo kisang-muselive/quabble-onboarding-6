@@ -3,7 +3,11 @@ type ScreenType =
   | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' 
   | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' 
   | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' 
-  | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer';
+  | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer'
+  | 'backedbyexperts' | 'personalizeroutine' | 'whileprofessionalcare' | 'sogladtohear' 
+  | 'depressionsurvey' | 'depressionsurvey1' | 'depressionsurvey2' 
+  | 'anxietysurvey' | 'anxietysurvey1' | 'anxietysurvey2'
+  | 'report87' | 'report98';
 
 const SCREEN_IMAGES: Record<ScreenType, string[]> = {
   referral: [],
@@ -71,7 +75,19 @@ const SCREEN_IMAGES: Record<ScreenType, string[]> = {
   supportsystem: ['/images/21-background.jpg'],
   customizeroutine: ['/images/22-background.png'],
   recommendedroutineintro: [],
-  specialoffer: ['/images/3people.png']
+  specialoffer: ['/images/3people.png'],
+  backedbyexperts: ['/images/therapist-duck.png'],
+  personalizeroutine: ['/images/reportduck.png'],
+  whileprofessionalcare: ['/images/we-can-help-duck.png'],
+  sogladtohear: ['/images/we-can-help-duck.png'],
+  depressionsurvey: ['/images/pointingduck.png'],
+  depressionsurvey1: ['/images/explainingduck.png'],
+  depressionsurvey2: ['/images/calmduck.png'],
+  anxietysurvey: ['/images/pointingduck.png'],
+  anxietysurvey1: ['/images/explainingduck.png'],
+  anxietysurvey2: ['/images/calmduck.png'],
+  report87: ['/images/87stat.png'],
+  report98: ['/images/98stat.png']
 };
 
 const SCREEN_SEQUENCE: ScreenType[] = [
