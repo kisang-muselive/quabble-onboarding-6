@@ -1,6 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// lottie-player 웹 컴포넌트 타입 선언
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'lottie-player': any;
+    }
+  }
+}
 
 
 interface RoutineReadyProps {
@@ -11,9 +20,25 @@ interface RoutineReadyProps {
 
 export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineReadyProps) {
   const { t } = useLanguage();
+  const confettiRef = useRef<any>(null);
+  const [hasPlayed, setHasPlayed] = useState(false);
   const [showMorningCard, setShowMorningCard] = useState(false);
   const [showEveningCard, setShowEveningCard] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
+
+  const handleLottieReady = () => {
+    // 이미 재생했다면 실행하지 않음
+    if (hasPlayed) return;
+    
+    if (confettiRef.current) {
+      try {
+        confettiRef.current.play();
+        setHasPlayed(true);
+      } catch (error) {
+        console.error('Error playing confetti:', error);
+      }
+    }
+  };
 
   useEffect(() => {
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
@@ -27,15 +52,44 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
     const timer2 = setTimeout(() => setShowEveningCard(true), 600);
     const timer3 = setTimeout(() => setShowCTA(true), 900);
 
+    // Fallback: 로티가 1초 후에도 재생되지 않았다면 강제 재생 (한 번만)
+    const lottieTimer = setTimeout(() => {
+      if (!hasPlayed && confettiRef.current) {
+        try {
+          confettiRef.current.play();
+          setHasPlayed(true);
+        } catch (error) {
+          console.error('Fallback confetti play error:', error);
+        }
+      }
+    }, 1000);
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
       clearTimeout(timer3);
+      clearTimeout(lottieTimer);
     };
   }, []);
 
   return (
     <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
+      {/* Confetti Animation - Top of screen */}
+      <div className="absolute top-0 left-0 right-0 z-10" style={{ marginLeft: '36px', marginRight: '36px' }}>
+        <lottie-player
+          ref={confettiRef}
+          src="/images/confetti.json"
+          background="transparent"
+          speed="1"
+          style={{
+            width: '100%',
+            height: '300px'
+          }}
+          loop={false}
+          autoplay={false}
+          onReady={handleLottieReady}
+        />
+      </div>
 
       {/* Header with back button */}
       <div 

@@ -23,8 +23,8 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
+        style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
-          backgroundColor: '#FAF9F2',
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
         }}

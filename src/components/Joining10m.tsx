@@ -1,6 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+
+// lottie-player 웹 컴포넌트 타입 선언
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'lottie-player': any;
+    }
+  }
+}
 
 
 interface Joining10mProps {
@@ -11,10 +20,27 @@ interface Joining10mProps {
 
 export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mProps) {
   const { t } = useLanguage();
+  const confettiRef = useRef<any>(null);
+  const [hasPlayedConfetti, setHasPlayedConfetti] = useState(false);
   const [showFirstText, setShowFirstText] = useState(false);
   const [showSecondText, setShowSecondText] = useState(false);
   const [showThirdText, setShowThirdText] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
+
+  const playConfetti = () => {
+    // 이미 재생했다면 즉시 종료
+    if (hasPlayedConfetti) return;
+    
+    if (confettiRef.current) {
+      try {
+        confettiRef.current.play();
+        setHasPlayedConfetti(true);
+        console.log('Confetti played once');
+      } catch (error) {
+        console.error('Error playing confetti:', error);
+      }
+    }
+  };
 
 
   useEffect(() => {
@@ -40,8 +66,44 @@ export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mP
     };
   }, []);
 
+  // CTA가 나타날 때 로티 재생 (한 번만)
+  useEffect(() => {
+    if (showCTA && !hasPlayedConfetti) {
+      console.log('CTA appeared, setting confetti timer');
+      const confettiTimer = setTimeout(() => {
+        console.log('Confetti timer fired');
+        playConfetti();
+      }, 300); // CTA 애니메이션 시작 후 300ms 뒤
+
+      return () => {
+        console.log('Cleaning up confetti timer');
+        clearTimeout(confettiTimer);
+      };
+    }
+  }, [showCTA]); // hasPlayedConfetti 의존성 제거하여 중복 실행 방지
+
   return (
     <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
+      {/* Confetti Animation - Top of screen */}
+      <div className="absolute top-0 left-0 right-0 z-0 flex justify-center" style={{ marginLeft: '36px', marginRight: '36px' }}>
+        <lottie-player
+          ref={confettiRef}
+          src="/images/confetti.json"
+          background="transparent"
+          speed="1"
+          style={{
+            width: '100%',
+            maxWidth: '375px',
+            height: 'auto',
+            aspectRatio: '1 / 1'
+          }}
+          loop={false}
+          autoplay={false}
+          onReady={() => {
+            console.log('Lottie ready, but waiting for CTA trigger');
+          }}
+        />
+      </div>
 
       {/* Header with back button */}
       <div 

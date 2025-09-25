@@ -19,11 +19,11 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
   }, []);
 
   return (
-    <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
+    <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#DCE7BE' }}>
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
-        style={{ backgroundColor: '#FAF9F2' }}
+        style={{ backgroundColor: '#DCE7BE' }}
         style={{ 
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
@@ -82,13 +82,13 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
         <div 
           className="w-full h-full"
           style={{
-            background: 'linear-gradient(to top, #FAF9F2 0%, rgba(250, 249, 242, 0) 100%)'
+            background: 'linear-gradient(to top, #DCE7BE 0%, rgba(220, 231, 190, 0) 100%)'
           }}
         />
       </div>
 
       {/* Next Button - matching WhereDidYouHearAboutUs layout */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container" style={{ backgroundColor: '#FAF9F2' }}>
+      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container" style={{ backgroundColor: '#DCE7BE' }}>
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button

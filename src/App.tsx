@@ -26,12 +26,14 @@ import { AgeGroup } from './components/AgeGroup';
 import { Customizing } from './components/Customizing';
 import { RoutineReady } from './components/RoutineReady';
 import { Joining10m } from './components/Joining10m';
+import { WorkoutList } from './components/WorkoutList';
+import { FiveStars } from './components/FiveStars';
 import { ProfessionalCareIsImportant } from './components/ProfessionalCareIsImportant';
 import { TransitionWrapper } from './components/TransitionWrapper';
 import { sendToFlutter } from './lib/quabbleFlutterChannel';
 import { prefetchAllCriticalImages } from './utils/imagePrefetch';
 
-type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'backedbyexperts' | 'finalstep' | 'wakeup' | 'gotobed' | 'interestgrid' | 'supportsystem' | 'agegroup' | 'customizing' | 'routineready' | 'joining10m' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
+type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'backedbyexperts' | 'finalstep' | 'wakeup' | 'gotobed' | 'interestgrid' | 'supportsystem' | 'agegroup' | 'customizing' | 'routineready' | 'joining10m' | 'workoutlist' | 'fivestars' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
 
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('whyquabblewhatyouneed');
@@ -117,6 +119,10 @@ function AppContent() {
     } else if (currentScreen === 'routineready') {
       performTransition('joining10m');
     } else if (currentScreen === 'joining10m') {
+      performTransition('workoutlist');
+    } else if (currentScreen === 'workoutlist') {
+      performTransition('fivestars');
+    } else if (currentScreen === 'fivestars') {
       // End of flow - fire completion event
       sendToFlutter("onboarding-complete");
     } else if (currentScreen === 'depressionsurvey1') {
@@ -187,6 +193,10 @@ function AppContent() {
       performTransition('customizing');
     } else if (currentScreen === 'joining10m') {
       performTransition('routineready');
+    } else if (currentScreen === 'workoutlist') {
+      performTransition('joining10m');
+    } else if (currentScreen === 'fivestars') {
+      performTransition('workoutlist');
     } else if (currentScreen === 'depressionsurvey1') {
       performTransition('dealingwith');
     } else if (currentScreen === 'depressionsurvey2') {
@@ -378,6 +388,28 @@ function AppContent() {
             onBack={handleBack} 
             onNext={handleNext} 
             dealingWithSelection={dealingWithSelection}
+          />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'workoutlist') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <WorkoutList 
+            onBack={handleBack} 
+            onNext={handleNext} 
+          />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'fivestars') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <FiveStars 
+            onBack={handleBack} 
+            onNext={handleNext} 
           />
         </TransitionWrapper>
       );
