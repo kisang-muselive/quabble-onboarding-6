@@ -39,6 +39,7 @@ import { WeCanHelpScreen } from './components/WeCanHelpScreen';
 import { WhatDidYouTryScreen } from './components/WhatDidYouTryScreen';
 import { WhatFeltMissingScreen } from './components/WhatFeltMissingScreen';
 import { WhyQuabbleScreen } from './components/WhyQuabbleScreen';
+import { WhyQuabbleWhatYouNeed } from './components/WhyQuabbleWhatYouNeed';
 import { StatsScreen } from './components/StatsScreen';
 import { ImprovedProofScreen } from './components/ImprovedProofScreen';
 import { LetsFindOutScreen } from './components/LetsFindOutScreen';
@@ -56,7 +57,7 @@ import { sendToFlutter } from './lib/quabbleFlutterChannel';
 
 function AppContent() {
   const { language } = useLanguage();
-  const [currentScreen, setCurrentScreen] = useState<'referral' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer'>('referral');
+  const [currentScreen, setCurrentScreen] = useState<'referral' | 'whyquabblewhatyouneed' | 'age' | 'tooyoung' | 'duckjar' | 'gender' | 'focus' | 'confirmation' | 'achievement' | 'mindquote' | 'askfeelingv2' | 'sorrytoheart' | 'havementalissue' | 'whatdealingwith' | 'wecanhelp' | 'whatdidyoutry' | 'whatfeltmissing' | 'whyquabble' | 'stats' | 'improvedproof' | 'whysomany' | 'letsfindout' | 'quabbletools' | 'therapist' | 'radar' | 'routineintro' | 'testimonialsv2' | 'areyouready' | 'testimonials' | 'completion' | 'mentalwellness1' | 'mentalwellness2' | 'chart' | 'mentalwellness3' | 'signup' | 'ducknaming' | 'tellusintro' | 'routine' | 'appfinale' | 'wakeup' | 'goodnight' | 'mentalwellnessq1' | 'askfeeling' | 'askinterests' | 'supportsystem' | 'customizeroutine' | 'recommendedroutineintro' | 'specialoffer'>('referral');
   
   // Add transition state
   const [isTransitioning, setIsTransitioning] = useState(false);
@@ -226,6 +227,8 @@ function AppContent() {
       "event": "heptic",
     }));
     if (currentScreen === 'referral') {
+      performTransition('whyquabblewhatyouneed');
+    } else if (currentScreen === 'whyquabblewhatyouneed') {
       performTransition('age');
     } else if (currentScreen === 'age') {
       performTransition('mentalwellness3');
@@ -356,6 +359,8 @@ function AppContent() {
   };
   const handleBack = () => {
     if (currentScreen === 'age') {
+      performTransition('whyquabblewhatyouneed');
+    } else if (currentScreen === 'whyquabblewhatyouneed') {
       performTransition('referral');
     } else if (currentScreen === 'duckjar') {
       performTransition('age');
@@ -696,6 +701,11 @@ function AppContent() {
     if (currentScreen === 'specialoffer') {
       return <TransitionWrapper show={!isTransitioning}>
           <SpecialOfferScreen onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>;
+    }
+    if (currentScreen === 'whyquabblewhatyouneed') {
+      return <TransitionWrapper show={!isTransitioning}>
+          <WhyQuabbleWhatYouNeed onBack={handleBack} onNext={handleNext} />
         </TransitionWrapper>;
     }
     return <TransitionWrapper show={!isTransitioning}>
