@@ -36,7 +36,13 @@ export const translations = {
     "eightySevenReport.title": "87% regular users report\ntheir mental health has\nimproved since they started\nusing Quabble",
     
     // Depression Survey 1 Screen
-    "depressionSurvey1.title": "Depression Survey 1",
+    "depressionSurvey1.title": "Have you been experiencing\nany of these?",
+    
+    // Depression Survey 2 Screen
+    "depressionSurvey2.title": "Depression doesn't just affect your mood. It can also change your sleep, energy, and focus",
+    
+    // Depression Survey 3 Screen
+    "depressionSurvey3.title": "The good news is\nthat you can learn ways\nto improve them with us",
     
     // Professional Care Is Important Screen
     "professionalCareIsImportant.title": "Professional care is important for serious mental health conditions. Quabble can complement your treatment and support your daily wellness.",

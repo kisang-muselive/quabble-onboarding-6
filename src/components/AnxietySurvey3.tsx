@@ -2,16 +2,15 @@ import { useEffect } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface FoundationOfMeaningfulLifeProps {
+interface AnxietySurvey3Props {
   onBack: () => void;
   onNext: () => void;
 }
 
-export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeaningfulLifeProps) {
+export function AnxietySurvey3({ onBack, onNext }: AnxietySurvey3Props) {
   const { t } = useLanguage();
   
   useEffect(() => {
-    // Send the new event for onboarding survey
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
       "eventProperties": {
         "onboarding_version": 4.0
@@ -20,15 +19,10 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
   }, []);
 
   return (
-    <div 
-      className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container bg-cover bg-center bg-no-repeat"
-      style={{
-        backgroundImage: 'url(/images/mind-quote-background.png)'
-      }}
-    >
+    <div className="flex flex-col w-full h-screen bg-[#F5F0E8] text-gray-800 relative overflow-hidden screen-container">
       {/* Header with back button */}
       <div 
-        className="flex items-center justify-start px-4 header-container"
+        className="flex items-center justify-start px-4 bg-[#F5F0E8] header-container"
         style={{ 
           paddingTop: 'max(1rem, env(safe-area-inset-top))',
           paddingBottom: '1rem'
@@ -54,15 +48,21 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            {t('foundationOfMeaningfulLife.title').split('\n').map((line, index) => (
-              <span key={index} className="text-span">
-                {line}
-                {index < t('foundationOfMeaningfulLife.title').split('\n').length - 1 && <br />}
-              </span>
-            ))}
+            The good news is<br />that you can learn ways<br />to calm them down with us
           </h1>
         </div>
 
+        <div className="flex items-center justify-center mb-8 image-container" style={{ marginTop: '60px' }}>
+          <img
+            src="/images/calmduck.png"
+            alt="Calm Duck"
+            className="w-full h-auto object-contain main-image"
+            style={{ 
+              maxWidth: 'min(70vw, 420px)',
+              maxHeight: 'min(95vh, 320px)'
+            }}
+          />
+        </div>
       </div>
 
       {/* Gradient frame above CTA */}
@@ -70,13 +70,13 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
         <div 
           className="w-full h-full"
           style={{
-            background: 'transparent'
+            background: 'linear-gradient(to top, #FAF9F2 0%, rgba(250, 249, 242, 0) 100%)'
           }}
         />
       </div>
 
       {/* Next Button - matching WhereDidYouHearAboutUs layout */}
-      <div className="fixed bottom-0 left-0 right-0 z-50 cta-container">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#F5F0E8] z-50 cta-container">
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button

@@ -55,10 +55,10 @@ export function DealingWith({ onBack, onNext }: DealingWithProps) {
 
       <div className="flex flex-col items-center px-9 pb-32 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
-          <h1 className="font-medium leading-relaxed title-text" style={{ 
-            color: '#4C4A3C',
-            fontSize: 'min(5vw, 1.5rem)'
-          }}>
+                 <h1 className="font-medium leading-snug title-text" style={{ 
+                   color: '#4C4A3C',
+                   fontSize: 'min(5.5vw, 1.625rem)'
+                 }}>
             {t('dealingWith.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}

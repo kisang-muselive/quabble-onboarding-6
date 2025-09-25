@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
-interface DepressionSurvey1Props {
+interface AnxietySurvey1Props {
   onBack: () => void;
   onNext: (selectedOption?: number) => void;
 }
 
-export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
+export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
   const { t } = useLanguage();
   const [selectedOptions, setSelectedOptions] = useState<number[]>([]);
   
@@ -59,12 +59,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            {t('depressionSurvey1.title').split('\n').map((line, index) => (
-              <span key={index} className="text-span">
-                {line}
-                {index < t('depressionSurvey1.title').split('\n').length - 1 && <br />}
-              </span>
-            ))}
+            Have you been experiencing<br />any of these?
           </h1>
           
           <p className="subtitle-text" style={{ 
@@ -96,7 +91,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've felt tired or low on energy, even after resting</span>
+            <span className="text-left leading-relaxed">I've noticed myself getting easily annoyed or irritable</span>
           </button>
           
           <button
@@ -115,7 +110,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've lost interest in hobbies or activities I used to enjoy</span>
+            <span className="text-left leading-relaxed">I've had a sense that something bad might happen, even without a clear reason</span>
           </button>
           
           <button
@@ -134,7 +129,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've felt down, sad, or hopeless most days</span>
+            <span className="text-left leading-relaxed">I've felt unable to control my worrying</span>
           </button>
           
           <button
@@ -153,7 +148,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've found it hard to concentrate or remember things</span>
+            <span className="text-left leading-relaxed">I've avoided certain situations because they make me too nervous</span>
           </button>
           
           <button

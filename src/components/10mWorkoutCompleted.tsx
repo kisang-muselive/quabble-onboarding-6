@@ -50,9 +50,9 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
 
       <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
-          <h1 className="font-medium leading-relaxed title-text" style={{ 
+          <h1 className="font-medium leading-snug title-text" style={{ 
             color: '#4C4A3C',
-            fontSize: 'min(6.5vw, 2rem)'
+            fontSize: 'min(7vw, 2.125rem)'
           }}>
             {t('10mWorkoutCompleted.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">

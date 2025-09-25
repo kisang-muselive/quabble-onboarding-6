@@ -11,16 +11,22 @@ import { HereToHelp } from './components/HereToHelp';
 import { NinetyEightReport } from './components/98Report';
 import { EightySevenReport } from './components/87Report';
 import { DepressionSurvey1 } from './components/DepressionSurvey1';
+import { DepressionSurvey2 } from './components/DepressionSurvey2';
+import { DepressionSurvey3 } from './components/DepressionSurvey3';
+import { AnxietySurvey1 } from './components/AnxietySurvey1';
+import { AnxietySurvey2 } from './components/AnxietySurvey2';
+import { AnxietySurvey3 } from './components/AnxietySurvey3';
 import { ProfessionalCareIsImportant } from './components/ProfessionalCareIsImportant';
 import { TransitionWrapper } from './components/TransitionWrapper';
 import { sendToFlutter } from './lib/quabbleFlutterChannel';
 import { prefetchAllCriticalImages } from './utils/imagePrefetch';
 
-type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'depressionsurvey1' | 'professionalcareisimportant';
+type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
 
 function AppContent() {
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('whyquabblewhatyouneed');
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [previousScreen, setPreviousScreen] = useState<ScreenType | null>(null);
 
   // Prefetch critical images on app load
   useEffect(() => {
@@ -31,6 +37,7 @@ function AppContent() {
     setIsTransitioning(true);
     // Wait for fade out before changing screen
     setTimeout(() => {
+      setPreviousScreen(currentScreen);
       setCurrentScreen(targetScreen);
       setIsTransitioning(false);
     }, 300);
@@ -63,11 +70,13 @@ function AppContent() {
       // Check selected option to determine next screen
       if (selectedOption === 0) { // "Depression"
         performTransition('depressionsurvey1');
+      } else if (selectedOption === 1) { // "Anxiety"
+        performTransition('anxietysurvey1');
       } else if (selectedOption === 2 || selectedOption === 3 || selectedOption === 4 || selectedOption === 5 || selectedOption === 6 || selectedOption === 7) {
         // "Panic attacks", "OCD", "Bipolar disorder", "Eating disorder", "PTSD", "Something else"
         performTransition('professionalcareisimportant');
       } else {
-        // "Anxiety" and any other options - End of flow
+        // Any other options - End of flow
         sendToFlutter("onboarding-complete");
       }
     } else if (currentScreen === 'gladtohearthat') {
@@ -80,8 +89,17 @@ function AppContent() {
       // End of flow - fire completion event
       sendToFlutter("onboarding-complete");
     } else if (currentScreen === 'depressionsurvey1') {
-      // End of flow - fire completion event
-      sendToFlutter("onboarding-complete");
+      performTransition('depressionsurvey2');
+    } else if (currentScreen === 'depressionsurvey2') {
+      performTransition('depressionsurvey3');
+    } else if (currentScreen === 'depressionsurvey3') {
+      performTransition('98report');
+    } else if (currentScreen === 'anxietysurvey1') {
+      performTransition('anxietysurvey2');
+    } else if (currentScreen === 'anxietysurvey2') {
+      performTransition('anxietysurvey3');
+    } else if (currentScreen === 'anxietysurvey3') {
+      performTransition('98report');
     } else if (currentScreen === 'professionalcareisimportant') {
       performTransition('98report');
     }
@@ -103,11 +121,33 @@ function AppContent() {
     } else if (currentScreen === 'heretohelp') {
       performTransition('sorrytohear');
     } else if (currentScreen === '98report') {
-      performTransition('heretohelp');
+      // Go back to the previous screen that led to 98report
+      if (previousScreen === 'gladtohearthat') {
+        performTransition('gladtohearthat');
+      } else if (previousScreen === 'professionalcareisimportant') {
+        performTransition('professionalcareisimportant');
+      } else if (previousScreen === 'depressionsurvey3') {
+        performTransition('depressionsurvey3');
+      } else if (previousScreen === 'anxietysurvey3') {
+        performTransition('anxietysurvey3');
+      } else {
+        // Default to heretohelp if no previous screen or if previous was heretohelp
+        performTransition('heretohelp');
+      }
     } else if (currentScreen === '87report') {
       performTransition('98report');
     } else if (currentScreen === 'depressionsurvey1') {
       performTransition('dealingwith');
+    } else if (currentScreen === 'depressionsurvey2') {
+      performTransition('depressionsurvey1');
+    } else if (currentScreen === 'depressionsurvey3') {
+      performTransition('depressionsurvey2');
+    } else if (currentScreen === 'anxietysurvey1') {
+      performTransition('dealingwith');
+    } else if (currentScreen === 'anxietysurvey2') {
+      performTransition('anxietysurvey1');
+    } else if (currentScreen === 'anxietysurvey3') {
+      performTransition('anxietysurvey2');
     } else if (currentScreen === 'professionalcareisimportant') {
       performTransition('dealingwith');
     }
@@ -200,6 +240,46 @@ function AppContent() {
       return (
         <TransitionWrapper show={!isTransitioning}>
           <DepressionSurvey1 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'depressionsurvey2') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <DepressionSurvey2 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'depressionsurvey3') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <DepressionSurvey3 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'anxietysurvey1') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurvey1 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'anxietysurvey2') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurvey2 onBack={handleBack} onNext={handleNext} />
+        </TransitionWrapper>
+      );
+    }
+    
+    if (currentScreen === 'anxietysurvey3') {
+      return (
+        <TransitionWrapper show={!isTransitioning}>
+          <AnxietySurvey3 onBack={handleBack} onNext={handleNext} />
         </TransitionWrapper>
       );
     }
