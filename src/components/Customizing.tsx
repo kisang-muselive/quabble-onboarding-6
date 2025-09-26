@@ -77,7 +77,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FAF9F2',
-          paddingTop: '60px',
+          paddingTop: '48px',
           paddingBottom: '1rem'
         }}
       >
@@ -106,7 +106,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
           <div 
             className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${!showCard ? 'opacity-100' : 'opacity-0'}`}
           >
-            <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9 px-9 mx-auto">
+            <div className="flex flex-col items-center justify-center text-center max-w-sm title-container px-9 mx-auto">
               <h1 className="font-medium leading-snug title-text" style={{ 
                 color: '#4C4A3C',
                 fontSize: 'min(5.5vw, 1.625rem)'

@@ -96,7 +96,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FAF9F2',
-          paddingTop: '60px',
+          paddingTop: '48px',
           paddingBottom: '1rem'
         }}
       >
@@ -123,7 +123,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
         <div className="w-full relative" style={{ height: '350px', paddingTop: '20px', paddingBottom: '20px' }}>
           {/* Title and Image */}
           <div className="absolute inset-0">
-            <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9 px-9 mx-auto">
+            <div className="flex flex-col items-center justify-center text-center max-w-sm title-container px-9 mx-auto">
               <h1 className="font-medium leading-snug title-text" style={{ 
                 color: '#4C4A3C',
                 fontSize: 'min(5.5vw, 1.625rem)'
@@ -323,9 +323,10 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button
-              className="w-full mx-auto block px-7 rounded-full text-white text-center font-normal touch-target cta-orange-button cta-button"
+              className="w-full mx-auto block px-7 rounded-full text-white text-center touch-target cta-orange-button cta-button"
               style={{ 
                 backgroundColor: '#F28C39',
+                fontWeight: '500',
                 height: '7.5vh',
                 fontSize: '2.5vh'
               }}

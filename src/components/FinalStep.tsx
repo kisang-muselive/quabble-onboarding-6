@@ -25,7 +25,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
         className="flex items-center justify-start px-4 header-container"
         style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
-          paddingTop: '60px',
+          paddingTop: '48px',
           paddingBottom: '1rem'
         }}
       >
@@ -44,7 +44,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
       </div>
 
       <div className="flex flex-col items-center px-9 main-content">
-        <div className="flex flex-col items-center justify-center text-center max-w-sm title-container mt-9">
+        <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
           <p className="subtitle-text" style={{ 
             color: '#F28C39',
             fontSize: 'min(4.5vw, 1.125rem)',
@@ -90,9 +90,10 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button
-              className="w-full mx-auto block px-7 rounded-full text-white text-center font-normal touch-target cta-orange-button cta-button"
+              className="w-full mx-auto block px-7 rounded-full text-white text-center touch-target cta-orange-button cta-button"
               style={{ 
                 backgroundColor: '#F28C39',
+                fontWeight: '500',
                 height: '7.5vh',
                 fontSize: '2.5vh'
               }}

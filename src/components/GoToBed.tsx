@@ -74,7 +74,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
       <div 
         className="flex items-center justify-between px-4 header-container relative"
         style={{ 
-          paddingTop: '60px',
+          paddingTop: '48px',
           paddingBottom: '1rem'
         }}
       >
@@ -99,12 +99,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
         </button>
         
         {/* Progress Indicator */}
-        <div 
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 flex items-center indicator-container"
-          style={{ 
-            gap: '4px'
-          }}
-        >
+        <div className="flex items-center justify-center indicator-container" style={{ gap: '4px' }}>
           <div 
             className="indicator-item"
             style={{
@@ -172,7 +167,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
           />
         </div>
 
-        <div className="flex flex-col items-center justify-center text-center max-w-sm title-container">
+        <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '4px' }}>
           <h1 className="leading-snug title-text" style={{ 
             color: '#FFFFFF',
             fontSize: 'min(6.5vw, 2rem)',
@@ -217,9 +212,10 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
         <div className="px-9 pb-9 pl-9 pr-9">
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button
-              className="w-full mx-auto block px-7 rounded-full text-white text-center font-normal touch-target cta-orange-button cta-button"
+              className="w-full mx-auto block px-7 rounded-full text-white text-center touch-target cta-orange-button cta-button"
               style={{ 
                 backgroundColor: '#F28C39',
+                fontWeight: '500',
                 height: '7.5vh',
                 fontSize: '2.5vh'
               }}
