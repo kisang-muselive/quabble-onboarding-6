@@ -156,7 +156,11 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
             }}
             onClick={() => {
               // 숨겨진 input을 클릭하여 네이티브 시간 선택기 열기
-              document.getElementById('time-input')?.click();
+              const timeInput = document.getElementById('time-input') as HTMLInputElement;
+              if (timeInput) {
+                timeInput.focus();
+                timeInput.click();
+              }
             }}
           >
             {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
@@ -188,7 +192,7 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
                 period: period
               });
             }}
-            style={{ opacity: 0, position: 'absolute', pointerEvents: 'none' }}
+            style={{ opacity: 0, position: 'absolute', width: '1px', height: '1px', overflow: 'hidden' }}
           />
         </div>
       </div>
