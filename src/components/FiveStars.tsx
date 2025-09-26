@@ -14,7 +14,7 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_review",
       "eventProperties": {
         "onboarding_version": 4.0
       }
