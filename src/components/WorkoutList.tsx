@@ -42,12 +42,12 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
   }, []);
 
   return (
-    <div className="flex flex-col w-full min-h-screen text-gray-800 relative screen-container" style={{ backgroundColor: '#FDE2AA' }}>
+    <div className="flex flex-col w-full min-h-screen text-gray-800 relative screen-container" style={{ backgroundColor: '#FFEFCB' }}>
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
         style={{ 
-          backgroundColor: '#FDE2AA',
+          backgroundColor: '#FFEFCB',
           paddingTop: '48px',
           paddingBottom: '1rem'
         }}
@@ -169,7 +169,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
           className="w-full gradient-frame"
           style={{ 
             height: '36px',
-            background: 'linear-gradient(to top, #FDE2AA 0%, rgba(253, 226, 170, 0) 100%)'
+            background: 'linear-gradient(to top, #FFEFCB 0%, rgba(255, 239, 203, 0) 100%)'
           }}
         />
         
@@ -177,7 +177,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
         <div 
           className="cta-container"
           style={{
-            backgroundColor: '#FDE2AA'
+            backgroundColor: '#FFEFCB'
           }}
         >
         <div className="px-9 pb-9 pl-9 pr-9">

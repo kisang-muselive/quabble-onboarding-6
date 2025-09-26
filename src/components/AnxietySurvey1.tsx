@@ -171,6 +171,23 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
             <span className="text-left leading-relaxed">I haven't noticed these symptoms</span>
           </button>
         </div>
+        
+        {/* Pointing Duck Image */}
+        <div style={{ 
+          marginTop: '30px',
+          marginLeft: '-36px',  // 상위 컨테이너 px-9 (36px) 패딩 무시
+          width: 'calc(100% + 36px)'  // 왼쪽 마진만큼 너비 증가
+        }}>
+          <img
+            src="/images/pointingduck.png"
+            alt="Pointing Duck"
+            className="h-auto object-contain"
+            style={{ 
+              maxHeight: '200px',
+              display: 'block'
+            }}
+          />
+        </div>
       </div>
 
 

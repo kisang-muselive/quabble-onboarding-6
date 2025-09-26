@@ -23,6 +23,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
   const [progress, setProgress] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const [showCard, setShowCard] = useState(false);
+  const [showDuck, setShowDuck] = useState(true);
   const [hasCompleted, setHasCompleted] = useState(false);
 
   useEffect(() => {
@@ -32,16 +33,21 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       }
     });
 
-    // 6초 동안 로딩 진행
+    // 6초 동안 로딩 진행 (처음 2초는 오리 애니메이션, 4초부터 카드 표시)
     const duration = 6000; // 6초
     const interval = 50; // 50ms마다 업데이트
     const steps = duration / interval;
     const progressStep = 100 / steps;
 
-    // 3초 후 카드 표시
+    // 2초 후 오리 애니메이션 숨기기
+    const duckTimer = setTimeout(() => {
+      setShowDuck(false);
+    }, 2000);
+
+    // 2.1초 후 카드 표시 (오리 애니메이션 fade-out 완료 직후)
     const cardTimer = setTimeout(() => {
       setShowCard(true);
-    }, 3000);
+    }, 2100);
 
     const timer = setInterval(() => {
       setProgress(prev => {
@@ -66,6 +72,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
 
     return () => {
       clearInterval(timer);
+      clearTimeout(duckTimer);
       clearTimeout(cardTimer);
     };
   }, [onNext]);
@@ -104,7 +111,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         <div className="w-full relative" style={{ height: '350px', paddingTop: '20px', paddingBottom: '20px' }}>
           {/* Initial Content - Title and Image */}
           <div 
-            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${!showCard ? 'opacity-100' : 'opacity-0'}`}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${!showCard && showDuck ? 'opacity-100' : 'opacity-0'}`}
           >
             <div className="flex flex-col items-center justify-center text-center max-w-sm title-container px-9 mx-auto">
               <h1 className="font-medium leading-snug title-text" style={{ 

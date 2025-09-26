@@ -57,7 +57,7 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
           <h1 className="leading-snug title-text" style={{ 
             color: '#FFFFFF',
             fontSize: 'min(5.5vw, 1.625rem)',
-            fontWeight: '500'
+            fontWeight: '400'
           }}>
             {t('professionalCareIsImportant.title').split('\n').map((line, index) => (
               <span key={index} className="text-span">

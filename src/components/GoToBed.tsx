@@ -30,6 +30,10 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
     // 다음 프레임에서 백드롭을 보이게 함
     requestAnimationFrame(() => {
       setIsBackdropVisible(true);
+      // 바텀시트가 열리면 자동으로 시간 입력 필드에 포커스
+      setTimeout(() => {
+        document.getElementById('hour-input')?.focus();
+      }, 100);
     });
   };
 
@@ -161,8 +165,8 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
             alt="Go To Bed Duck"
             className="w-full h-auto object-contain main-image"
             style={{ 
-              maxWidth: 'min(70vw, 300px)',
-              maxHeight: 'min(40vh, 300px)'
+              maxWidth: 'min(60vw, 240px)',
+              maxHeight: 'min(35vh, 240px)'
             }}
           />
         </div>
@@ -309,33 +313,73 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
             {/* Hidden inputs for system keyboard */}
             <input
               id="hour-input"
-              type="number"
+              type="text"
               inputMode="numeric"
               pattern="[0-9]*"
               className="absolute -left-full opacity-0"
-              value={tempTime.hour}
-              onChange={(e) => {
-                const value = e.target.value.padStart(2, '0');
-                if (parseInt(value) >= 1 && parseInt(value) <= 12) {
-                  setTempTime({ ...tempTime, hour: value });
+              value=""
+              onInput={(e) => {
+                const target = e.target as HTMLInputElement;
+                let value = target.value.replace(/\D/g, ''); // 숫자만 허용
+                
+                if (value.length > 2) {
+                  value = value.slice(0, 2); // 두 자리만 허용
                 }
+                
+                if (value.length === 2) {
+                  const hour = parseInt(value);
+                  if (hour >= 1 && hour <= 12) {
+                    setTempTime({ ...tempTime, hour: value.padStart(2, '0') });
+                    // 분 입력으로 자동 이동
+                    setTimeout(() => {
+                      document.getElementById('minute-input')?.focus();
+                    }, 50);
+                  }
+                } else if (value.length === 1) {
+                  const hour = parseInt(value);
+                  if (hour >= 1 && hour <= 9) {
+                    setTempTime({ ...tempTime, hour: value.padStart(2, '0') });
+                  }
+                }
+                
+                target.value = '';
               }}
-              style={{}}
+              onFocus={(e) => {
+                e.target.value = '';
+              }}
             />
             <input
               id="minute-input"
-              type="number"
+              type="text"
               inputMode="numeric"
               pattern="[0-9]*"
               className="absolute -left-full opacity-0"
-              value={tempTime.minute}
-              onChange={(e) => {
-                const value = e.target.value.padStart(2, '0');
-                if (parseInt(value) >= 0 && parseInt(value) <= 59) {
-                  setTempTime({ ...tempTime, minute: value });
+              value=""
+              onInput={(e) => {
+                const target = e.target as HTMLInputElement;
+                let value = target.value.replace(/\D/g, ''); // 숫자만 허용
+                
+                if (value.length > 2) {
+                  value = value.slice(0, 2); // 두 자리만 허용
                 }
+                
+                if (value.length === 2) {
+                  const minute = parseInt(value);
+                  if (minute >= 0 && minute <= 59) {
+                    setTempTime({ ...tempTime, minute: value.padStart(2, '0') });
+                  }
+                } else if (value.length === 1) {
+                  const minute = parseInt(value);
+                  if (minute >= 0 && minute <= 5) {
+                    setTempTime({ ...tempTime, minute: value.padStart(2, '0') });
+                  }
+                }
+                
+                target.value = '';
               }}
-              style={{}}
+              onFocus={(e) => {
+                e.target.value = '';
+              }}
             />
           </div>
         </div>

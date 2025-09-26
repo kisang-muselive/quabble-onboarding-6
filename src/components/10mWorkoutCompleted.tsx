@@ -63,14 +63,14 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
           </h1>
         </div>
 
-        <div className="flex items-center justify-center mb-8 mt-9 image-container">
+        <div className="flex items-center justify-center mb-8 image-container" style={{ marginTop: '24px' }}>
           <img
-            src="/images/7-reviews.png"
+            src="/images/7-reviews.png?v=1758862321"
             alt="Reviews"
             className="w-full h-auto object-contain main-image"
             style={{ 
-              maxWidth: 'min(120vw, 900px)',
-              maxHeight: 'min(95vh, 850px)'
+              maxWidth: 'min(45vw, 320px)',
+              maxHeight: 'min(35vh, 300px)'
             }}
           />
         </div>

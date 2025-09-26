@@ -45,7 +45,7 @@ export const translations = {
     "depressionSurvey3.title": "The good news is\nthat you can learn ways\nto improve them with us",
     
     // Professional Care Is Important Screen
-    "professionalCareIsImportant.title": "Professional care is important for serious mental health conditions. Quabble can complement your treatment and support your daily wellness.",
+    "professionalCareIsImportant.title": "While professional care is important, small daily practices like gratitude, breathing, and journaling can also play a powerful role in improving mental health.",
     
     // Duck With Jar Screen
     "duckWithJar.title": "Quabble",
