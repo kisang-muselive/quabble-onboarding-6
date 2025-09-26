@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { AuthProvider } from './contexts/AuthContext';
+import { MetadataProvider } from './contexts/MetadataContext';
+import { RecommendationsProvider } from './contexts/RecommendationsContext';
+import { SelectionsProvider } from './contexts/SelectionsContext';
 import { 
   prefetchAllCriticalImages, 
   prefetchAllImagesInBackground, 
@@ -565,7 +569,15 @@ function AppContent() {
 export function App() {
   return (
     <LanguageProvider>
-      <AppContent />
+      <AuthProvider>
+        <MetadataProvider>
+          <RecommendationsProvider>
+            <SelectionsProvider>
+              <AppContent />
+            </SelectionsProvider>
+          </RecommendationsProvider>
+        </MetadataProvider>
+      </AuthProvider>
     </LanguageProvider>
   );
 }
