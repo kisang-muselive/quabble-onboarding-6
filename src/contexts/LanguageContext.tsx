@@ -39,9 +39,8 @@ export function LanguageProvider({ children }: LanguageProviderProps) {
       console.warn('Failed to save language to localStorage:', error);
     }
   };
-
   const t = (key: string): string => {
-    const translation = translations[language]?.[key as keyof typeof translations.en];
+    const translation = translations[language]?.[key as keyof (typeof translations)[Language]];
     return translation || key;
   };
 
