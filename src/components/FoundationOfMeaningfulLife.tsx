@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useAuth } from '../contexts/AuthContext';
@@ -10,8 +10,6 @@ interface FoundationOfMeaningfulLifeProps {
 export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLifeProps) {
   const { t } = useLanguage();
   const { setAuthData } = useAuth();
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  const [authPayload, setAuthPayload] = useState<any>(null);
   
   useEffect(() => {
     // Send the new event for onboarding survey
@@ -36,10 +34,6 @@ export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLif
       if (userId && token) {
         setAuthData(userId, token);
       }
-
-      // Show modal with payload info
-      setAuthPayload(payload);
-      setShowAuthModal(true);
     };
 
     // Listen for the 'sign-in-complete' event
@@ -52,54 +46,6 @@ export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLif
   }, [setAuthData]);
 
   return (
-    <>
-    {/* Auth Event Modal */}
-    {showAuthModal && authPayload && (
-      <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
-        <div 
-          className="absolute inset-0 bg-black bg-opacity-50"
-          onClick={() => setShowAuthModal(false)}
-        />
-        <div className="relative bg-white rounded-lg p-6 max-w-sm w-full shadow-xl">
-          <button
-            onClick={() => setShowAuthModal(false)}
-            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-          
-          <h3 className="text-lg font-semibold mb-3 text-gray-800">Authentication Event Received</h3>
-          
-          <div className="space-y-2 text-sm">
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="font-medium text-gray-600">User ID:</span>
-              <span className="ml-2 text-gray-800">{authPayload.userId || 'Not provided'}</span>
-            </div>
-            
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="font-medium text-gray-600">Access Token:</span>
-              <span className="ml-2 text-gray-800 break-all">
-                {authPayload.accessToken ? 
-                  `${authPayload.accessToken.substring(0, 20)}...` : 
-                  'Not provided'
-                }
-              </span>
-            </div>
-            
-            <div className="bg-gray-50 p-3 rounded">
-              <span className="font-medium text-gray-600">Full Payload:</span>
-              <pre className="mt-2 text-xs text-gray-700 overflow-auto max-h-32">
-                {JSON.stringify(authPayload, null, 2)}
-              </pre>
-            </div>
-          </div>
-          
-        </div>
-      </div>
-    )}
-    
     <div 
       className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container bg-cover bg-center bg-no-repeat"
       style={{
@@ -165,6 +111,5 @@ export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLif
         </div>
       </div>
     </div>
-    </>
   );
 }
