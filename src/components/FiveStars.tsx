@@ -216,6 +216,12 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "onboarding-complete",
+                  "eventProperties": {
+                    "onboarding_version": 4.0
+                  }
+                }));
                 onNext();
               }}
             >
