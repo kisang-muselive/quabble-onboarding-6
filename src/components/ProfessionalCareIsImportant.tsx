@@ -30,7 +30,7 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
       <div 
         className="flex items-center justify-start px-4 header-container"
         style={{ 
-          paddingTop: 'max(1rem, env(safe-area-inset-top))',
+          paddingTop: '60px',
           paddingBottom: '1rem'
         }}
       >

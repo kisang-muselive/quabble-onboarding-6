@@ -25,7 +25,7 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
         className="flex items-center justify-start px-4 header-container"
         style={{ backgroundColor: '#DCE7BE' }}
         style={{ 
-          paddingTop: 'max(1rem, env(safe-area-inset-top))',
+          paddingTop: '60px',
           paddingBottom: '1rem'
         }}
       >

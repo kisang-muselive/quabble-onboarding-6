@@ -48,7 +48,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FDE2AA',
-          paddingTop: 'max(1rem, env(safe-area-inset-top))',
+          paddingTop: '60px',
           paddingBottom: '1rem'
         }}
       >
