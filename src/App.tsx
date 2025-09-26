@@ -317,7 +317,7 @@ function AppContent() {
     if (currentScreen === 'foundationofmeaningfullife') {
       return (
         <TransitionWrapper show={!isTransitioning}>
-          <FoundationOfMeaningfulLife onBack={handleBack} onNext={handleNext} />
+          <FoundationOfMeaningfulLife onNext={handleNext} />
         </TransitionWrapper>
       );
     }

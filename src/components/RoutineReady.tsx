@@ -4,6 +4,7 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 // lottie-player 웹 컴포넌트 타입 선언
 declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
     interface IntrinsicElements {
       'lottie-player': any;
