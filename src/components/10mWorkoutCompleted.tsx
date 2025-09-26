@@ -10,6 +10,9 @@ interface TenMWorkoutCompletedProps {
 export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedProps) {
   const { t } = useLanguage();
   
+  // Check for debug query parameter
+  const isDebugMode = new URLSearchParams(window.location.search).get('debug') === 'true';
+  
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
@@ -29,7 +32,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
     >
       {/* Header with back button */}
       <div 
-        className="flex items-center justify-start px-4 header-container"
+        className="flex items-center justify-between px-4 header-container"
         style={{ 
           paddingTop: '56px',
           paddingBottom: '1rem'
@@ -47,6 +50,27 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
             style={{ width: '24px', height: '24px' }}
           />
         </button>
+        
+        {/* Debug button */}
+        {isDebugMode && (
+          <button
+            onClick={onNext}
+            className="flex items-center justify-center"
+            style={{
+              width: '24px',
+              height: '24px',
+              backgroundColor: 'rgba(0, 0, 0, 0.1)',
+              color: 'rgba(0, 0, 0, 0.5)',
+              border: 'none',
+              borderRadius: '4px',
+              fontSize: '12px',
+              fontWeight: 'bold',
+              cursor: 'pointer'
+            }}
+          >
+            D
+          </button>
+        )}
       </div>
 
       <div className="flex flex-col items-center px-9 main-content">
@@ -100,7 +124,8 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
                 fontSize: '2.5vh'
               }}
               onClick={() => {
-                onNext();
+                sendToFlutter('{"event":"request-signin"}');
+                // onNext();
               }}
             >
               {t('next')}
