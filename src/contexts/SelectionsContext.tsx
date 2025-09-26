@@ -24,7 +24,6 @@ interface SelectionsProviderProps {
 }
 
 export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children }) => {
-  const [mentalStatusId, setMentalStatusId] = useState<number | null>(null);
   const [feelingStatusIds, setFeelingStatusIds] = useState<number[]>([]);
   const [practiceIds, setPracticeIds] = useState<number[]>([]);
   const [supportSystemId, setSupportSystemId] = useState<number | null>(null);
@@ -50,14 +49,12 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
     try {
       console.log('🚀 Submitting user selections...');
       console.log('📊 Selections:', {
-        mentalStatusId,
         feelingStatusIds,
         practiceIds,
         supportSystemId
       });
       
       const requestBody = {
-        mentalStatusId,
         feelingStatusIds,
         practiceIds,
         supportSystemId
