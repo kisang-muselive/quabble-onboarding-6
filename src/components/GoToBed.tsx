@@ -139,61 +139,59 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
 
         {/* Native Time Picker Component */}
         <div className="flex flex-col items-center mt-8 time-picker-container">
-          {/* Time Display Button */}
-          <div 
-            className="bg-white text-black text-xl font-medium cursor-pointer"
-            style={{
-              borderRadius: '24px',
-              width: 'fit-content',
-              height: 'fit-content',
-              border: 'none',
-              outline: 'none',
-              textAlign: 'center',
-              paddingTop: '16px',
-              paddingBottom: '16px',
-              paddingLeft: '24px',
-              paddingRight: '24px'
-            }}
-            onClick={() => {
-              // 숨겨진 input을 클릭하여 네이티브 시간 선택기 열기
-              const timeInput = document.getElementById('time-input') as HTMLInputElement;
-              if (timeInput) {
-                timeInput.focus();
-                timeInput.click();
-              }
-            }}
-          >
-            {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
+          {/* Native Time Input with Custom Styling */}
+          <div className="relative">
+            <input
+              type="time"
+              value={(() => {
+                // 12시간 형식을 24시간 형식으로 변환
+                const hour12 = parseInt(selectedTime.hour);
+                let hour24;
+                if (selectedTime.period === 'AM') {
+                  hour24 = hour12 === 12 ? 0 : hour12;
+                } else {
+                  hour24 = hour12 === 12 ? 12 : hour12 + 12;
+                }
+                return `${hour24.toString().padStart(2, '0')}:${selectedTime.minute}`;
+              })()}
+              onChange={(e) => {
+                const [hour24, minute] = e.target.value.split(':');
+                const hour12 = parseInt(hour24) === 0 ? 12 : parseInt(hour24) > 12 ? parseInt(hour24) - 12 : parseInt(hour24);
+                const period = parseInt(hour24) >= 12 ? 'PM' : 'AM';
+                
+                setSelectedTime({
+                  hour: hour12.toString().padStart(2, '0'),
+                  minute: minute,
+                  period: period
+                });
+              }}
+              className="bg-white text-black text-xl font-medium cursor-pointer"
+              style={{
+                borderRadius: '24px',
+                width: 'fit-content',
+                height: 'fit-content',
+                border: 'none',
+                outline: 'none',
+                textAlign: 'center',
+                paddingTop: '16px',
+                paddingBottom: '16px',
+                paddingLeft: '24px',
+                paddingRight: '24px',
+                appearance: 'none',
+                WebkitAppearance: 'none',
+                MozAppearance: 'none'
+              }}
+            />
+            {/* Custom Display Overlay */}
+            <div 
+              className="absolute inset-0 flex items-center justify-center pointer-events-none bg-white text-black text-xl font-medium"
+              style={{
+                borderRadius: '24px'
+              }}
+            >
+              {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
+            </div>
           </div>
-          
-          {/* Hidden Native Time Input */}
-          <input
-            id="time-input"
-            type="time"
-            value={(() => {
-              // 12시간 형식을 24시간 형식으로 변환
-              const hour12 = parseInt(selectedTime.hour);
-              let hour24;
-              if (selectedTime.period === 'AM') {
-                hour24 = hour12 === 12 ? 0 : hour12;
-              } else {
-                hour24 = hour12 === 12 ? 12 : hour12 + 12;
-              }
-              return `${hour24.toString().padStart(2, '0')}:${selectedTime.minute}`;
-            })()}
-            onChange={(e) => {
-              const [hour24, minute] = e.target.value.split(':');
-              const hour12 = parseInt(hour24) === 0 ? 12 : parseInt(hour24) > 12 ? parseInt(hour24) - 12 : parseInt(hour24);
-              const period = parseInt(hour24) >= 12 ? 'PM' : 'AM';
-              
-              setSelectedTime({
-                hour: hour12.toString().padStart(2, '0'),
-                minute: minute,
-                period: period
-              });
-            }}
-            style={{ opacity: 0, position: 'absolute', width: '1px', height: '1px', overflow: 'hidden' }}
-          />
         </div>
       </div>
 
