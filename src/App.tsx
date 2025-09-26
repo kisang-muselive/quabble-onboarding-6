@@ -1,5 +1,11 @@
 import { useState, useEffect } from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { 
+  prefetchAllCriticalImages, 
+  prefetchAllImagesInBackground, 
+  prefetchImagesForScreen,
+  type ScreenType as PrefetchScreenType
+} from './utils/imagePrefetch';
 import { WhyQuabbleWhatYouNeed } from './components/WhyQuabbleWhatYouNeed';
 import { TenMWorkoutCompleted } from './components/10mWorkoutCompleted';
 import { FoundationOfMeaningfulLife } from './components/FoundationOfMeaningfulLife';
@@ -31,7 +37,6 @@ import { FiveStars } from './components/FiveStars';
 import { ProfessionalCareIsImportant } from './components/ProfessionalCareIsImportant';
 import { TransitionWrapper } from './components/TransitionWrapper';
 import { sendToFlutter } from './lib/quabbleFlutterChannel';
-import { prefetchAllCriticalImages } from './utils/imagePrefetch';
 
 type ScreenType = 'whyquabblewhatyouneed' | '10mworkoutcompleted' | 'foundationofmeaningfullife' | 'howhaveyoubeen' | 'sorrytohear' | 'dealingwith' | 'gladtohearthat' | 'heretohelp' | '98report' | '87report' | 'backedbyexperts' | 'finalstep' | 'wakeup' | 'gotobed' | 'interestgrid' | 'supportsystem' | 'agegroup' | 'customizing' | 'routineready' | 'joining10m' | 'workoutlist' | 'fivestars' | 'depressionsurvey1' | 'depressionsurvey2' | 'depressionsurvey3' | 'anxietysurvey1' | 'anxietysurvey2' | 'anxietysurvey3' | 'professionalcareisimportant';
 
@@ -41,10 +46,55 @@ function AppContent() {
   const [previousScreen, setPreviousScreen] = useState<ScreenType | null>(null);
   const [dealingWithSelection, setDealingWithSelection] = useState<string | null>(null);
 
-  // Prefetch critical images on app load
+  // 앱 로드시 이미지 프리로딩 시스템 초기화
   useEffect(() => {
+    // 1. 중요한 이미지들을 먼저 로딩
     prefetchAllCriticalImages();
+    
+    // 2. 백그라운드에서 모든 이미지를 천천히 프리로딩
+    prefetchAllImagesInBackground();
   }, []);
+
+  // 화면 변경시 다음 화면들의 이미지를 미리 로딩
+  useEffect(() => {
+    // 화면 이름을 프리로딩 시스템의 타입으로 변환
+    const screenMapping: Record<ScreenType, PrefetchScreenType> = {
+      'whyquabblewhatyouneed': 'whyquabblewhatyouneed',
+      '10mworkoutcompleted': '10mworkoutcompleted',
+      'foundationofmeaningfullife': 'foundationofmeaningfullife',
+      'howhaveyoubeen': 'howhaveyoubeen',
+      'gladtohearthat': 'gladtohearthat',
+      'sorrytohear': 'sorrytohearthat',
+      'dealingwith': 'dealingwith',
+      'heretohelp': 'heretohelp',
+      'professionalcareisimportant': 'professionalcareisimportant',
+      '98report': '98report',
+      '87report': '87report',
+      'backedbyexperts': 'backedbyexperts',
+      'finalstep': 'finalstep',
+      'wakeup': 'wakeup',
+      'gotobed': 'gotobed',
+      'interestgrid': 'interestgrid',
+      'supportsystem': 'supportsystem',
+      'agegroup': 'agegroup',
+      'customizing': 'customizing',
+      'routineready': 'routineready',
+      'joining10m': 'joining10m',
+      'workoutlist': 'workoutlist',
+      'fivestars': 'fivestars',
+      'depressionsurvey1': 'depressionsurvey1',
+      'depressionsurvey2': 'depressionsurvey2',
+      'depressionsurvey3': 'depressionsurvey3',
+      'anxietysurvey1': 'anxietysurvey1',
+      'anxietysurvey2': 'anxietysurvey2',
+      'anxietysurvey3': 'anxietysurvey3'
+    };
+
+    const prefetchScreen = screenMapping[currentScreen];
+    if (prefetchScreen) {
+      prefetchImagesForScreen(prefetchScreen);
+    }
+  }, [currentScreen]);
 
   const performTransition = (targetScreen: ScreenType) => {
     setIsTransitioning(true);

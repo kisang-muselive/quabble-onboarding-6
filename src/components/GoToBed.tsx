@@ -139,7 +139,32 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
 
         {/* Native Time Picker Component */}
         <div className="flex flex-col items-center mt-8 time-picker-container">
+          {/* Time Display Button */}
+          <div 
+            className="bg-white text-black text-xl font-medium cursor-pointer"
+            style={{
+              borderRadius: '24px',
+              width: 'fit-content',
+              height: 'fit-content',
+              border: 'none',
+              outline: 'none',
+              textAlign: 'center',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              paddingLeft: '24px',
+              paddingRight: '24px'
+            }}
+            onClick={() => {
+              // 숨겨진 input을 클릭하여 네이티브 시간 선택기 열기
+              document.getElementById('time-input')?.click();
+            }}
+          >
+            {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
+          </div>
+          
+          {/* Hidden Native Time Input */}
           <input
+            id="time-input"
             type="time"
             value={(() => {
               // 12시간 형식을 24시간 형식으로 변환
@@ -163,19 +188,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                 period: period
               });
             }}
-            className="bg-white text-black text-2xl font-medium cursor-pointer"
-            style={{
-              borderRadius: '24px',
-              width: 'fit-content',
-              height: 'fit-content',
-              border: 'none',
-              outline: 'none',
-              textAlign: 'center',
-              paddingTop: '16px',
-              paddingBottom: '16px',
-              paddingLeft: '24px',
-              paddingRight: '24px'
-            }}
+            style={{ opacity: 0, position: 'absolute', pointerEvents: 'none' }}
           />
         </div>
       </div>

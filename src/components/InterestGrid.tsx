@@ -158,7 +158,7 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
             <button
               key={index}
               onClick={() => handleGridItemClick(index)}
-              className="aspect-square relative transition-colors duration-200 cursor-pointer"
+              className="aspect-square relative transition-colors duration-75 cursor-pointer"
               style={{
                 backgroundColor: selectedItems.includes(index) ? item.activeColor : '#F3F1E5',
                 borderRadius: '16px',
