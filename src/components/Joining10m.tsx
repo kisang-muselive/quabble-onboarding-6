@@ -45,7 +45,7 @@ export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mP
 
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_joing_10m_completed_user",
       "eventProperties": {
         "onboarding_version": 4.0
       }
