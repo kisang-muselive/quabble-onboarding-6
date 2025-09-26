@@ -13,11 +13,12 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
   const [showCTA, setShowCTA] = useState(false);
   
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
 
     // 순차적으로 각 카드를 표시
     const animationTimers: NodeJS.Timeout[] = [];

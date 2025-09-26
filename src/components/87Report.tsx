@@ -19,11 +19,12 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
   };
   
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
   }, []);
 
   return (
@@ -31,8 +32,8 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
       {/* Header with back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
-        style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
+          backgroundColor: '#FAF9F2',
           paddingTop: '56px',
           paddingBottom: '1rem'
         }}

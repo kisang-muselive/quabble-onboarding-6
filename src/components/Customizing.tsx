@@ -27,11 +27,12 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
   const [hasCompleted, setHasCompleted] = useState(false);
 
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
 
     // 6초 동안 로딩 진행 (처음 2초는 오리 애니메이션, 4초부터 카드 표시)
     const duration = 6000; // 6초

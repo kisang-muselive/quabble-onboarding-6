@@ -41,11 +41,12 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
   };
 
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
 
     // 순차적 애니메이션
     const timer1 = setTimeout(() => setShowMorningCard(true), 300);

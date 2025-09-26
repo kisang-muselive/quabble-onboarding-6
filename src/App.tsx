@@ -107,7 +107,12 @@ function AppContent() {
   };
 
   const handleNext = (selectedOption?: number) => {
-    sendToFlutter("heptic");
+    sendToFlutter(JSON.stringify({
+      "event": "heptic",
+      "eventProperties": {
+        "onboarding_version": 4.0
+      }
+    }));
     
     if (currentScreen === 'whyquabblewhatyouneed') {
       performTransition('10mworkoutcompleted');
@@ -125,7 +130,12 @@ function AppContent() {
         performTransition('gladtohearthat');
       } else {
         // End of flow - fire completion event
-        sendToFlutter("onboarding-complete");
+        sendToFlutter(JSON.stringify({
+          "event": "onboarding-complete",
+          "eventProperties": {
+            "onboarding_version": 4.0
+          }
+        }));
       }
     } else if (currentScreen === 'sorrytohear') {
       performTransition('heretohelp');
@@ -140,7 +150,12 @@ function AppContent() {
         performTransition('professionalcareisimportant');
       } else {
         // Any other options - End of flow
-        sendToFlutter("onboarding-complete");
+        sendToFlutter(JSON.stringify({
+          "event": "onboarding-complete",
+          "eventProperties": {
+            "onboarding_version": 4.0
+          }
+        }));
       }
     } else if (currentScreen === 'gladtohearthat') {
       performTransition('98report');

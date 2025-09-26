@@ -11,11 +11,12 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
   const { t } = useLanguage();
   
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "ob_info_hello_i_am_quabble_duck",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
   }, []);
 
   return (

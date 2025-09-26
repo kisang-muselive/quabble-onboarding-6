@@ -12,11 +12,12 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
   const [selectedTime, setSelectedTime] = useState({ hour: '09', minute: '00', period: 'AM' });
   
   useEffect(() => {
-    sendToFlutter("view_ob_info_quabble_just_what_you_need", {
+    sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 4.0
       }
-    });
+    }));
   }, []);
 
 
