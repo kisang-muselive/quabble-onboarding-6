@@ -3,11 +3,10 @@ import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
 interface FoundationOfMeaningfulLifeProps {
-  onBack: () => void;
   onNext: () => void;
 }
 
-export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeaningfulLifeProps) {
+export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLifeProps) {
   const { t } = useLanguage();
   
   useEffect(() => {
@@ -27,7 +26,7 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
         backgroundImage: 'url(/images/mind-quote-background.png)'
       }}
     >
-      {/* Header with back button */}
+      {/* Header without back button */}
       <div 
         className="flex items-center justify-start px-4 header-container"
         style={{ 
@@ -35,18 +34,6 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
           paddingBottom: '1rem'
         }}
       >
-        <button 
-          onClick={onBack}
-          className="p-2 flex items-center justify-center header-button-area"
-          style={{ width: '40px', height: '40px' }}
-        >
-          <img 
-            src="/images/arrow_left.svg" 
-            alt="Back" 
-            className="w-6 h-6 header-back-icon"
-            style={{ width: '24px', height: '24px' }}
-          />
-        </button>
       </div>
 
       <div className="flex flex-col items-center px-9 main-content">
