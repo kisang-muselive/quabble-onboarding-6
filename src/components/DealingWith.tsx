@@ -38,7 +38,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps
     // Send the new event for onboarding survey
     sendToFlutter("view_ob_info_quabble_just_what_you_need", {
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     });
   }, []);
