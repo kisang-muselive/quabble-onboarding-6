@@ -64,7 +64,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
           console.error('Fallback confetti play error:', error);
         }
       }
-    }, 1000);
+    }, 500);
 
     return () => {
       clearTimeout(timer1);

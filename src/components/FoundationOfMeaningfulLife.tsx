@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useAuth } from '../contexts/AuthContext';
 
 interface FoundationOfMeaningfulLifeProps {
   onNext: () => void;
@@ -8,6 +9,7 @@ interface FoundationOfMeaningfulLifeProps {
 
 export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLifeProps) {
   const { t } = useLanguage();
+  const { setAuthData } = useAuth();
   
   useEffect(() => {
     // Send the new event for onboarding survey
@@ -17,7 +19,31 @@ export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLif
         "onboarding_version": 6.0
       }
     }));
-  }, []);
+
+    // Event listener for 'sign-in-complete' event from Flutter
+    const handleSignInComplete = (event: any) => {
+      console.log('Sign-in complete event received from Flutter');
+      console.log('Event payload:', event.detail); // Log the payload
+      
+      // Access the payload data
+      const payload = event.detail;
+      const userId = payload.userId;  // Flutter sends 'userId', not 'userid'
+      const token = payload.accessToken;
+
+      // Store auth data in context for other components to use
+      if (userId && token) {
+        setAuthData(userId, token);
+      }
+    };
+
+    // Listen for the 'sign-in-complete' event
+    window.addEventListener('sign-in-complete', handleSignInComplete);
+    
+    // Cleanup event listener when component unmounts
+    return () => {
+      window.removeEventListener('sign-in-complete', handleSignInComplete);
+    };
+  }, [setAuthData]);
 
   return (
     <div 
