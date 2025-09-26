@@ -71,7 +71,7 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#617AB0',
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >

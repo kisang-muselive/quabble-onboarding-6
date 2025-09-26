@@ -33,7 +33,7 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
         className="flex items-center justify-start px-4 header-container"
         style={{ backgroundColor: '#FAF9F2' }}
         style={{ 
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >

@@ -25,22 +25,26 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FAF9F2',
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >
-        <button 
-          onClick={onBack}
+        <div 
           className="p-2 flex items-center justify-center header-button-area"
-          style={{ width: '40px', height: '40px' }}
+          style={{ width: '40px', height: '40px', cursor: 'default' }}
         >
           <img 
             src="/images/arrow_left.svg" 
             alt="Back" 
             className="w-6 h-6 header-back-icon"
-            style={{ width: '24px', height: '24px' }}
+            style={{ 
+              width: '24px', 
+              height: '24px',
+              filter: 'none',
+              opacity: 0
+            }}
           />
-        </button>
+        </div>
       </div>
 
       <div className="flex flex-col items-center px-9 main-content">

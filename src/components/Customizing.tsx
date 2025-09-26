@@ -39,15 +39,15 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
     const steps = duration / interval;
     const progressStep = 100 / steps;
 
-    // 2초 후 오리 애니메이션 숨기기
+    // 1.5초 후 오리 애니메이션 숨기기
     const duckTimer = setTimeout(() => {
       setShowDuck(false);
-    }, 2000);
+    }, 1500);
 
-    // 2.1초 후 카드 표시 (오리 애니메이션 fade-out 완료 직후)
+    // 1.6초 후 카드 표시 (오리 애니메이션 fade-out 완료 직후)
     const cardTimer = setTimeout(() => {
       setShowCard(true);
-    }, 2100);
+    }, 1600);
 
     const timer = setInterval(() => {
       setProgress(prev => {
@@ -84,7 +84,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FAF9F2',
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >

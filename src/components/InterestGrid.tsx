@@ -63,7 +63,7 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
       <div 
         className="flex items-center justify-between px-4 header-container relative"
         style={{ 
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem',
           backgroundColor: '#FAF9F2'
         }}

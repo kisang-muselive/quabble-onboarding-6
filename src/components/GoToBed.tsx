@@ -34,7 +34,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
       <div 
         className="flex items-center justify-between px-4 header-container relative"
         style={{ 
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >
@@ -163,13 +163,18 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                 period: period
               });
             }}
-            className="bg-white px-8 py-4 text-black text-2xl font-medium cursor-pointer"
+            className="bg-white text-black text-2xl font-medium cursor-pointer"
             style={{
               borderRadius: '24px',
-              minWidth: '160px',
+              width: 'fit-content',
+              height: 'fit-content',
               border: 'none',
               outline: 'none',
-              textAlign: 'center'
+              textAlign: 'center',
+              paddingTop: '16px',
+              paddingBottom: '16px',
+              paddingLeft: '24px',
+              paddingRight: '24px'
             }}
           />
         </div>

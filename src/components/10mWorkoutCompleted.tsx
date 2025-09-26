@@ -30,7 +30,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
       <div 
         className="flex items-center justify-start px-4 header-container"
         style={{ 
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >
@@ -92,9 +92,9 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
           <div className="max-w-md mx-auto cta-button-wrapper">
             <button
               className="w-full mx-auto block px-7 rounded-full text-white text-center touch-target cta-orange-button cta-button"
-              style={{ backgroundColor: '#F28C39',
-                fontWeight: '500', background: '#F28C39' }}
               style={{ 
+                backgroundColor: '#F28C39',
+                fontWeight: '500',
                 height: '7.5vh',
                 fontSize: '2.5vh'
               }}

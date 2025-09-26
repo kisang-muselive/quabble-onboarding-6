@@ -36,7 +36,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
         className="flex items-center justify-start px-4 header-container"
         style={{ 
           backgroundColor: '#FAF9F2',
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >

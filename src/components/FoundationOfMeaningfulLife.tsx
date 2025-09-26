@@ -30,7 +30,7 @@ export function FoundationOfMeaningfulLife({ onBack, onNext }: FoundationOfMeani
       <div 
         className="flex items-center justify-start px-4 header-container"
         style={{ 
-          paddingTop: '48px',
+          paddingTop: '56px',
           paddingBottom: '1rem'
         }}
       >
