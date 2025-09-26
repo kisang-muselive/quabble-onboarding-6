@@ -165,7 +165,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                   period: period
                 });
               }}
-              className="bg-white text-black text-xl font-medium cursor-pointer"
+              className="bg-white text-black font-medium cursor-pointer"
               style={{
                 borderRadius: '24px',
                 width: 'fit-content',
@@ -173,20 +173,36 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                 border: 'none',
                 outline: 'none',
                 textAlign: 'center',
-                paddingTop: '16px',
-                paddingBottom: '16px',
-                paddingLeft: '24px',
-                paddingRight: '24px',
+                fontSize: 'min(5vw, 1.25rem)',
+                paddingTop: 'min(4vw, 16px)',
+                paddingBottom: 'min(4vw, 16px)',
+                paddingLeft: 'min(6vw, 24px)',
+                paddingRight: 'min(6vw, 24px)',
                 appearance: 'none',
                 WebkitAppearance: 'none',
-                MozAppearance: 'none'
+                MozAppearance: 'none',
+                position: 'relative',
+                zIndex: 1
+              }}
+              onFocus={(e) => {
+                // 모바일에서 바텀시트 형태로 나타나도록 스크롤 조정
+                if (window.innerWidth <= 768) {
+                  setTimeout(() => {
+                    e.target.scrollIntoView({ 
+                      behavior: 'smooth', 
+                      block: 'center',
+                      inline: 'center' 
+                    });
+                  }, 100);
+                }
               }}
             />
             {/* Custom Display Overlay */}
             <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none bg-white text-black text-xl font-medium"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none bg-white text-black font-medium"
               style={{
-                borderRadius: '24px'
+                borderRadius: '24px',
+                fontSize: 'min(5vw, 1.25rem)'
               }}
             >
               {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
