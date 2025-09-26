@@ -125,7 +125,10 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
               }}
               onClick={() => {
                 sendToFlutter('{"event":"request-signin"}');
-                // onNext();
+                // Call onNext after 1 second
+                setTimeout(() => {
+                  onNext();
+                }, 1000);
               }}
             >
               {t('next')}
