@@ -23,7 +23,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_survey_experiencing_any_of_these_anxiety",
       "eventProperties": {
         "onboarding_version": 4.0
       }

@@ -16,7 +16,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_how_many_workout_done",
       "eventProperties": {
         "onboarding_version": 4.0
       }

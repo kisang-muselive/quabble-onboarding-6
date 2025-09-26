@@ -12,7 +12,7 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "ob_info_hello_i_am_quabble_duck",
+      "event": "view_ob_info_hello_i_am_quabble_duck",
       "eventProperties": {
         "onboarding_version": 4.0
       }
