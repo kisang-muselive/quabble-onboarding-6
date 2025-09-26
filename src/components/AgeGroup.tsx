@@ -25,7 +25,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_age_group",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

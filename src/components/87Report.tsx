@@ -22,7 +22,7 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_quabble_improve_mental",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

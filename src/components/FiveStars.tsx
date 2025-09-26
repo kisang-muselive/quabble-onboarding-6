@@ -16,7 +16,7 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_review",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
 
@@ -219,7 +219,7 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "onboarding-complete",
                   "eventProperties": {
-                    "onboarding_version": 4.0
+                    "onboarding_version": 6.0
                   }
                 }));
                 onNext();

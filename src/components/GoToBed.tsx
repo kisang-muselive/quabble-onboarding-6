@@ -15,7 +15,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_go_to_bed",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

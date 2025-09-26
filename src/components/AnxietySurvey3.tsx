@@ -14,7 +14,7 @@ export function AnxietySurvey3({ onBack, onNext }: AnxietySurvey3Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_good_news_you_can_learn",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

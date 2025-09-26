@@ -18,7 +18,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_how_many_workout_done",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

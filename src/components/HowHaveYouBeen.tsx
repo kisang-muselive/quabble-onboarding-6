@@ -25,7 +25,7 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_how_have_you_been",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

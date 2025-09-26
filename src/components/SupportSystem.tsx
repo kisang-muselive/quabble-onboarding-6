@@ -25,7 +25,7 @@ export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_support_system",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

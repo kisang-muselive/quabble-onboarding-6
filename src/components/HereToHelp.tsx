@@ -15,7 +15,7 @@ export function HereToHelp({ onBack, onNext }: HereToHelpProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_quabble_here_to_help",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);

@@ -53,7 +53,7 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_interested_activity",
       "eventProperties": {
-        "onboarding_version": 4.0
+        "onboarding_version": 6.0
       }
     }));
   }, []);
