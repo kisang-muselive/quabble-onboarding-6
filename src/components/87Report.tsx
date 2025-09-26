@@ -20,7 +20,7 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_quabble_improve_mental",
       "eventProperties": {
         "onboarding_version": 4.0
       }

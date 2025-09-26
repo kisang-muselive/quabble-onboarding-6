@@ -20,7 +20,7 @@ export function NinetyEightReport({ onBack, onNext }: NinetyEightReportProps) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_quabble_help_manage",
       "eventProperties": {
         "onboarding_version": 4.0
       }

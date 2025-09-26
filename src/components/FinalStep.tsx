@@ -12,7 +12,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_you_are_doing_great_final_step",
       "eventProperties": {
         "onboarding_version": 4.0
       }

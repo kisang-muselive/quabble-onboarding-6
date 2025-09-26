@@ -12,7 +12,7 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_therapist_recommended",
       "eventProperties": {
         "onboarding_version": 4.0
       }

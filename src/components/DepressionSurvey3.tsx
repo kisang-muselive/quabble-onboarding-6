@@ -12,7 +12,7 @@ export function DepressionSurvey3({ onBack, onNext }: DepressionSurvey3Props) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_good_news_you_can_learn",
       "eventProperties": {
         "onboarding_version": 4.0
       }

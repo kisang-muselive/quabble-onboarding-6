@@ -12,7 +12,7 @@ export function DepressionSurvey2({ onBack, onNext }: DepressionSurvey2Props) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_depression_change_sleep_energy_focus",
       "eventProperties": {
         "onboarding_version": 4.0
       }
