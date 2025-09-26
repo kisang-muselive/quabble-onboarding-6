@@ -44,9 +44,15 @@ function AppContent() {
   // Check for query parameter to determine initial screen
   const getInitialScreen = (): ScreenType => {
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('step') === 'post-signin') {
+    const stepParam = urlParams.get('step');
+    console.log('URL search params:', window.location.search);
+    console.log('Step parameter:', stepParam);
+    
+    if (stepParam === 'post-signin') {
+      console.log('Setting initial screen to foundationofmeaningfullife');
       return 'foundationofmeaningfullife';
     }
+    console.log('Setting initial screen to whyquabblewhatyouneed');
     return 'whyquabblewhatyouneed';
   };
 
@@ -291,6 +297,7 @@ function AppContent() {
 
   // Render current screen with transition wrapper
   const renderCurrentScreen = () => {
+    console.log('Rendering screen:', currentScreen);
     if (currentScreen === 'whyquabblewhatyouneed') {
       return (
         <TransitionWrapper show={!isTransitioning}>
