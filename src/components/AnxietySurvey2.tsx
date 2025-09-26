@@ -12,7 +12,7 @@ export function AnxietySurvey2({ onBack, onNext }: AnxietySurvey2Props) {
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_anxious_feeling_not_made_up",
       "eventProperties": {
         "onboarding_version": 4.0
       }
