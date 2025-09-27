@@ -62,7 +62,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       const selectionsPayload = {
         practiceIds: practiceIds || [],
         supportSystemId: supportSystemId || null,
-        feelingStatusIds: [] // This might need to come from another context
+        feelingStatusIds: [1] // Default feeling status
       };
       
       addLog('info', 'Starting submitSelections API call...', {
@@ -169,7 +169,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
           // Wait 10 seconds after loading completes before navigating
           setTimeout(() => {
             onNext();
-          }, 10000);
+          }, 30000);
           return 100;
         }
         return newProgress;

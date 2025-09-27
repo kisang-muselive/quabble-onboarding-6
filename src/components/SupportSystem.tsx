@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { useMetadata } from '../contexts/MetadataContext';
 
 interface SupportSystemProps {
   onBack: () => void;
@@ -9,7 +11,18 @@ interface SupportSystemProps {
 
 export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
   const { t } = useLanguage();
+  const { setSupportSystemId } = useSelections();
+  const { metadata, fetchMetadata } = useMetadata();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
+  
+  // Get support system metadata from context or use defaults
+  // IDs: 23=Excellent, 24=Good, 25=Limited, 26=Poor
+  const supportSystems = metadata?.supportSystem || [
+    { id: 23, type: "supportsystem", name: "excellent", displayName: "Excellent" },
+    { id: 24, type: "supportsystem", name: "good", displayName: "Good" },
+    { id: 25, type: "supportsystem", name: "limited", displayName: "Limited" },
+    { id: 26, type: "supportsystem", name: "poor", displayName: "Poor" }
+  ];
   
   const handleOptionClick = (optionIndex: number) => {
     // Toggle functionality - if same option is clicked, deselect it
@@ -28,7 +41,12 @@ export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
         "onboarding_version": 6.0
       }
     }));
-  }, []);
+    
+    // Fetch metadata if not already available
+    if (!metadata) {
+      fetchMetadata();
+    }
+  }, [metadata, fetchMetadata]);
 
   return (
     <div className="flex flex-col w-full min-h-screen text-gray-800 relative overflow-y-auto screen-container" style={{ backgroundColor: '#FAF9F2' }}>
@@ -228,6 +246,14 @@ export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                // Save selected support system ID to context
+                if (selectedOption !== null) {
+                  // Map option index to support system ID
+                  // 0=Excellent(23), 1=Good(24), 2=Limited(25), 3=Poor(26)
+                  const supportSystemId = supportSystems[selectedOption].id;
+                  setSupportSystemId(supportSystemId);
+                  console.log('Selected support system ID:', supportSystemId);
+                }
                 onNext();
               }}
             >

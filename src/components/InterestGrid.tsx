@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { useMetadata } from '../contexts/MetadataContext';
 
 interface InterestGridProps {
   onBack: () => void;
@@ -9,20 +11,36 @@ interface InterestGridProps {
 
 export function InterestGrid({ onBack, onNext }: InterestGridProps) {
   const { t } = useLanguage();
+  const { setPracticeIds } = useSelections();
+  const { metadata, fetchMetadata } = useMetadata();
   const lottieRef = useRef<any>(null);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [showCTA, setShowCTA] = useState(false);
 
+  // Get practice metadata from context or use defaults
+  const practices = metadata?.practice || [
+    { id: 14, type: "practice", name: "breathing", displayName: "Breathing exercises" },
+    { id: 17, type: "practice", name: "mood", displayName: "Mood tracking" },
+    { id: 15, type: "practice", name: "journaling", displayName: "Journaling" },
+    { id: 18, type: "practice", name: "selflove", displayName: "Self-love" },
+    { id: 19, type: "practice", name: "gratitude", displayName: "Gratitude practices" },
+    { id: 16, type: "practice", name: "meditation", displayName: "Meditation" },
+    { id: 20, type: "practice", name: "physical", displayName: "Physical activities" },
+    { id: 21, type: "practice", name: "sleep", displayName: "Better sleep" },
+    { id: 27, type: "practice", name: "productivity", displayName: "Productivity" }
+  ];
+
+  // Map grid items with their corresponding practice IDs from metadata
   const gridItems = [
-    { icon: '21-icon-1.png', text: 'Breathing exercises', activeColor: '#E0EAED' },
-    { icon: '21-icon-2.png', text: 'Mood tracking', activeColor: '#E4DEE4' },
-    { icon: '21-icon-3.png', text: 'Journaling', activeColor: '#F7D9B9' },
-    { icon: '21-icon-4.png', text: 'Self-love', activeColor: '#FCD9D1' },
-    { icon: '21-icon-5.png', text: 'Gratitude practice', activeColor: '#F2EBC0' },
-    { icon: '21-icon-6.png', text: 'Meditation', activeColor: '#D3EDE4' },
-    { icon: '21-icon-7.png', text: 'Physical activities', activeColor: '#D2E5D4' },
-    { icon: '21-icon-8.png', text: 'Better sleep', activeColor: '#525F72' },
-    { icon: '21-icon-9.png', text: 'Productivity', activeColor: '#D1DEEE' }
+    { icon: '21-icon-1.png', text: practices[0].displayName, activeColor: '#E0EAED', practiceId: practices[0].id },
+    { icon: '21-icon-2.png', text: practices[1].displayName, activeColor: '#E4DEE4', practiceId: practices[1].id },
+    { icon: '21-icon-3.png', text: practices[2].displayName, activeColor: '#F7D9B9', practiceId: practices[2].id },
+    { icon: '21-icon-4.png', text: practices[3].displayName, activeColor: '#FCD9D1', practiceId: practices[3].id },
+    { icon: '21-icon-5.png', text: practices[4].displayName, activeColor: '#F2EBC0', practiceId: practices[4].id },
+    { icon: '21-icon-6.png', text: practices[5].displayName, activeColor: '#D3EDE4', practiceId: practices[5].id },
+    { icon: '21-icon-7.png', text: practices[6].displayName, activeColor: '#D2E5D4', practiceId: practices[6].id },
+    { icon: '21-icon-8.png', text: practices[7].displayName, activeColor: '#525F72', practiceId: practices[7].id },
+    { icon: '21-icon-9.png', text: practices[8].displayName, activeColor: '#D1DEEE', practiceId: practices[8].id }
   ];
 
   const handleGridItemClick = (index: number) => {
@@ -56,7 +74,12 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
         "onboarding_version": 6.0
       }
     }));
-  }, []);
+    
+    // Fetch metadata if not already available
+    if (!metadata) {
+      fetchMetadata();
+    }
+  }, [metadata, fetchMetadata]);
 
   return (
     <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
@@ -244,6 +267,10 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                // Save selected practice IDs to context
+                const selectedPracticeIds = selectedItems.map(index => gridItems[index].practiceId);
+                setPracticeIds(selectedPracticeIds);
+                console.log('Selected practice IDs:', selectedPracticeIds);
                 onNext();
               }}
             >

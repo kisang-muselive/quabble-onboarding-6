@@ -55,7 +55,7 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
       });
       
       const requestBody = {
-        feelingStatusIds,
+        feelingStatusIds: feelingStatusIds && feelingStatusIds.length > 0 ? feelingStatusIds : [1],
         practiceIds,
         supportSystemId
       };
