@@ -6,7 +6,7 @@ interface SelectionsContextType {
   supportSystemId: number | null;
   setPracticeIds: (ids: number[]) => void;
   setSupportSystemId: (id: number | null) => void;
-  submitSelections: () => Promise<void>;
+  submitSelections: () => Promise<any>;
 }
 
 const SelectionsContext = createContext<SelectionsContextType | undefined>(undefined);
@@ -43,7 +43,7 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
   const submitSelections = async () => {
     if (!accessToken) {
       console.warn('⚠️ No access token available, skipping selections submission');
-      return;
+      return { success: false, error: 'No access token' };
     }
 
     try {
@@ -69,14 +69,17 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
 
       console.log('📥 Selections submission response status:', response.status);
       if (!response.ok) {
-        throw new Error(`Failed to submit selections: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Failed to submit selections: ${response.status} - ${errorText}`);
       }
 
       const data = await response.json();
       console.log('✅ Selections submitted successfully:', data);
+      return { success: true, data, status: response.status };
     } catch (err) {
       console.error('❌ Error submitting selections:', err);
       // Don't throw error - allow user to continue even if submission fails
+      return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
     }
   };
 

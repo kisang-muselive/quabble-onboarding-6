@@ -35,7 +35,7 @@ interface RecommendationsContextType {
   recommendations: Workout[] | null;
   loading: boolean;
   error: string | null;
-  fetchRecommendations: () => Promise<void>;
+  fetchRecommendations: () => Promise<any>;
 }
 
 const RecommendationsContext = createContext<RecommendationsContextType | undefined>(undefined);
@@ -108,7 +108,7 @@ export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = (
       console.warn('⚠️ No access token available, using default recommendations');
       setRecommendations(defaultWorkouts);
       setLoading(false);
-      return;
+      return { success: false, data: defaultWorkouts, error: 'No access token' };
     }
 
     try {
@@ -124,18 +124,21 @@ export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = (
 
       console.log('📥 Recommendations API response status:', response.status);
       if (!response.ok) {
-        throw new Error(`Failed to fetch recommendations: ${response.status}`);
+        const errorText = await response.text();
+        throw new Error(`Failed to fetch recommendations: ${response.status} - ${errorText}`);
       }
 
       const data: RecommendationsResponse = await response.json();
       console.log('✅ Recommendations fetched successfully:', data);
       setRecommendations(data.message.workouts);
+      return { success: true, data: data.message.workouts, fullResponse: data, status: response.status };
     } catch (err) {
       console.error('❌ Error fetching recommendations:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch recommendations');
       // Use default workouts if API fails
       console.log('🔄 Using default workouts as fallback');
       setRecommendations(defaultWorkouts);
+      return { success: false, data: defaultWorkouts, error: err instanceof Error ? err.message : 'Unknown error' };
     } finally {
       setLoading(false);
       console.log('🏁 Recommendations fetch completed');

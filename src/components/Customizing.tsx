@@ -1,6 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useCallback } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { useRecommendations } from '../contexts/RecommendationsContext';
+import { useAuth } from '../contexts/AuthContext';
 
 // lottie-player 웹 컴포넌트 타입 선언
 declare global {
@@ -20,12 +23,118 @@ interface CustomizingProps {
 
 export function Customizing({ onBack, onNext, dealingWithSelection }: CustomizingProps) {
   const { t } = useLanguage();
+  const { submitSelections, practiceIds, supportSystemId } = useSelections();
+  const { fetchRecommendations, recommendations, error: recError } = useRecommendations();
+  const { accessToken } = useAuth();
   const lottieRef = useRef<any>(null);
   const [progress, setProgress] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const [showCard, setShowCard] = useState(false);
   const [showDuck, setShowDuck] = useState(true);
   const [hasCompleted, setHasCompleted] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [hasCalledApis, setHasCalledApis] = useState(false);
+  const [apiLogs, setApiLogs] = useState<Array<{
+    type: string, 
+    message: string, 
+    timestamp: Date,
+    details?: any
+  }>>([]);
+
+  const addLog = useCallback((type: string, message: string, details?: any) => {
+    setApiLogs(prev => [...prev, { 
+      type, 
+      message, 
+      timestamp: new Date(),
+      details
+    }]);
+  }, []);
+
+  const performApiCalls = async () => {
+    try {
+      // Log authentication status
+      addLog('info', 'Authentication Status', {
+        hasToken: !!accessToken,
+        tokenPreview: accessToken ? `${accessToken.substring(0, 20)}...` : 'No token'
+      });
+
+      // First API call: submitSelections
+      const selectionsPayload = {
+        practiceIds: practiceIds || [],
+        supportSystemId: supportSystemId || null,
+        feelingStatusIds: [] // This might need to come from another context
+      };
+      
+      addLog('info', 'Starting submitSelections API call...', {
+        endpoint: '/api/quabble/onboardings/metadata',
+        method: 'POST',
+        requestPayload: selectionsPayload
+      });
+      
+      const selectionsResult = await submitSelections();
+      
+      if (selectionsResult?.success) {
+        addLog('success', 'submitSelections completed successfully', {
+          status: selectionsResult.status,
+          response: selectionsResult.data,
+          requestPayload: selectionsPayload
+        });
+      } else {
+        addLog('error', 'submitSelections failed', {
+          error: selectionsResult?.error || 'Unknown error',
+          requestPayload: selectionsPayload
+        });
+      }
+      
+      // Second API call: fetchRecommendations  
+      addLog('info', 'Starting fetchRecommendations API call...', {
+        endpoint: '/api/quabble/onboardings/recommendations',
+        method: 'GET'
+      });
+      
+      const recommendationsResult = await fetchRecommendations();
+      
+      if (recommendationsResult?.success) {
+        addLog('success', 'fetchRecommendations completed successfully', {
+          status: recommendationsResult.status,
+          workoutsReceived: recommendationsResult.data?.length || 0,
+          recommendations: recommendationsResult.data,
+          fullResponse: recommendationsResult.fullResponse
+        });
+      } else {
+        addLog('warning', 'fetchRecommendations returned default data', {
+          error: recommendationsResult?.error || 'Using fallback data',
+          defaultWorkouts: recommendationsResult?.data
+        });
+      }
+      
+      addLog('info', 'All API calls completed', {
+        totalRequests: 2,
+        status: 'Complete',
+        summary: {
+          selectionsSuccess: selectionsResult?.success || false,
+          recommendationsSuccess: recommendationsResult?.success || false,
+          recommendationsCount: recommendationsResult?.data?.length || 0
+        }
+      });
+    } catch (error) {
+      addLog('error', `API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`, {
+        errorDetails: error instanceof Error ? error.stack : error
+      });
+    }
+    
+    // Show modal with results
+    setShowModal(true);
+  };
+
+  // Make API calls only once when component mounts
+  useEffect(() => {
+    if (!hasCalledApis) {
+      setHasCalledApis(true);
+      performApiCalls();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // Empty dependency array - only run once on mount
 
   useEffect(() => {
     sendToFlutter(JSON.stringify({
@@ -57,10 +166,10 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         if (newProgress >= 100 && !hasCompleted) {
           clearInterval(timer);
           setHasCompleted(true);
-          // 로딩 완료 후 RoutineReady 화면으로 이동
+          // Wait 10 seconds after loading completes before navigating
           setTimeout(() => {
             onNext();
-          }, 500);
+          }, 10000);
           return 100;
         }
         return newProgress;
@@ -77,9 +186,76 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       clearTimeout(duckTimer);
       clearTimeout(cardTimer);
     };
-  }, [onNext]);
+  }, [onNext, hasCompleted]);
 
   return (
+    <>
+    {/* API Request Log Modal */}
+    {showModal && (
+      <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+        <div 
+          className="absolute inset-0 bg-black bg-opacity-50"
+          onClick={() => setShowModal(false)}
+        />
+        <div className="relative bg-white rounded-lg p-6 max-w-lg w-full shadow-xl max-h-[80vh] overflow-y-auto">
+          <button
+            onClick={() => setShowModal(false)}
+            className="absolute top-3 right-3 text-gray-500 hover:text-gray-700"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+          
+          <h3 className="text-lg font-semibold mb-4 text-gray-800">API Request Log</h3>
+          
+          <div className="space-y-3">
+            {apiLogs.map((log, index) => (
+              <div 
+                key={index}
+                className={`p-3 rounded ${
+                  log.type === 'error' ? 'bg-red-50 border border-red-200' :
+                  log.type === 'success' ? 'bg-green-50 border border-green-200' :
+                  log.type === 'warning' ? 'bg-yellow-50 border border-yellow-200' :
+                  'bg-gray-50 border border-gray-200'
+                }`}
+              >
+                <div className="flex items-start justify-between mb-2">
+                  <span className={`font-medium text-sm ${
+                    log.type === 'error' ? 'text-red-800' :
+                    log.type === 'success' ? 'text-green-800' :
+                    log.type === 'warning' ? 'text-yellow-800' :
+                    'text-gray-800'
+                  }`}>{log.message}</span>
+                  <span className="text-xs opacity-60 ml-2">
+                    {log.timestamp.toLocaleTimeString()}
+                  </span>
+                </div>
+                
+                {log.details && (
+                  <div className="mt-2 bg-white bg-opacity-50 rounded p-2">
+                    <pre className="text-xs overflow-x-auto whitespace-pre-wrap" style={{
+                      color: log.type === 'error' ? '#991b1b' :
+                             log.type === 'success' ? '#166534' :
+                             log.type === 'warning' ? '#92400e' :
+                             '#1f2937',
+                      fontFamily: 'monospace'
+                    }}>
+                      {JSON.stringify(log.details, null, 2)}
+                    </pre>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          
+          {apiLogs.length === 0 && (
+            <p className="text-gray-500 text-center py-4">Loading API responses...</p>
+          )}
+        </div>
+      </div>
+    )}
+    
     <div className="flex flex-col w-full h-screen text-gray-800 relative overflow-hidden screen-container" style={{ backgroundColor: '#FAF9F2' }}>
       {/* Header with back button */}
       <div 
@@ -235,5 +411,6 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
 
       {/* No CTA button - automatic progression after loading */}
     </div>
+    </>
   );
 }
