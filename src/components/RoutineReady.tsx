@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRecommendations } from '../contexts/RecommendationsContext';
 
 // lottie-player 웹 컴포넌트 타입 선언
 declare global {
@@ -21,11 +22,32 @@ interface RoutineReadyProps {
 
 export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineReadyProps) {
   const { t } = useLanguage();
+  const { recommendations, loading } = useRecommendations();
   const confettiRef = useRef<any>(null);
   const [hasPlayed, setHasPlayed] = useState(false);
   const [showMorningCard, setShowMorningCard] = useState(false);
   const [showEveningCard, setShowEveningCard] = useState(false);
   const [showCTA, setShowCTA] = useState(false);
+
+  // Get morning and evening routines from recommendations
+  const morningRoutine = recommendations?.[0];
+  const eveningRoutine = recommendations?.[1];
+
+  // Debug logging
+  console.log('🎯 RoutineReady - Recommendations:', recommendations);
+  console.log('🌅 Morning routine:', morningRoutine);
+  console.log('🌙 Evening routine:', eveningRoutine);
+
+  // Default fallback data
+  const defaultMorning = {
+    displayName: "Mood Diary",
+    smallThumbnailUrl: "/images/24-smoothie.png"
+  };
+  
+  const defaultEvening = {
+    displayName: "Gratitude Jar", 
+    smallThumbnailUrl: "/images/24-jar.png"
+  };
 
   const handleLottieReady = () => {
     // 이미 재생했다면 실행하지 않음
@@ -192,11 +214,11 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                     />
                   </div>
                   
-                  {/* Smoothie Image with Text */}
+                  {/* Morning Routine Image with Text */}
                   <div className="flex flex-col items-center" style={{ maxWidth: '64px' }}>
                     <img 
-                      src="/images/24-smoothie.png" 
-                      alt="Smoothie" 
+                      src={morningRoutine?.smallThumbnailUrl || defaultMorning.smallThumbnailUrl}
+                      alt={morningRoutine?.displayName || defaultMorning.displayName}
                       style={{ 
                         width: '64px', 
                         height: '64px',
@@ -211,7 +233,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                       lineHeight: '1.3',
                       width: '100%'
                     }}>
-                      Mood Diary
+                      {morningRoutine?.displayName || defaultMorning.displayName}
                     </p>
                   </div>
                 </div>
@@ -273,11 +295,11 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                     />
                   </div>
                   
-                  {/* Jar Image with Text */}
+                  {/* Evening Routine Image with Text */}
                   <div className="flex flex-col items-center" style={{ maxWidth: '64px' }}>
                     <img 
-                      src="/images/24-jar.png" 
-                      alt="Jar" 
+                      src={eveningRoutine?.smallThumbnailUrl || defaultEvening.smallThumbnailUrl}
+                      alt={eveningRoutine?.displayName || defaultEvening.displayName}
                       style={{ 
                         width: '64px', 
                         height: '64px',
@@ -292,7 +314,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                       lineHeight: '1.3',
                       width: '100%'
                     }}>
-                      Gratitude Jar
+                      {eveningRoutine?.displayName || defaultEvening.displayName}
                     </p>
                   </div>
                 </div>

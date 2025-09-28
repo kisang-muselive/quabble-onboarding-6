@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { Question } from '../services/questionsService';
 
 interface HowHaveYouBeenProps {
   onBack: () => void;
   onNext: (selectedOption?: number) => void;
+  questionData?: Question;
 }
 
-export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
+export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenProps) {
   const { t } = useLanguage();
+  const { addSelection } = useSelections();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
   const handleOptionClick = (optionIndex: number) => {
@@ -61,10 +65,10 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
                    color: '#4C4A3C',
                    fontSize: 'min(5.5vw, 1.625rem)'
                  }}>
-            {t('howHaveYouBeen.title').split('\n').map((line, index) => (
+            {(questionData ? questionData.text : t('howHaveYouBeen.title')).split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}
-                {index < t('howHaveYouBeen.title').split('\n').length - 1 && <br />}
+                {index < (questionData ? questionData.text : t('howHaveYouBeen.title')).split('\n').length - 1 && <br />}
               </span>
             ))}
           </h1>
@@ -94,7 +98,7 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            I've been going through<br />something difficult recently
+            {questionData && questionData.options[0] ? questionData.options[0].text : "I've been going through something difficult recently"}
           </button>
           
           <button
@@ -107,7 +111,7 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            I've been living with ongoing<br />mental health challenges
+            {questionData && questionData.options[1] ? questionData.options[1].text : "I've been living with ongoing mental health challenges"}
           </button>
           
           <button
@@ -120,7 +124,7 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            I'm mostly doing okay
+            {questionData && questionData.options[2] ? questionData.options[2].text : "I'm mostly doing okay"}
           </button>
         </div>
       </div>
@@ -159,6 +163,20 @@ export function HowHaveYouBeen({ onBack, onNext }: HowHaveYouBeenProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                // Add selection to context if we have question data
+                if (questionData && selectedOption !== null) {
+                  const selectedOptionId = questionData.options[selectedOption]?.id;
+                  if (selectedOptionId) {
+                    addSelection(selectedOptionId);
+                  }
+                }
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_how_have_you_been",
+                  "eventProperties": {
+                    "onboarding_version": 6.0,
+                    "option_selected": selectedOption
+                  }
+                }));
                 onNext(selectedOption!);
               }}
             >

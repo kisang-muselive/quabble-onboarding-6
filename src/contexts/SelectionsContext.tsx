@@ -2,11 +2,18 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 
 interface SelectionsContextType {
+  selections: number[];
+  addSelection: (optionId: number) => void;
+  removeSelection: (optionId: number) => void;
+  clearSelections: () => void;
+  submitSelections: () => Promise<void>;
+  isSubmitting: boolean;
+  submitError: string | null;
+  // Legacy fields for compatibility with existing components
   practiceIds: number[];
   supportSystemId: number | null;
   setPracticeIds: (ids: number[]) => void;
   setSupportSystemId: (id: number | null) => void;
-  submitSelections: () => Promise<any>;
 }
 
 const SelectionsContext = createContext<SelectionsContextType | undefined>(undefined);
@@ -23,72 +30,112 @@ interface SelectionsProviderProps {
   children: ReactNode;
 }
 
+const API_ENDPOINT = process.env.NODE_ENV === 'development'
+  ? '/api/quabble/onboardings/v3/questions'  // Use proxy in development
+  : 'https://prod-canary-1-27.muse.live/api/quabble/onboardings/v3/questions'; // Direct URL in production
+
 export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children }) => {
-  const [feelingStatusIds, setFeelingStatusIds] = useState<number[]>([]);
+  const [selections, setSelections] = useState<number[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  // Legacy state for existing components
   const [practiceIds, setPracticeIds] = useState<number[]>([]);
   const [supportSystemId, setSupportSystemId] = useState<number | null>(null);
   const { accessToken } = useAuth();
 
-  // API configuration - different URLs for dev vs production
-  const BASE_URL = (import.meta as any).env.DEV 
-    ? '/api'  // Development: use proxy
-    : 'https://prod-canary-1-27.muse.live/api';  // Production: direct URL
-  
-  const getHeaders = () => ({
-    'Authorization': `Bearer ${accessToken}`,
-    'X-Is-Reader': 'yes',
-    'Content-Type': 'application/json'
-  });
+  const addSelection = (optionId: number) => {
+    console.log('📝 Adding selection:', optionId);
+    setSelections(prev => {
+      if (!prev.includes(optionId)) {
+        const newSelections = [...prev, optionId];
+        console.log('✅ Updated selections:', newSelections);
+        return newSelections;
+      }
+      return prev;
+    });
+  };
+
+  const removeSelection = (optionId: number) => {
+    console.log('🗑️ Removing selection:', optionId);
+    setSelections(prev => {
+      const newSelections = prev.filter(id => id !== optionId);
+      console.log('✅ Updated selections:', newSelections);
+      return newSelections;
+    });
+  };
+
+  const clearSelections = () => {
+    console.log('🧹 Clearing all selections');
+    setSelections([]);
+  };
 
   const submitSelections = async () => {
-    if (!accessToken) {
-      console.warn('⚠️ No access token available, skipping selections submission');
-      return { success: false, error: 'No access token' };
+    if (selections.length === 0) {
+      console.log('⚠️ No selections to submit');
+      return;
     }
 
+    console.log('🚀 Submitting selections to API:', selections);
+    setIsSubmitting(true);
+    setSubmitError(null);
+
     try {
-      console.log('🚀 Submitting user selections...');
-      console.log('📊 Selections:', {
-        feelingStatusIds,
-        practiceIds,
-        supportSystemId
-      });
-      
-      const requestBody = {
-        feelingStatusIds: feelingStatusIds && feelingStatusIds.length > 0 ? feelingStatusIds : [1],
-        practiceIds,
-        supportSystemId
+      // Import the language utility
+      const { getLanguageFromUrl } = await import('../utils/language');
+      const currentLanguage = getLanguageFromUrl();
+
+      const headers: HeadersInit = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'lang': currentLanguage,
       };
 
-      console.log('📡 Making POST request to:', `${BASE_URL}/quabble/onboardings/metadata`);
-      const response = await fetch(`${BASE_URL}/quabble/onboardings/metadata`, {
-        method: 'POST',
-        headers: getHeaders(),
-        body: JSON.stringify(requestBody)
-      });
-
-      console.log('📥 Selections submission response status:', response.status);
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to submit selections: ${response.status} - ${errorText}`);
+      // Add authorization header if we have a token
+      if (accessToken) {
+        headers['Authorization'] = `Bearer ${accessToken}`;
       }
 
-      const data = await response.json();
-      console.log('✅ Selections submitted successfully:', data);
-      return { success: true, data, status: response.status };
-    } catch (err) {
-      console.error('❌ Error submitting selections:', err);
-      // Don't throw error - allow user to continue even if submission fails
-      return { success: false, error: err instanceof Error ? err.message : 'Unknown error' };
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+        referrerPolicy: 'no-referrer',
+        headers,
+        body: JSON.stringify({
+          optionIds: selections
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ Selections submitted successfully:', result);
+      
+      // Clear selections after successful submission
+      clearSelections();
+      
+    } catch (error) {
+      console.error('❌ Failed to submit selections:', error);
+      setSubmitError(error instanceof Error ? error.message : 'Failed to submit selections');
+      throw error; // Re-throw so calling code can handle it
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const value: SelectionsContextType = {
+    selections,
+    addSelection,
+    removeSelection,
+    clearSelections,
+    submitSelections,
+    isSubmitting,
+    submitError,
+    // Legacy fields for compatibility
     practiceIds,
     supportSystemId,
     setPracticeIds,
-    setSupportSystemId,
-    submitSelections
+    setSupportSystemId
   };
 
   return (

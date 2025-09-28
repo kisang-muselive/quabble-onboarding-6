@@ -4,6 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { MetadataProvider } from './contexts/MetadataContext';
 import { RecommendationsProvider } from './contexts/RecommendationsContext';
 import { SelectionsProvider } from './contexts/SelectionsContext';
+import { fetchQuestions, defaultQuestions, Question } from './services/questionsService';
 import { 
   prefetchAllCriticalImages, 
   prefetchAllImagesInBackground, 
@@ -64,6 +65,24 @@ function AppContent() {
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [previousScreen, setPreviousScreen] = useState<ScreenType | null>(null);
   const [dealingWithSelection, setDealingWithSelection] = useState<string | null>(null);
+  
+  // Store dynamic questions fetched from API
+  const [questions, setQuestions] = useState<Question[]>(defaultQuestions);
+
+  // Fetch questions from API on component mount
+  useEffect(() => {
+    const loadQuestions = async () => {
+      try {
+        const fetchedQuestions = await fetchQuestions();
+        setQuestions(fetchedQuestions);
+        console.log('Questions loaded from API:', fetchedQuestions);
+      } catch (error) {
+        console.error('Failed to load questions from API, using defaults:', error);
+        setQuestions(defaultQuestions);
+      }
+    };
+    loadQuestions();
+  }, []);
 
   // 앱 로드시 이미지 프리로딩 시스템 초기화
   useEffect(() => {
@@ -329,7 +348,11 @@ function AppContent() {
     if (currentScreen === 'howhaveyoubeen') {
       return (
         <TransitionWrapper show={!isTransitioning}>
-          <HowHaveYouBeen onBack={handleBack} onNext={handleNext} />
+          <HowHaveYouBeen 
+            onBack={handleBack} 
+            onNext={handleNext}
+            questionData={questions.find(q => q.name === 'Q5')}
+          />
         </TransitionWrapper>
       );
     }
@@ -349,6 +372,7 @@ function AppContent() {
             onBack={handleBack} 
             onNext={handleNext} 
             onOptionSelect={setDealingWithSelection}
+            questionData={questions.find(q => q.name === 'Q4')}
           />
         </TransitionWrapper>
       );
@@ -421,7 +445,11 @@ function AppContent() {
     if (currentScreen === 'interestgrid') {
       return (
         <TransitionWrapper show={!isTransitioning}>
-          <InterestGrid onBack={handleBack} onNext={handleNext} />
+          <InterestGrid 
+            onBack={handleBack} 
+            onNext={handleNext}
+            questionData={questions.find(q => q.name === 'Q6')}
+          />
         </TransitionWrapper>
       );
     }
@@ -429,7 +457,11 @@ function AppContent() {
     if (currentScreen === 'supportsystem') {
       return (
         <TransitionWrapper show={!isTransitioning}>
-          <SupportSystem onBack={handleBack} onNext={handleNext} />
+          <SupportSystem 
+            onBack={handleBack} 
+            onNext={handleNext}
+            questionData={questions.find(q => q.name === 'Q7')}
+          />
         </TransitionWrapper>
       );
     }
@@ -437,7 +469,11 @@ function AppContent() {
     if (currentScreen === 'agegroup') {
       return (
         <TransitionWrapper show={!isTransitioning}>
-          <AgeGroup onBack={handleBack} onNext={handleNext} />
+          <AgeGroup 
+            onBack={handleBack} 
+            onNext={handleNext}
+            questionData={questions.find(q => q.name === 'Q2')}
+          />
         </TransitionWrapper>
       );
     }

@@ -3,15 +3,17 @@ import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useSelections } from '../contexts/SelectionsContext';
 import { useMetadata } from '../contexts/MetadataContext';
+import { Question } from '../services/questionsService';
 
 interface SupportSystemProps {
   onBack: () => void;
   onNext: () => void;
+  questionData?: Question;
 }
 
-export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
+export function SupportSystem({ onBack, onNext, questionData }: SupportSystemProps) {
   const { t } = useLanguage();
-  const { setSupportSystemId } = useSelections();
+  const { setSupportSystemId, addSelection } = useSelections();
   const { metadata, fetchMetadata } = useMetadata();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
@@ -248,11 +250,20 @@ export function SupportSystem({ onBack, onNext }: SupportSystemProps) {
               onClick={() => {
                 // Save selected support system ID to context
                 if (selectedOption !== null) {
-                  // Map option index to support system ID
-                  // 0=Excellent(23), 1=Good(24), 2=Limited(25), 3=Poor(26)
-                  const supportSystemId = supportSystems[selectedOption].id;
-                  setSupportSystemId(supportSystemId);
-                  console.log('Selected support system ID:', supportSystemId);
+                  // If we have question data, use the new selection approach
+                  if (questionData) {
+                    const optionId = questionData.options[selectedOption]?.id;
+                    if (optionId) {
+                      addSelection(optionId);
+                    }
+                  } else {
+                    // Use the support system ID approach for backward compatibility
+                    // Map option index to support system ID
+                    // 0=Excellent(23), 1=Good(24), 2=Limited(25), 3=Poor(26)
+                    const supportSystemId = supportSystems[selectedOption].id;
+                    setSupportSystemId(supportSystemId);
+                    console.log('Selected support system ID:', supportSystemId);
+                  }
                 }
                 onNext();
               }}

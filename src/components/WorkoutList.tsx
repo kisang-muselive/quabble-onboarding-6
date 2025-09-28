@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useRecommendations } from '../contexts/RecommendationsContext';
 
 interface WorkoutListProps {
   onBack: () => void;
@@ -9,6 +10,7 @@ interface WorkoutListProps {
 
 export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
   const { t } = useLanguage();
+  const { recommendations } = useRecommendations();
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [showCTA, setShowCTA] = useState(false);
   
@@ -100,26 +102,32 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
             rowGap: '12px',
             maxWidth: '400px'
           }}>
-            {[
-              { image: 'quabble-tool-1.png', title: 'Mood Diary' },
-              { image: 'quabble-tool-2.png', title: 'Meditation' },
-              { image: 'quabble-tool-3.png', title: 'Bamboo Forest' },
-              { image: 'quabble-tool-4.png', title: '1min Breathing' },
-              { image: 'quabble-tool-5.png', title: 'Watermelon Tai Chi' },
-              { image: 'quabble-tool-6.png', title: 'Proud Dandelion' },
-              { image: 'quabble-tool-7.png', title: 'Gratitude Jar' },
-              { image: 'quabble-tool-8.png', title: 'Worry Box' },
-              { image: 'quabble-tool-9.png', title: 'Treasure Box' },
-              { image: 'quabble-tool-10.png', title: 'Safe Place' },
-              { image: 'quabble-tool-11.png', title: 'Moonlight' },
-              { image: 'quabble-tool-12.png', title: 'Outdoor Walk' },
-              { image: 'quabble-tool-13.png', title: '54321' },
-              { image: 'quabble-tool-14.png', title: 'Pleasant Activity' },
-              { image: 'quabble-tool-15.png', title: 'Thank You' },
-              { image: 'quabble-tool-16.png', title: 'Dear Self' },
-              { image: 'quabble-tool-17.png', title: 'SMART Goals' },
-              { image: 'quabble-tool-18.png', title: 'Mindful Eating' }
-            ].map((workout, index) => (
+            {(recommendations && recommendations.length > 0 ? 
+              recommendations.slice(0, 18).map((rec, index) => ({
+                image: rec.smallThumbnailUrl || `quabble-tool-${index + 1}.png`,
+                title: rec.displayName
+              })) : 
+              [
+                { image: 'quabble-tool-1.png', title: 'Mood Diary' },
+                { image: 'quabble-tool-2.png', title: 'Meditation' },
+                { image: 'quabble-tool-3.png', title: 'Bamboo Forest' },
+                { image: 'quabble-tool-4.png', title: '1min Breathing' },
+                { image: 'quabble-tool-5.png', title: 'Watermelon Tai Chi' },
+                { image: 'quabble-tool-6.png', title: 'Proud Dandelion' },
+                { image: 'quabble-tool-7.png', title: 'Gratitude Jar' },
+                { image: 'quabble-tool-8.png', title: 'Worry Box' },
+                { image: 'quabble-tool-9.png', title: 'Treasure Box' },
+                { image: 'quabble-tool-10.png', title: 'Safe Place' },
+                { image: 'quabble-tool-11.png', title: 'Moonlight' },
+                { image: 'quabble-tool-12.png', title: 'Outdoor Walk' },
+                { image: 'quabble-tool-13.png', title: '54321' },
+                { image: 'quabble-tool-14.png', title: 'Pleasant Activity' },
+                { image: 'quabble-tool-15.png', title: 'Thank You' },
+                { image: 'quabble-tool-16.png', title: 'Dear Self' },
+                { image: 'quabble-tool-17.png', title: 'SMART Goals' },
+                { image: 'quabble-tool-18.png', title: 'Mindful Eating' }
+              ]
+            ).map((workout, index) => (
               <div 
                 key={index} 
                 className={`flex flex-col items-center workout-item transition-all duration-500 ease-out ${
@@ -129,7 +137,8 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
                 }`}
               >
                 <img
-                  src={`/images/${workout.image}`}
+                  src={workout.image.startsWith('http') || workout.image.startsWith('/') && !workout.image.startsWith('/images/') ? 
+                    workout.image : `/images/${workout.image}`}
                   alt={workout.title}
                   className="w-full h-auto object-contain"
                   style={{ 

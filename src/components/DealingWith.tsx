@@ -1,18 +1,22 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { Question } from '../services/questionsService';
 
 interface DealingWithProps {
   onBack: () => void;
   onNext: () => void;
   onOptionSelect?: (option: string) => void;
+  questionData?: Question;
 }
 
-export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps) {
+export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: DealingWithProps) {
   const { t } = useLanguage();
+  const { addSelection } = useSelections();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
-  const options = [
+  const options = questionData ? questionData.options.map(o => o.text) : [
     'Depression',
     'Anxiety', 
     'Panic attacks',
@@ -27,7 +31,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps
     // Toggle functionality - if same option is clicked, deselect it
     if (selectedOption === optionIndex) {
       setSelectedOption(null);
-      onOptionSelect?.(null);
+      onOptionSelect?.('');
     } else {
       setSelectedOption(optionIndex);
       onOptionSelect?.(options[optionIndex]);
@@ -75,10 +79,10 @@ export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps
                    color: '#4C4A3C',
                    fontSize: 'min(5.5vw, 1.625rem)'
                  }}>
-            {t('dealingWith.title').split('\n').map((line, index) => (
+            {(questionData ? questionData.text : t('dealingWith.title')).split('\n').map((line, index) => (
               <span key={index} className="text-span">
                 {line}
-                {index < t('dealingWith.title').split('\n').length - 1 && <br />}
+                {index < (questionData ? questionData.text : t('dealingWith.title')).split('\n').length - 1 && <br />}
               </span>
             ))}
           </h1>
@@ -247,7 +251,21 @@ export function DealingWith({ onBack, onNext, onOptionSelect }: DealingWithProps
                 fontSize: '2.5vh'
               }}
               onClick={() => {
-                onNext(selectedOption!);
+                // Add selection to context if we have question data
+                if (questionData && selectedOption !== null) {
+                  const selectedOptionId = questionData.options[selectedOption]?.id;
+                  if (selectedOptionId) {
+                    addSelection(selectedOptionId);
+                  }
+                }
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_dealing_with",
+                  "eventProperties": {
+                    "onboarding_version": 6.0,
+                    "option_selected": selectedOption
+                  }
+                }));
+                onNext();
               }}
             >
               {t('next')}

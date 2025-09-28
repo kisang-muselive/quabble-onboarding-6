@@ -3,15 +3,17 @@ import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useSelections } from '../contexts/SelectionsContext';
 import { useMetadata } from '../contexts/MetadataContext';
+import { Question } from '../services/questionsService';
 
 interface InterestGridProps {
   onBack: () => void;
   onNext: () => void;
+  questionData?: Question;
 }
 
-export function InterestGrid({ onBack, onNext }: InterestGridProps) {
+export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps) {
   const { t } = useLanguage();
-  const { setPracticeIds } = useSelections();
+  const { setPracticeIds, addSelection } = useSelections();
   const { metadata, fetchMetadata } = useMetadata();
   const lottieRef = useRef<any>(null);
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
@@ -269,7 +271,20 @@ export function InterestGrid({ onBack, onNext }: InterestGridProps) {
               onClick={() => {
                 // Save selected practice IDs to context
                 const selectedPracticeIds = selectedItems.map(index => gridItems[index].practiceId);
-                setPracticeIds(selectedPracticeIds);
+                
+                // If we have question data, use the new selection approach
+                if (questionData) {
+                  // Add all selected options to the context
+                  selectedItems.forEach(index => {
+                    const optionId = questionData.options[index]?.id;
+                    if (optionId) {
+                      addSelection(optionId);
+                    }
+                  });
+                } else {
+                  // Use the practice IDs approach for backward compatibility
+                  setPracticeIds(selectedPracticeIds);
+                }
                 console.log('Selected practice IDs:', selectedPracticeIds);
                 onNext();
               }}

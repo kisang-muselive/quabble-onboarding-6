@@ -1,41 +1,20 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
+import { getLanguageFromUrl } from '../utils/language';
 
-interface Workout {
+interface Recommendation {
   id: number;
-  name: string;
   displayName: string;
-  description: string;
   smallThumbnailUrl: string;
-  bigThumbnailUrl: string;
-  BackgroundImageUrl: string;
-  BackgroundRGBColor: string;
-  isNew: boolean;
-  order: number;
-  category: {
-    id: number;
-    name: string;
-    displayName: string;
-  };
-  tags: Array<{
-    id: number;
-    name: string;
-    displayName: string;
-  }> | null;
-  availableVersion: string;
-}
-
-interface RecommendationsResponse {
-  message: {
-    workouts: Workout[];
-  };
+  largeThumbnailUrl?: string;
+  description?: string;
 }
 
 interface RecommendationsContextType {
-  recommendations: Workout[] | null;
+  recommendations: Recommendation[] | null;
   loading: boolean;
   error: string | null;
-  fetchRecommendations: () => Promise<any>;
+  fetchRecommendations: () => Promise<void>;
 }
 
 const RecommendationsContext = createContext<RecommendationsContextType | undefined>(undefined);
@@ -52,98 +31,69 @@ interface RecommendationsProviderProps {
   children: ReactNode;
 }
 
+const API_ENDPOINT = process.env.NODE_ENV === 'development'
+  ? '/api/quabble/onboardings/v3/recommendations/routines'  // Use proxy in development
+  : 'https://prod-canary-1-27.muse.live/api/quabble/onboardings/v3/recommendations/routines'; // Direct URL in production
+
 export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = ({ children }) => {
-  const [recommendations, setRecommendations] = useState<Workout[] | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const { accessToken } = useAuth();
 
-  // API configuration - different URLs for dev vs production
-  const BASE_URL = (import.meta as any).env.DEV 
-    ? '/api'  // Development: use proxy
-    : 'https://prod-canary-1-27.muse.live/api';  // Production: direct URL
-  
-  const getHeaders = () => ({
-    'Authorization': `Bearer ${accessToken}`,
-    'X-Is-Reader': 'yes',
-    'Content-Type': 'application/json'
-  });
-
-  // Default fallback workouts
-  const defaultWorkouts: Workout[] = [
-    {
-      id: 1,
-      name: "mood-diary-morning",
-      displayName: "Mood Diary",
-      description: "Morning mood tracking",
-      smallThumbnailUrl: "/images/24-smoothie.png",
-      bigThumbnailUrl: "/images/24-smoothie.png",
-      BackgroundImageUrl: "/images/24-smoothie.png",
-      BackgroundRGBColor: "FFA500",
-      isNew: false,
-      order: 1,
-      category: { id: 1, name: "wellness", displayName: "Wellness" },
-      tags: null,
-      availableVersion: "2.2.8"
-    },
-    {
-      id: 2,
-      name: "gratitude-evening",
-      displayName: "Gratitude Jar",
-      description: "Evening gratitude practice",
-      smallThumbnailUrl: "/images/24-jar.png",
-      bigThumbnailUrl: "/images/24-jar.png",
-      BackgroundImageUrl: "/images/24-jar.png",
-      BackgroundRGBColor: "605D4E",
-      isNew: false,
-      order: 2,
-      category: { id: 2, name: "gratitude", displayName: "Gratitude" },
-      tags: null,
-      availableVersion: "2.2.8"
+  const fetchRecommendations = useCallback(async () => {
+    if (loading) {
+      console.log('🔄 Recommendations fetch already in progress, skipping...');
+      return;
     }
-  ];
 
-  const fetchRecommendations = async () => {
-    if (!accessToken) {
-      console.warn('⚠️ No access token available, using default recommendations');
-      setRecommendations(defaultWorkouts);
-      setLoading(false);
-      return { success: false, data: defaultWorkouts, error: 'No access token' };
-    }
+    console.log('🚀 Starting recommendations fetch...');
+    setLoading(true);
+    setError(null);
 
     try {
-      console.log('🚀 Starting recommendations fetch...');
-      setLoading(true);
-      setError(null);
-      
-      console.log('📡 Making API call to:', `${BASE_URL}/quabble/onboardings/recommendations`);
-      const response = await fetch(`${BASE_URL}/quabble/onboardings/recommendations`, {
+      const currentLanguage = getLanguageFromUrl();
+      const response = await fetch(API_ENDPOINT, {
         method: 'GET',
-        headers: getHeaders()
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': accessToken ? `Bearer ${accessToken}` : '',
+          'lang': currentLanguage,
+        },
       });
 
-      console.log('📥 Recommendations API response status:', response.status);
       if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(`Failed to fetch recommendations: ${response.status} - ${errorText}`);
+        throw new Error(`Failed to fetch recommendations: ${response.status} ${response.statusText}`);
       }
 
-      const data: RecommendationsResponse = await response.json();
+      const data = await response.json();
       console.log('✅ Recommendations fetched successfully:', data);
-      setRecommendations(data.message.workouts);
-      return { success: true, data: data.message.workouts, fullResponse: data, status: response.status };
+      console.log('✅ Data type:', typeof data);
+      console.log('✅ Data is array:', Array.isArray(data));
+      
+      // Handle API response format: { message: { workouts: [...] } }
+      let recommendationsArray: Recommendation[] | null = null;
+      
+      if (data && data.message && Array.isArray(data.message.workouts)) {
+        recommendationsArray = data.message.workouts;
+        console.log('📋 Using data.message.workouts array');
+      } else {
+        console.log('❓ Unexpected response format:', data);
+      }
+      
+      console.log('📊 Final recommendations array:', recommendationsArray);
+      setRecommendations(recommendationsArray);
+      setError(null);
     } catch (err) {
-      console.error('❌ Error fetching recommendations:', err);
-      setError(err instanceof Error ? err.message : 'Failed to fetch recommendations');
-      // Use default workouts if API fails
-      console.log('🔄 Using default workouts as fallback');
-      setRecommendations(defaultWorkouts);
-      return { success: false, data: defaultWorkouts, error: err instanceof Error ? err.message : 'Unknown error' };
+      const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
+      console.error('❌ Error fetching recommendations:', errorMessage);
+      setError(errorMessage);
+      setRecommendations(null);
     } finally {
       setLoading(false);
       console.log('🏁 Recommendations fetch completed');
     }
-  };
+  }, [accessToken, loading]);
 
   const value: RecommendationsContextType = {
     recommendations,

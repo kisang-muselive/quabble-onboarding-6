@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useSelections } from '../contexts/SelectionsContext';
+import { Question } from '../services/questionsService';
 
 interface AgeGroupProps {
   onBack: () => void;
   onNext: () => void;
+  questionData?: Question;
 }
 
-export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
+export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
   const { t } = useLanguage();
+  const { addSelection } = useSelections();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
   const handleOptionClick = (optionIndex: number) => {
@@ -113,7 +117,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            To what age group<br />do you belong?
+            {questionData ? questionData.text : 'To what age group do you belong?'}
           </h1>
         </div>
 
@@ -141,7 +145,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Under 18
+            {questionData && questionData.options[0] ? questionData.options[0].text : 'Under 18'}
           </button>
           
           <button
@@ -154,7 +158,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            18-24
+            {questionData && questionData.options[1] ? questionData.options[1].text : '18-24'}
           </button>
           
           <button
@@ -167,7 +171,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            25-34
+            {questionData && questionData.options[2] ? questionData.options[2].text : '25-34'}
           </button>
           
           <button
@@ -180,7 +184,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(3)}
           >
-            35 and over
+            {questionData && questionData.options[3] ? questionData.options[3].text : '35 and over'}
           </button>
           
           <button
@@ -193,7 +197,7 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(4)}
           >
-            Prefer not to answer
+            {questionData && questionData.options[4] ? questionData.options[4].text : 'Prefer not to answer'}
           </button>
         </div>
       </div>
@@ -232,6 +236,20 @@ export function AgeGroup({ onBack, onNext }: AgeGroupProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                // Add selection to context if we have question data
+                if (questionData && selectedOption !== null) {
+                  const selectedOptionId = questionData.options[selectedOption]?.id;
+                  if (selectedOptionId) {
+                    addSelection(selectedOptionId);
+                  }
+                }
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_age_group",
+                  "eventProperties": {
+                    "onboarding_version": 6.0,
+                    "option_selected": selectedOption
+                  }
+                }));
                 onNext();
               }}
             >
