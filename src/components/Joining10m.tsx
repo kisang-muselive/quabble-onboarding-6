@@ -209,6 +209,12 @@ export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mP
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_joing_10m_completed_user",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
