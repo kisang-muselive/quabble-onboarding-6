@@ -15,6 +15,11 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
   const { addSelection } = useSelections();
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
+  // Helper function to capitalize first letter
+  const capitalizeFirstLetter = (str: string) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
+  
   const handleOptionClick = (optionIndex: number) => {
     // Toggle functionality - if same option is clicked, deselect it
     if (selectedOption === optionIndex) {
@@ -98,7 +103,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(0)}
           >
-            {questionData && questionData.options[0] ? questionData.options[0].text : "I've been going through something difficult recently"}
+            {questionData && questionData.options[0] ? capitalizeFirstLetter(questionData.options[0].text) : "I've been going through something difficult recently"}
           </button>
           
           <button
@@ -111,7 +116,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(1)}
           >
-            {questionData && questionData.options[1] ? questionData.options[1].text : "I've been living with ongoing mental health challenges"}
+            {questionData && questionData.options[1] ? capitalizeFirstLetter(questionData.options[1].text) : "I've been living with ongoing mental health challenges"}
           </button>
           
           <button
@@ -124,7 +129,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(2)}
           >
-            {questionData && questionData.options[2] ? questionData.options[2].text : "I'm mostly doing okay"}
+            {questionData && questionData.options[2] ? capitalizeFirstLetter(questionData.options[2].text) : "I'm mostly doing okay"}
           </button>
         </div>
       </div>
