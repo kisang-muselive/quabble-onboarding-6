@@ -355,6 +355,12 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ask_recommended_routine",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
