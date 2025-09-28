@@ -1,12 +1,20 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 
+interface SubmitSelectionsResult {
+  success: boolean;
+  status?: number;
+  data?: unknown;
+  error?: string;
+  requestPayload?: unknown;
+}
+
 interface SelectionsContextType {
   selections: number[];
   addSelection: (optionId: number) => void;
   removeSelection: (optionId: number) => void;
   clearSelections: () => void;
-  submitSelections: () => Promise<void>;
+  submitSelections: () => Promise<SubmitSelectionsResult>;
   isSubmitting: boolean;
   submitError: string | null;
   // Legacy fields for compatibility with existing components
@@ -69,13 +77,34 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
     setSelections([]);
   };
 
-  const submitSelections = async () => {
-    if (selections.length === 0) {
+  const submitSelections = async (): Promise<SubmitSelectionsResult> => {
+    // Build comprehensive payload including both new and legacy selection methods
+    const payload: Record<string, unknown> = {};
+    
+    // Include new selection approach if we have selections
+    if (selections.length > 0) {
+      payload.optionIds = selections;
+    }
+    
+    // Include legacy approach for backward compatibility
+    if (practiceIds.length > 0) {
+      payload.practiceIds = practiceIds;
+    }
+    
+    if (supportSystemId !== null) {
+      payload.supportSystemId = supportSystemId;
+    }
+    
+    // Always include a default feeling status
+    payload.feelingStatusIds = [1];
+
+    // Check if we have anything to submit
+    if (selections.length === 0 && practiceIds.length === 0 && supportSystemId === null) {
       console.log('⚠️ No selections to submit');
-      return;
+      return { success: false, error: 'No selections to submit' };
     }
 
-    console.log('🚀 Submitting selections to API:', selections);
+    console.log('🚀 Submitting selections to API:', payload);
     setIsSubmitting(true);
     setSubmitError(null);
 
@@ -99,9 +128,7 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
         method: 'POST',
         referrerPolicy: 'no-referrer',
         headers,
-        body: JSON.stringify({
-          optionIds: selections
-        })
+        body: JSON.stringify(payload)
       });
 
       if (!response.ok) {
@@ -114,10 +141,23 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
       // Clear selections after successful submission
       clearSelections();
       
+      return { 
+        success: true, 
+        status: response.status, 
+        data: result,
+        requestPayload: payload
+      };
+      
     } catch (error) {
       console.error('❌ Failed to submit selections:', error);
-      setSubmitError(error instanceof Error ? error.message : 'Failed to submit selections');
-      throw error; // Re-throw so calling code can handle it
+      const errorMessage = error instanceof Error ? error.message : 'Failed to submit selections';
+      setSubmitError(errorMessage);
+      
+      return { 
+        success: false, 
+        error: errorMessage,
+        requestPayload: payload
+      };
     } finally {
       setIsSubmitting(false);
     }

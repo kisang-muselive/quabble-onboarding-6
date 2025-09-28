@@ -59,16 +59,11 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       });
 
       // First API call: submitSelections
-      const selectionsPayload = {
-        practiceIds: practiceIds || [],
-        supportSystemId: supportSystemId || null,
-        feelingStatusIds: [1] // Default feeling status
-      };
-      
       addLog('info', 'Starting submitSelections API call...', {
-        endpoint: '/api/quabble/onboardings/metadata',
+        endpoint: '/api/quabble/onboardings/v3/questions',
         method: 'POST',
-        requestPayload: selectionsPayload
+        practiceIds: practiceIds || [],
+        supportSystemId: supportSystemId || null
       });
       
       const selectionsResult = await submitSelections();
@@ -77,18 +72,18 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         addLog('success', 'submitSelections completed successfully', {
           status: selectionsResult.status,
           response: selectionsResult.data,
-          requestPayload: selectionsPayload
+          requestPayload: selectionsResult.requestPayload
         });
       } else {
         addLog('error', 'submitSelections failed', {
           error: selectionsResult?.error || 'Unknown error',
-          requestPayload: selectionsPayload
+          requestPayload: selectionsResult?.requestPayload
         });
       }
       
       // Second API call: fetchRecommendations  
       addLog('info', 'Starting fetchRecommendations API call...', {
-        endpoint: '/api/quabble/onboardings/recommendations',
+        endpoint: '/api/quabble/onboardings/v3/recommendations/routines',
         method: 'GET'
       });
       

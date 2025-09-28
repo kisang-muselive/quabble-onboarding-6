@@ -2,6 +2,14 @@ import React, { createContext, useContext, useState, useCallback, ReactNode } fr
 import { useAuth } from './AuthContext';
 import { getLanguageFromUrl } from '../utils/language';
 
+interface FetchRecommendationsResult {
+  success: boolean;
+  status?: number;
+  data?: Recommendation[];
+  error?: string;
+  fullResponse?: unknown;
+}
+
 interface Recommendation {
   id: number;
   displayName: string;
@@ -14,7 +22,7 @@ interface RecommendationsContextType {
   recommendations: Recommendation[] | null;
   loading: boolean;
   error: string | null;
-  fetchRecommendations: () => Promise<void>;
+  fetchRecommendations: () => Promise<FetchRecommendationsResult>;
 }
 
 const RecommendationsContext = createContext<RecommendationsContextType | undefined>(undefined);
@@ -41,10 +49,10 @@ export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = (
   const [error, setError] = useState<string | null>(null);
   const { accessToken } = useAuth();
 
-  const fetchRecommendations = useCallback(async () => {
+  const fetchRecommendations = useCallback(async (): Promise<FetchRecommendationsResult> => {
     if (loading) {
       console.log('🔄 Recommendations fetch already in progress, skipping...');
-      return;
+      return { success: false, error: 'Fetch already in progress' };
     }
 
     console.log('🚀 Starting recommendations fetch...');
@@ -84,11 +92,26 @@ export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = (
       console.log('📊 Final recommendations array:', recommendationsArray);
       setRecommendations(recommendationsArray);
       setError(null);
+      
+      return { 
+        success: true, 
+        status: response.status, 
+        data: recommendationsArray || [],
+        fullResponse: data
+      };
+      
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Unknown error occurred';
       console.error('❌ Error fetching recommendations:', errorMessage);
       setError(errorMessage);
       setRecommendations(null);
+      
+      return { 
+        success: false, 
+        error: errorMessage,
+        data: [] // fallback to empty array
+      };
+      
     } finally {
       setLoading(false);
       console.log('🏁 Recommendations fetch completed');
