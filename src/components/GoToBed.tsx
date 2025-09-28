@@ -238,6 +238,17 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                const bedTime = `${selectedTime.hour}:${selectedTime.minute} ${selectedTime.period}`;
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_go_to_bed",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_go_to_bed": bedTime,
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

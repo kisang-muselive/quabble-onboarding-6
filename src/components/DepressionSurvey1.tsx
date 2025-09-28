@@ -228,6 +228,24 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
                 fontSize: '2.5vh'
               }}
                   onClick={() => {
+                    const options = [
+                      'Feeling sad or hopeless',
+                      'Loss of interest in activities',
+                      'Changes in appetite or weight',
+                      'Difficulty sleeping or oversleeping',
+                      'None of the above'
+                    ];
+                    const selectedTexts = selectedOptions.map(i => options[i]).join(', ');
+                    sendToFlutter(JSON.stringify({
+                      "event": "click_next_ob_survey_depression_experience",
+                      "eventProperties": {
+                        "onboarding_version": 6.0
+                      },
+                      "userProperties": {
+                        "survey_depression_experience": selectedTexts || "",
+                        "onboarding_version": 6.0
+                      }
+                    }));
                     onNext(selectedOptions[0]);
                   }}
             >

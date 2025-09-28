@@ -233,6 +233,27 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                const options = [
+                  'Breakup of relationship stress',
+                  'Career or academic pressure', 
+                  'Health issues',
+                  'Burnout',
+                  'Loneliness',
+                  'Loss',
+                  'Something else',
+                  'Nothing specific'
+                ];
+                const selectedText = selectedOption !== null ? options[selectedOption] : "";
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_what_is_going_on",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_what_is_going_on": selectedText,
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

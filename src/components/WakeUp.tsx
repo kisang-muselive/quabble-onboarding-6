@@ -238,6 +238,17 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                const wakeUpTime = `${selectedTime.hour}:${selectedTime.minute} ${selectedTime.period}`;
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_wake_up",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_wake_up": wakeUpTime,
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

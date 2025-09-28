@@ -170,11 +170,17 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
                     addSelection(selectedOptionId);
                   }
                 }
+                const optionText = questionData && questionData.options[selectedOption!] 
+                  ? questionData.options[selectedOption!].text 
+                  : ["I've been going through something difficult recently", "I've been living with ongoing mental health challenges", "I'm mostly doing okay"][selectedOption!];
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_how_have_you_been",
                   "eventProperties": {
-                    "onboarding_version": 6.0,
-                    "option_selected": selectedOption
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_how_have_you_been": optionText || "",
+                    "onboarding_version": 6.0
                   }
                 }));
                 onNext(selectedOption!);

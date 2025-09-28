@@ -243,11 +243,17 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
                     addSelection(selectedOptionId);
                   }
                 }
+                const ageText = questionData && selectedOption !== null && questionData.options[selectedOption]
+                  ? questionData.options[selectedOption].text
+                  : ['Under 18', '18-24', '25-34', '35 and over', 'Prefer not to answer'][selectedOption!];
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_age_group",
                   "eventProperties": {
-                    "onboarding_version": 6.0,
-                    "option_selected": selectedOption
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_age_group": ageText || "",
+                    "onboarding_version": 6.0
                   }
                 }));
                 onNext();

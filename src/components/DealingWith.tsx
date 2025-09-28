@@ -258,11 +258,15 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
                     addSelection(selectedOptionId);
                   }
                 }
+                const optionText = options[selectedOption!];
                 sendToFlutter(JSON.stringify({
-                  "event": "click_next_ob_survey_dealing_with",
+                  "event": "click_next_ob_survey_what_dealing_with",
                   "eventProperties": {
-                    "onboarding_version": 6.0,
-                    "option_selected": selectedOption
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_what_dealing_with": optionText || "",
+                    "onboarding_version": 6.0
                   }
                 }));
                 onNext(selectedOption ?? undefined);

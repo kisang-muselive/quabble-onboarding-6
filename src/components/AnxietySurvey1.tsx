@@ -223,6 +223,24 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
                 fontSize: '2.5vh'
               }}
                   onClick={() => {
+                    const options = [
+                      "I've noticed myself getting easily annoyed or irritable",
+                      "I've had a sense that something bad might happen, even without a clear reason",
+                      "I've felt unable to control my worrying",
+                      "I've avoided certain situations because they make me too nervous",
+                      "I haven't noticed these symptoms"
+                    ];
+                    const selectedTexts = selectedOptions.map(i => options[i]).join(', ');
+                    sendToFlutter(JSON.stringify({
+                      "event": "click_next_ob_survey_anxiety_experience",
+                      "eventProperties": {
+                        "onboarding_version": 6.0
+                      },
+                      "userProperties": {
+                        "survey_anxiety_experience": selectedTexts || "",
+                        "onboarding_version": 6.0
+                      }
+                    }));
                     onNext(selectedOptions[0]);
                   }}
             >

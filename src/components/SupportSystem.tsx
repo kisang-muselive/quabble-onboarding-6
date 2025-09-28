@@ -265,6 +265,17 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
                     console.log('Selected support system ID:', supportSystemId);
                   }
                 }
+                const selectedSupportText = selectedOption !== null ? supportSystems[selectedOption].name : "";
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_support_system",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_support_system": selectedSupportText,
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

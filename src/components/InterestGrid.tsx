@@ -286,6 +286,17 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
                   setPracticeIds(selectedPracticeIds);
                 }
                 console.log('Selected practice IDs:', selectedPracticeIds);
+                const selectedInterests = selectedPracticeIds.join(', ');
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_survey_interested_activity",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  },
+                  "userProperties": {
+                    "survey_interested_activity": selectedInterests || "",
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
