@@ -22,6 +22,9 @@ interface CustomizingProps {
 }
 
 export function Customizing({ onBack, onNext, dealingWithSelection }: CustomizingProps) {
+  // Debugging flag - set to true to show debugger window and wait 30 seconds
+  const isDebugging = false;
+  
   const { t } = useLanguage();
   const { submitSelections } = useSelections();
   const { fetchRecommendations, recommendations, error: recError } = useRecommendations();
@@ -32,7 +35,7 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
   const [showCard, setShowCard] = useState(false);
   const [showDuck, setShowDuck] = useState(true);
   const [hasCompleted, setHasCompleted] = useState(false);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(isDebugging);
   const [hasCalledApis, setHasCalledApis] = useState(false);
   const [apiLogs, setApiLogs] = useState<Array<{
     type: string, 
@@ -116,8 +119,10 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       });
     }
     
-    // Show modal with results
-    setShowModal(true);
+    // Show modal with results if debugging
+    if (isDebugging) {
+      setShowModal(true);
+    }
   };
 
   // Make API calls only once when component mounts
@@ -159,10 +164,10 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
         if (newProgress >= 100 && !hasCompleted) {
           clearInterval(timer);
           setHasCompleted(true);
-          // Wait 10 seconds after loading completes before navigating
+          // Wait based on debugging flag after loading completes before navigating
           setTimeout(() => {
             onNext();
-          }, 30000);
+          }, isDebugging ? 30000 : 0);
           return 100;
         }
         return newProgress;
@@ -183,8 +188,8 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
 
   return (
     <>
-    {/* API Request Log Modal */}
-    {showModal && (
+    {/* API Request Log Modal - Only shown when isDebugging is true */}
+    {showModal && isDebugging && (
       <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
         <div 
           className="absolute inset-0 bg-black bg-opacity-50"
