@@ -245,7 +245,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
                 ];
                 const selectedText = selectedOption !== null ? options[selectedOption] : "";
                 sendToFlutter(JSON.stringify({
-                  "event": "click_next_ob_survey_what_is_going_on",
+                  "event": "click_next_view_survey_experiencing_any_of_these_anxiety",
                   "eventProperties": {
                     "onboarding_version": 6.0
                   },
