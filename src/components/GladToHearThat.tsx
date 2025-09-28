@@ -13,7 +13,7 @@ export function GladToHearThat({ onBack, onNext }: GladToHearThatProps) {
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_info_quabble_here_to_help",
       "eventProperties": {
         "onboarding_version": 6.0
       }
@@ -94,6 +94,12 @@ export function GladToHearThat({ onBack, onNext }: GladToHearThatProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_quabble_here_to_help",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

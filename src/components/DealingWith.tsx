@@ -41,7 +41,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_survey_experiencing_any_of_these_depression",
       "eventProperties": {
         "onboarding_version": 6.0
       }
@@ -260,7 +260,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
                 }
                 const optionText = options[selectedOption!];
                 sendToFlutter(JSON.stringify({
-                  "event": "click_next_ob_survey_what_dealing_with",
+                  "event": "click_next_ob_survey_experiencing_any_of_these_depression",
                   "eventProperties": {
                     "onboarding_version": 6.0
                   },
