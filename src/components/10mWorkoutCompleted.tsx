@@ -124,6 +124,12 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_how_many_workout_done",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 sendToFlutter('{"event":"request-signin"}');
                 // Call onNext after 1 second
                 setTimeout(() => {
