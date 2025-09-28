@@ -23,7 +23,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_info_quabble_just_what_you_need",
+      "event": "view_ob_survey_anxiety_experience",
       "eventProperties": {
         "onboarding_version": 6.0
       }
