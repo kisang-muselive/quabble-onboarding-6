@@ -119,6 +119,12 @@ export function NinetyEightReport({ onBack, onNext }: NinetyEightReportProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_quabble_help_manage",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
