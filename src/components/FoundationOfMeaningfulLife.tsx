@@ -102,6 +102,12 @@ export function FoundationOfMeaningfulLife({ onNext }: FoundationOfMeaningfulLif
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_healthy_mind",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
