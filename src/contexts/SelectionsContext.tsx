@@ -86,20 +86,11 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
       payload.optionIds = selections;
     }
     
-    // Include legacy approach for backward compatibility
-    if (practiceIds.length > 0) {
-      payload.practiceIds = practiceIds;
-    }
-    
-    if (supportSystemId !== null) {
-      payload.supportSystemId = supportSystemId;
-    }
-    
     // Always include a default feeling status
-    payload.feelingStatusIds = [1];
+    // payload.feelingStatusIds = [1];
 
     // Check if we have anything to submit
-    if (selections.length === 0 && practiceIds.length === 0 && supportSystemId === null) {
+    if (selections.length === 0) {
       console.log('⚠️ No selections to submit');
       return { success: false, error: 'No selections to submit' };
     }
