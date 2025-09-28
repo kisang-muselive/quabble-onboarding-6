@@ -237,7 +237,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
                     ];
                     const selectedTexts = selectedOptions.map(i => options[i]).join(', ');
                     sendToFlutter(JSON.stringify({
-                      "event": "click_next_ob_survey_depression_experience",
+                      "event": "click_next_survey_experiencing_any_of_these_depression",
                       "eventProperties": {
                         "onboarding_version": 6.0
                       },
