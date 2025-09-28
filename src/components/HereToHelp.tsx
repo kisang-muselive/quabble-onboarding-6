@@ -95,6 +95,12 @@ export function HereToHelp({ onBack, onNext }: HereToHelpProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_quabble_here_to_help",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

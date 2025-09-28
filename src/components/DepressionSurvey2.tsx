@@ -95,6 +95,12 @@ export function DepressionSurvey2({ onBack, onNext }: DepressionSurvey2Props) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_depression_change_sleep_energy_focus",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

@@ -94,6 +94,12 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_quabble_just_what_you_need",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

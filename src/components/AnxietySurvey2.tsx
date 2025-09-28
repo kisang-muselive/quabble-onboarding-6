@@ -98,6 +98,12 @@ export function AnxietySurvey2({ onBack, onNext }: AnxietySurvey2Props) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_anxious_feeling_not_made_up",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >

@@ -95,6 +95,12 @@ export function DepressionSurvey3({ onBack, onNext }: DepressionSurvey3Props) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_good_news_you_can_learn",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
