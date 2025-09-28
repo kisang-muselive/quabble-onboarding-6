@@ -6,7 +6,7 @@ import { Question } from '../services/questionsService';
 
 interface DealingWithProps {
   onBack: () => void;
-  onNext: () => void;
+  onNext: (selectedOption?: number) => void;
   onOptionSelect?: (option: string) => void;
   questionData?: Question;
 }
@@ -265,7 +265,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
                     "option_selected": selectedOption
                   }
                 }));
-                onNext();
+                onNext(selectedOption ?? undefined);
               }}
             >
               {t('next')}

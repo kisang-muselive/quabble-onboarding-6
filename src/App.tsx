@@ -168,6 +168,7 @@ function AppContent() {
         performTransition('gladtohearthat');
       } else {
         // End of flow - fire completion event
+        console.log('Firing onboarding complete event #1');
         sendToFlutter(JSON.stringify({
           "event": "onboarding-complete",
           "eventProperties": {
@@ -179,6 +180,7 @@ function AppContent() {
       performTransition('heretohelp');
     } else if (currentScreen === 'dealingwith') {
       // Check selected option to determine next screen
+      console.log('Selected option:', selectedOption);
       if (selectedOption === 0) { // "Depression"
         performTransition('depressionsurvey1');
       } else if (selectedOption === 1) { // "Anxiety"
@@ -187,7 +189,7 @@ function AppContent() {
         // "Panic attacks", "OCD", "Bipolar disorder", "Eating disorder", "PTSD", "Something else"
         performTransition('professionalcareisimportant');
       } else {
-        // Any other options - End of flow
+        console.log('Firing onboarding complete event #2');
         sendToFlutter(JSON.stringify({
           "event": "onboarding-complete",
           "eventProperties": {
@@ -226,7 +228,7 @@ function AppContent() {
     } else if (currentScreen === 'workoutlist') {
       performTransition('fivestars');
     } else if (currentScreen === 'fivestars') {
-      // End of flow - fire completion event
+      console.log('Firing onboarding complete event #3');
       sendToFlutter("onboarding-complete");
     } else if (currentScreen === 'depressionsurvey1') {
       performTransition('depressionsurvey2');
