@@ -193,6 +193,12 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_quabble_workout_list",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
