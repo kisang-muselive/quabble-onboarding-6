@@ -101,6 +101,12 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_therapist_recommended",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
