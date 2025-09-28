@@ -23,7 +23,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
   useEffect(() => {
     // Send the new event for onboarding survey
     sendToFlutter(JSON.stringify({
-      "event": "view_ob_survey_experiencing_any_of_these_anxiety",
+      "event": "view_ob_survey_what_is_going_on",
       "eventProperties": {
         "onboarding_version": 6.0
       }
@@ -245,7 +245,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
                 ];
                 const selectedText = selectedOption !== null ? options[selectedOption] : "";
                 sendToFlutter(JSON.stringify({
-                  "event": "click_next_view_survey_experiencing_any_of_these_anxiety",
+                  "event": "click_next_survey_what_is_going_on",
                   "eventProperties": {
                     "onboarding_version": 6.0
                   },
