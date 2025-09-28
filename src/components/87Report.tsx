@@ -119,6 +119,12 @@ export function EightySevenReport({ onBack, onNext }: EightySevenReportProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
+                sendToFlutter(JSON.stringify({
+                  "event": "click_next_ob_info_quabble_improve_mental",
+                  "eventProperties": {
+                    "onboarding_version": 6.0
+                  }
+                }));
                 onNext();
               }}
             >
