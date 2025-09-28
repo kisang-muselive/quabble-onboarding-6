@@ -119,7 +119,9 @@ export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children
         method: 'POST',
         referrerPolicy: 'no-referrer',
         headers,
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          optionIds: selections
+        })
       });
 
       if (!response.ok) {

@@ -23,7 +23,7 @@ interface CustomizingProps {
 
 export function Customizing({ onBack, onNext, dealingWithSelection }: CustomizingProps) {
   const { t } = useLanguage();
-  const { submitSelections, practiceIds, supportSystemId } = useSelections();
+  const { submitSelections } = useSelections();
   const { fetchRecommendations, recommendations, error: recError } = useRecommendations();
   const { accessToken } = useAuth();
   const lottieRef = useRef<any>(null);
@@ -62,8 +62,6 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
       addLog('info', 'Starting submitSelections API call...', {
         endpoint: '/api/quabble/onboardings/v3/questions',
         method: 'POST',
-        practiceIds: practiceIds || [],
-        supportSystemId: supportSystemId || null
       });
       
       const selectionsResult = await submitSelections();
