@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
-import { useRecommendations } from '../contexts/RecommendationsContext';
 
 interface WorkoutListProps {
   onBack: () => void;
@@ -10,7 +9,6 @@ interface WorkoutListProps {
 
 export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
   const { t } = useLanguage();
-  const { recommendations } = useRecommendations();
   const [visibleItems, setVisibleItems] = useState<number[]>([]);
   const [showCTA, setShowCTA] = useState(false);
   
@@ -102,12 +100,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
             rowGap: '12px',
             maxWidth: '400px'
           }}>
-            {(recommendations && recommendations.length > 0 ? 
-              recommendations.slice(0, 18).map((rec, index) => ({
-                image: rec.smallThumbnailUrl || `quabble-tool-${index + 1}.png`,
-                title: rec.displayName
-              })) : 
-              [
+            {[
                 { image: 'quabble-tool-1.png', title: 'Mood Diary' },
                 { image: 'quabble-tool-2.png', title: 'Meditation' },
                 { image: 'quabble-tool-3.png', title: 'Bamboo Forest' },
@@ -126,8 +119,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
                 { image: 'quabble-tool-16.png', title: 'Dear Self' },
                 { image: 'quabble-tool-17.png', title: 'SMART Goals' },
                 { image: 'quabble-tool-18.png', title: 'Mindful Eating' }
-              ]
-            ).map((workout, index) => (
+              ].map((workout, index) => (
               <div 
                 key={index} 
                 className={`flex flex-col items-center workout-item transition-all duration-500 ease-out ${
