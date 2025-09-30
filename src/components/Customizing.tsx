@@ -136,6 +136,12 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
 
   useEffect(() => {
     sendToFlutter(JSON.stringify({
+      "event": "view_ob_info_customizing_routine",
+      "eventProperties": {
+        "onboarding_version": 6.0
+      }
+    }));
+    sendToFlutter(JSON.stringify({
       "event": "view_ob_info_customizing_quote_anxiety",
       "eventProperties": {
         "onboarding_version": 6.0
