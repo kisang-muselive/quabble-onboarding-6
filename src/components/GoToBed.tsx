@@ -9,8 +9,12 @@ interface GoToBedProps {
 
 export function GoToBed({ onBack, onNext }: GoToBedProps) {
   const { t } = useLanguage();
-  const [selectedTime, setSelectedTime] = useState({ hour: '09', minute: '00', period: 'PM' });
-  
+  const [bedTime, setBedTime] = useState('09:00 PM');
+  const [showTimeModal, setShowTimeModal] = useState(false);
+  const [selectedHour, setSelectedHour] = useState('09');
+  const [selectedMinute, setSelectedMinute] = useState('00');
+  const [selectedPeriod, setSelectedPeriod] = useState('PM');
+
   useEffect(() => {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_go_to_bed",
@@ -19,6 +23,22 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
       }
     }));
   }, []);
+
+  const handleOpenTimeModal = () => {
+    // Parse current time to set modal defaults
+    const [time, period] = bedTime.split(' ');
+    const [hours, minutes] = time.split(':');
+    setSelectedHour(hours);
+    setSelectedMinute(minutes);
+    setSelectedPeriod(period);
+    setShowTimeModal(true);
+  };
+
+  const handleTimeConfirm = () => {
+    const newTime = `${selectedHour}:${selectedMinute} ${selectedPeriod}`;
+    setBedTime(newTime);
+    setShowTimeModal(false);
+  };
 
 
   return (
@@ -138,77 +158,16 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
           </h1>
         </div>
 
-        {/* Native Time Picker Component */}
-        <div className="flex flex-col items-center mt-8 time-picker-container">
-          {/* Native Time Input with Custom Styling */}
-          <div className="relative">
-            <input
-              type="time"
-              value={(() => {
-                // 12시간 형식을 24시간 형식으로 변환
-                const hour12 = parseInt(selectedTime.hour);
-                let hour24;
-                if (selectedTime.period === 'AM') {
-                  hour24 = hour12 === 12 ? 0 : hour12;
-                } else {
-                  hour24 = hour12 === 12 ? 12 : hour12 + 12;
-                }
-                return `${hour24.toString().padStart(2, '0')}:${selectedTime.minute}`;
-              })()}
-              onChange={(e) => {
-                const [hour24, minute] = e.target.value.split(':');
-                const hour12 = parseInt(hour24) === 0 ? 12 : parseInt(hour24) > 12 ? parseInt(hour24) - 12 : parseInt(hour24);
-                const period = parseInt(hour24) >= 12 ? 'PM' : 'AM';
-                
-                setSelectedTime({
-                  hour: hour12.toString().padStart(2, '0'),
-                  minute: minute,
-                  period: period
-                });
-              }}
-              className="bg-white text-black font-medium cursor-pointer"
-              style={{
-                borderRadius: '24px',
-                width: 'fit-content',
-                height: 'fit-content',
-                border: 'none',
-                outline: 'none',
-                textAlign: 'center',
-                fontSize: 'min(5vw, 1.25rem)',
-                paddingTop: 'min(4vw, 16px)',
-                paddingBottom: 'min(4vw, 16px)',
-                paddingLeft: 'min(6vw, 24px)',
-                paddingRight: 'min(6vw, 24px)',
-                appearance: 'none',
-                WebkitAppearance: 'none',
-                MozAppearance: 'none',
-                position: 'relative',
-                zIndex: 1
-              }}
-              onFocus={(e) => {
-                // 모바일에서 바텀시트 형태로 나타나도록 스크롤 조정
-                if (window.innerWidth <= 768) {
-                  setTimeout(() => {
-                    e.target.scrollIntoView({ 
-                      behavior: 'smooth', 
-                      block: 'center',
-                      inline: 'center' 
-                    });
-                  }, 100);
-                }
-              }}
-            />
-            {/* Custom Display Overlay */}
-            <div 
-              className="absolute inset-0 flex items-center justify-center pointer-events-none bg-white text-black font-medium"
-              style={{
-                borderRadius: '24px',
-                fontSize: 'min(5vw, 1.25rem)'
-              }}
-            >
-              {selectedTime.hour}:{selectedTime.minute} {selectedTime.period}
-            </div>
-          </div>
+        {/* Time button */}
+        <div className="w-full max-w-36 time-picker-container" style={{ marginTop: '32px' }}>
+          <button
+            onClick={handleOpenTimeModal}
+            className="w-full bg-white rounded-3xl py-4 px-6 text-center hover:bg-gray-50 transition-colors"
+          >
+            <span className="text-xl font-medium text-gray-800">
+              {bedTime}
+            </span>
+          </button>
         </div>
       </div>
 
@@ -238,7 +197,6 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
                 fontSize: '2.5vh'
               }}
               onClick={() => {
-                const bedTime = `${selectedTime.hour}:${selectedTime.minute} ${selectedTime.period}`;
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_go_to_bed",
                   "eventProperties": {
@@ -257,6 +215,68 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
           </div>
         </div>
       </div>
+
+      {/* Time Selector Modal */}
+      {showTimeModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
+          <div className="bg-white max-w-sm w-full mx-4 rounded-3xl p-6">
+            <div className="flex justify-center items-center mb-8">
+              <h3 className="text-xl font-semibold text-gray-800">Select Time</h3>
+            </div>
+
+            <div className="flex justify-center items-center gap-2 mb-8">
+              {/* Hour Selector */}
+              <select
+                value={selectedHour}
+                onChange={(e) => setSelectedHour(e.target.value)}
+                className="text-3xl font-medium bg-gray-100 rounded-2xl p-4 text-center min-w-[80px] border-0 outline-none appearance-none"
+                style={{ backgroundColor: '#F5F5F5' }}
+              >
+                {Array.from({length: 12}, (_, i) => {
+                  const hour = String(i + 1).padStart(2, '0');
+                  return <option key={hour} value={hour}>{hour}</option>;
+                })}
+              </select>
+
+              <span className="text-3xl font-medium text-gray-800 px-2">:</span>
+
+              {/* Minute Selector */}
+              <select
+                value={selectedMinute}
+                onChange={(e) => setSelectedMinute(e.target.value)}
+                className="text-3xl font-medium bg-gray-100 rounded-2xl p-4 text-center min-w-[80px] border-0 outline-none appearance-none"
+                style={{ backgroundColor: '#F5F5F5' }}
+              >
+                {Array.from({length: 60}, (_, i) => {
+                  const minute = String(i).padStart(2, '0');
+                  return <option key={minute} value={minute}>{minute}</option>;
+                })}
+              </select>
+
+              {/* AM/PM Selector */}
+              <select
+                value={selectedPeriod}
+                onChange={(e) => setSelectedPeriod(e.target.value)}
+                className="text-3xl font-medium bg-gray-100 rounded-2xl p-4 text-center min-w-[80px] border-0 outline-none appearance-none"
+                style={{ backgroundColor: '#F5F5F5' }}
+              >
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+              </select>
+            </div>
+
+            {/* Done Button */}
+            <div className="flex justify-center">
+              <button
+                onClick={handleTimeConfirm}
+                className="w-full bg-black text-white rounded-3xl py-4 px-8 text-lg font-medium hover:bg-gray-800 transition-colors"
+              >
+                {t('done')}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
