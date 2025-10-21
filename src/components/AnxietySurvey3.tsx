@@ -50,7 +50,12 @@ export function AnxietySurvey3({ onBack, onNext }: AnxietySurvey3Props) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            The good news is<br />that you can learn ways<br />to calm them down with us
+            {t('anxietySurvey3.title').split('\n').map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < t('anxietySurvey3.title').split('\n').length - 1 && <br />}
+              </span>
+            ))}
           </h1>
         </div>
 

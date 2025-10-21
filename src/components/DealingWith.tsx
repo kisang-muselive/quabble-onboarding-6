@@ -17,14 +17,14 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   
   const options = questionData ? questionData.options.map(o => o.text) : [
-    'Depression',
-    'Anxiety', 
-    'Panic attacks',
-    'OCD',
-    'Bipolar disorder',
-    'Eating disorder',
-    'PTSD',
-    'Something else'
+    t('dealingWith.option1'),
+    t('dealingWith.option2'),
+    t('dealingWith.option3'),
+    t('dealingWith.option4'),
+    t('dealingWith.option5'),
+    t('dealingWith.option6'),
+    t('dealingWith.option7'),
+    t('dealingWith.option8')
   ];
 
   const handleOptionClick = (optionIndex: number) => {
@@ -121,12 +121,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Depression
+            {options[0]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 1 ? '#F28C39' : '#E1E0D3'}`,
@@ -134,12 +134,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(1)}
           >
-            Anxiety
+            {options[1]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 2 ? '#F28C39' : '#E1E0D3'}`,
@@ -147,12 +147,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(2)}
           >
-            Panic attacks
+            {options[2]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 3 ? '#F28C39' : '#E1E0D3'}`,
@@ -160,12 +160,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(3)}
           >
-            OCD
+            {options[3]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 4 ? '#F28C39' : '#E1E0D3'}`,
@@ -173,12 +173,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(4)}
           >
-            Bipolar disorder
+            {options[4]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 5 ? '#F28C39' : '#E1E0D3'}`,
@@ -186,12 +186,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(5)}
           >
-            Eating disorder
+            {options[5]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 6 ? '#F28C39' : '#E1E0D3'}`,
@@ -199,12 +199,12 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(6)}
           >
-            PTSD
+            {options[6]}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 7 ? '#F28C39' : '#E1E0D3'}`,
@@ -212,7 +212,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
             }}
             onClick={() => handleOptionClick(7)}
           >
-            Something else
+            {options[7]}
           </button>
         </div>
       </div>

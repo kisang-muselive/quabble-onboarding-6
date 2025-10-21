@@ -149,12 +149,12 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
         </div>
 
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '4px' }}>
-          <h1 className="leading-snug title-text" style={{ 
+          <h1 className="leading-snug title-text" style={{
             color: '#FFFFFF',
             fontSize: 'min(6.5vw, 2rem)',
             fontWeight: '500'
           }}>
-            When do you<br />usually go to bed?
+            {t('goToBed.title')}
           </h1>
         </div>
 
@@ -221,7 +221,7 @@ export function GoToBed({ onBack, onNext }: GoToBedProps) {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
           <div className="bg-white max-w-sm w-full mx-4 rounded-3xl p-6">
             <div className="flex justify-center items-center mb-8">
-              <h3 className="text-xl font-semibold text-gray-800">Select Time</h3>
+              <h3 className="text-xl font-semibold text-gray-800">{t('goToBed.modalTitle')}</h3>
             </div>
 
             <div className="flex justify-center items-center gap-2 mb-8">

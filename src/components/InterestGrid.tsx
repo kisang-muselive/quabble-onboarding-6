@@ -19,8 +19,21 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const [showCTA, setShowCTA] = useState(false);
 
-  // Get practice metadata from context or use defaults
-  const practices = metadata?.practice || [
+  // Translation map for practice names
+  const practiceNameMap: Record<string, string> = {
+    'breathing': t('interestGrid.breathing'),
+    'mood': t('interestGrid.mood'),
+    'journaling': t('interestGrid.journaling'),
+    'selflove': t('interestGrid.selflove'),
+    'gratitude': t('interestGrid.gratitude'),
+    'meditation': t('interestGrid.meditation'),
+    'physical': t('interestGrid.physical'),
+    'sleep': t('interestGrid.sleep'),
+    'productivity': t('interestGrid.productivity')
+  };
+
+  // Get practice metadata from context and apply translations
+  const practices = (metadata?.practice || [
     { id: 14, type: "practice", name: "breathing", displayName: "Breathing exercises" },
     { id: 17, type: "practice", name: "mood", displayName: "Mood tracking" },
     { id: 15, type: "practice", name: "journaling", displayName: "Journaling" },
@@ -30,7 +43,10 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
     { id: 20, type: "practice", name: "physical", displayName: "Physical activities" },
     { id: 21, type: "practice", name: "sleep", displayName: "Better sleep" },
     { id: 27, type: "practice", name: "productivity", displayName: "Productivity" }
-  ];
+  ]).map(practice => ({
+    ...practice,
+    displayName: practiceNameMap[practice.name] || practice.displayName
+  }));
 
   // Map grid items with their corresponding practice IDs from metadata
   const gridItems = [
@@ -162,17 +178,17 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
 
       <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Which of the following are you interested in practicing?
+            {t('interestGrid.title')}
           </h1>
           <p className="subtitle-text mt-2" style={{
             color: '#7B7968',
             fontSize: 'min(4vw, 1rem)'
           }}>
-            Choose all that apply
+            {t('interestGrid.subtitle')}
           </p>
         </div>
       </div>

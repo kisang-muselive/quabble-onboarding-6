@@ -152,7 +152,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                 color: '#4C4A3C',
                 fontSize: 'min(5.5vw, 1.625rem)'
               }}>
-                Your routine is ready!
+                {t('routineReady.title')}
               </h1>
             </div>
 
@@ -175,7 +175,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                   color: '#4C4A3C',
                   fontSize: 'min(4.5vw, 1.125rem)'
                 }}>
-                  Morning Routine
+                  {t('routineReady.morningRoutine')}
                 </h2>
                 
                 {/* Images Container */}
@@ -199,7 +199,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                       lineHeight: '1.3',
                       width: '100%'
                     }}>
-                      Morning Check-in
+                      {t('routineReady.morningCheckin')}
                     </p>
                   </div>
                   
@@ -256,7 +256,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                   color: '#FFFFFF',
                   fontSize: 'min(4.5vw, 1.125rem)'
                 }}>
-                  Evening Routine
+                  {t('routineReady.eveningRoutine')}
                 </h2>
                 
                 {/* Images Container */}
@@ -280,7 +280,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                       lineHeight: '1.3',
                       width: '100%'
                     }}>
-                      Evening Check-in
+                      {t('routineReady.eveningCheckin')}
                     </p>
                   </div>
                   
@@ -364,7 +364,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                 onNext();
               }}
             >
-              Next
+              {t('next')}
             </button>
           </div>
         </div>

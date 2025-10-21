@@ -50,10 +50,10 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Quabble is recommended by therapists and backed by experts
+            {t('backedByExperts.title')}
           </h1>
-          
-          <p className="subtitle-text" style={{ 
+
+          <p className="subtitle-text" style={{
             color: '#7B7968',
             fontSize: 'min(4vw, 1rem)',
             marginTop: '16px',
@@ -61,7 +61,7 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
             lineHeight: '1.4',
             mixBlendMode: 'multiply'
           }}>
-            Quabble brings real wellness practices to daily life—backed by experts like our advisor, Dr. Jung Kim, Assist. Professor of Psychiatry at Harvard Medical School
+            {t('backedByExperts.subtitle')}
           </p>
         </div>
 

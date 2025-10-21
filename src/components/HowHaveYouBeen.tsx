@@ -103,7 +103,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(0)}
           >
-            {questionData && questionData.options[0] ? capitalizeFirstLetter(questionData.options[0].text) : "I've been going through something difficult recently"}
+            {questionData && questionData.options[0] ? capitalizeFirstLetter(questionData.options[0].text) : t('howHaveYouBeen.option1')}
           </button>
           
           <button
@@ -116,7 +116,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(1)}
           >
-            {questionData && questionData.options[1] ? capitalizeFirstLetter(questionData.options[1].text) : "I've been living with ongoing mental health challenges"}
+            {questionData && questionData.options[1] ? capitalizeFirstLetter(questionData.options[1].text) : t('howHaveYouBeen.option2')}
           </button>
           
           <button
@@ -129,7 +129,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
             }}
             onClick={() => handleOptionClick(2)}
           >
-            {questionData && questionData.options[2] ? capitalizeFirstLetter(questionData.options[2].text) : "I'm mostly doing okay"}
+            {questionData && questionData.options[2] ? capitalizeFirstLetter(questionData.options[2].text) : t('howHaveYouBeen.option3')}
           </button>
         </div>
       </div>
@@ -175,9 +175,9 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
                     addSelection(selectedOptionId);
                   }
                 }
-                const optionText = questionData && questionData.options[selectedOption!] 
-                  ? questionData.options[selectedOption!].text 
-                  : ["I've been going through something difficult recently", "I've been living with ongoing mental health challenges", "I'm mostly doing okay"][selectedOption!];
+                const optionText = questionData && questionData.options[selectedOption!]
+                  ? questionData.options[selectedOption!].text
+                  : [t('howHaveYouBeen.option1'), t('howHaveYouBeen.option2'), t('howHaveYouBeen.option3')][selectedOption!];
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_how_have_you_been",
                   "eventProperties": {

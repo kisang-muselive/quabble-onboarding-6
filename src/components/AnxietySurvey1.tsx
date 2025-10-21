@@ -70,7 +70,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
             marginTop: '8px',
             fontWeight: 'normal'
           }}>
-            Choose all that apply
+            {t('anxietySurvey1.subtitle')}
           </p>
         </div>
 
@@ -93,7 +93,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've noticed myself getting easily annoyed or irritable</span>
+            <span className="text-left leading-relaxed">{t('anxietySurvey1.option1')}</span>
           </button>
           
           <button
@@ -112,7 +112,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've had a sense that something bad might happen, even without a clear reason</span>
+            <span className="text-left leading-relaxed">{t('anxietySurvey1.option2')}</span>
           </button>
           
           <button
@@ -131,7 +131,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've felt unable to control my worrying</span>
+            <span className="text-left leading-relaxed">{t('anxietySurvey1.option3')}</span>
           </button>
           
           <button
@@ -150,7 +150,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I've avoided certain situations because they make me too nervous</span>
+            <span className="text-left leading-relaxed">{t('anxietySurvey1.option4')}</span>
           </button>
           
           <button
@@ -169,7 +169,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
               className="w-6 h-6 mr-3 mt-1 flex-shrink-0"
               style={{ width: '24px', height: '24px' }}
             />
-            <span className="text-left leading-relaxed">I haven't noticed these symptoms</span>
+            <span className="text-left leading-relaxed">{t('anxietySurvey1.option5')}</span>
           </button>
         </div>
         

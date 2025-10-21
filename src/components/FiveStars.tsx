@@ -44,24 +44,24 @@ export function FiveStars({ onBack, onNext }: FiveStarsProps) {
 
   const testimonials = [
     {
-      title: "It's an app I've been looking for all my life.",
-      subtitle: "by t.m.s.d7d"
+      title: t('fiveStars.testimonial1'),
+      subtitle: t('fiveStars.testimonial1Author')
     },
     {
-      title: "It has been a game changer for my mental health and mindfulness and brings me so much joy.",
-      subtitle: "by Emma"
+      title: t('fiveStars.testimonial2'),
+      subtitle: t('fiveStars.testimonial2Author')
     },
     {
-      title: "It is a mind blowing way and a different perspective on how you look at mental health as a whole.",
-      subtitle: "by Lucy N"
+      title: t('fiveStars.testimonial3'),
+      subtitle: t('fiveStars.testimonial3Author')
     },
     {
-      title: "Y'all should know dis the best wellness app ever.",
-      subtitle: "by Daryn T"
+      title: t('fiveStars.testimonial4'),
+      subtitle: t('fiveStars.testimonial4Author')
     },
     {
-      title: "It's not a game pretending to be a mental health tool; it's a genuine mental health tool that happens to be fun and adorable.",
-      subtitle: "by Katherine"
+      title: t('fiveStars.testimonial5'),
+      subtitle: t('fiveStars.testimonial5Author')
     }
   ];
 

@@ -50,15 +50,15 @@ export function AnxietySurvey2({ onBack, onNext }: AnxietySurvey2Props) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Anxious feelings aren't something you make up
+            {t('anxietySurvey2.title1')}
           </h1>
-          
-          <h1 className="font-medium leading-snug title-text" style={{ 
+
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)',
             marginTop: '20px'
           }}>
-            They're your body's reaction that you cannot simply switch off
+            {t('anxietySurvey2.title2')}
           </h1>
         </div>
 

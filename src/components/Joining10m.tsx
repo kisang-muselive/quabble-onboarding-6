@@ -145,19 +145,19 @@ export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mP
                 fontSize: 'min(5.5vw, 1.625rem)'
               }}>
                 <div className={`transition-all duration-700 ease-out ${showFirstText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                  You're joining
+                  {t('joining10m.line1')}
                 </div>
-                <div className={`transition-all duration-700 ease-out ${showSecondText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`} style={{ 
+                <div className={`transition-all duration-700 ease-out ${showSecondText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`} style={{
                   color: '#F28C39',
                   fontSize: 'min(12.6vw, 3.5rem)',
                   fontWeight: '600',
                   marginTop: '4px',
                   marginBottom: '4px'
                 }}>
-                  10M+
+                  {t('joining10m.line2')}
                 </div>
                 <div className={`transition-all duration-700 ease-out ${showThirdText ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
-                  Wellness routine already completed by Quabble users
+                  {t('joining10m.line3')}
                 </div>
               </div>
             </div>
@@ -218,7 +218,7 @@ export function Joining10m({ onBack, onNext, dealingWithSelection }: Joining10mP
                 onNext();
               }}
             >
-              Next
+              {t('next')}
             </button>
           </div>
         </div>

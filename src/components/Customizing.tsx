@@ -300,7 +300,12 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
                 color: '#4C4A3C',
                 fontSize: 'min(5.5vw, 1.625rem)'
               }}>
-                Customizing your<br />mental wellness routine
+                {t('customizing.title').split('\n').map((line, index) => (
+                  <span key={index}>
+                    {line}
+                    {index < t('customizing.title').split('\n').length - 1 && <br />}
+                  </span>
+                ))}
               </h1>
             </div>
 
@@ -369,9 +374,9 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
                   fontSize: 'min(4.5vw, 1.125rem)'
                 }}
               >
-                {dealingWithSelection === 'Anxiety' 
-                  ? 'A recent study shows small daily routines can ease stress and anxiety, and build resilience'
-                  : 'Research shows even small daily actions like walking, gratitude, or connecting can boost mood and well-being.'
+                {dealingWithSelection === 'Anxiety'
+                  ? t('customizing.quoteAnxiety')
+                  : t('customizing.quoteDefault')
                 }
               </p>
               
@@ -383,9 +388,9 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
                   fontSize: 'min(3.5vw, 0.875rem)'
                 }}
               >
-                {dealingWithSelection === 'Anxiety' 
-                  ? 'Frontiers in Psychology, 2024'
-                  : 'MQ Mental Health, 2023'
+                {dealingWithSelection === 'Anxiety'
+                  ? t('customizing.sourceAnxiety')
+                  : t('customizing.sourceDefault')
                 }
               </p>
             </div>

@@ -46,20 +46,25 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
 
       <div className="flex flex-col items-center px-9 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
-          <p className="subtitle-text" style={{ 
+          <p className="subtitle-text" style={{
             color: '#F28C39',
             fontSize: 'min(4.5vw, 1.125rem)',
             marginBottom: '10px',
             fontWeight: '500'
           }}>
-            You're doing great. Final step!
+            {t('finalStep.subtitle')}
           </p>
-          
-          <h1 className="font-medium leading-snug title-text" style={{ 
+
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Let's personalize your<br />Quabble routine to improve<br />your mental health with us.<br />The setup will be quick!
+            {t('finalStep.title').split('\n').map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < t('finalStep.title').split('\n').length - 1 && <br />}
+              </span>
+            ))}
           </h1>
         </div>
 

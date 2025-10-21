@@ -73,16 +73,21 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Try everything and find<br />what works best for you
+            {t('workoutList.title').split('\n').map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < t('workoutList.title').split('\n').length - 1 && <br />}
+              </span>
+            ))}
           </h1>
-          
-          <p className="text-center subtitle-text" style={{ 
+
+          <p className="text-center subtitle-text" style={{
             color: '#7B7968',
             fontSize: 'min(4vw, 1rem)',
             marginTop: '12px',
             lineHeight: '1.4'
           }}>
-            18 different workouts across 6 categories available now and more to come!
+            {t('workoutList.subtitle')}
           </p>
         </div>
 

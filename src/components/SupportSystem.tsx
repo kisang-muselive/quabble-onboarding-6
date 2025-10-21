@@ -129,20 +129,20 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
 
       <div className="flex flex-col items-center px-9 pb-32 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            How strong is your<br />support system?
+            {t('supportSystem.title')}
           </h1>
-          
-          <p className="subtitle-text" style={{ 
+
+          <p className="subtitle-text" style={{
             color: '#605D4E',
             fontSize: 'min(4vw, 1rem)',
             marginTop: '6px',
             fontWeight: 'normal'
           }}>
-            Family, friends, teachers, peers, etc.
+            {t('supportSystem.subtitle')}
           </p>
         </div>
 
@@ -170,7 +170,7 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Excellent
+            {t('supportSystem.option1')}
           </button>
           
           <button
@@ -183,7 +183,7 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
             }}
             onClick={() => handleOptionClick(1)}
           >
-            Good
+            {t('supportSystem.option2')}
           </button>
           
           <button
@@ -196,7 +196,7 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
             }}
             onClick={() => handleOptionClick(2)}
           >
-            Limited
+            {t('supportSystem.option3')}
           </button>
           
           <button
@@ -209,7 +209,7 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
             }}
             onClick={() => handleOptionClick(3)}
           >
-            Poor
+            {t('supportSystem.option4')}
           </button>
         </div>
       </div>

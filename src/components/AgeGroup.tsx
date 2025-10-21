@@ -113,11 +113,11 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
 
       <div className="flex flex-col items-center px-9 pb-32 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            {questionData ? questionData.text : 'To what age group do you belong?'}
+            {questionData ? questionData.text : t('ageGroup.title')}
           </h1>
         </div>
 
@@ -145,7 +145,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            {questionData && questionData.options[0] ? questionData.options[0].text : 'Under 18'}
+            {questionData && questionData.options[0] ? questionData.options[0].text : t('ageGroup.option1')}
           </button>
           
           <button
@@ -158,7 +158,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            {questionData && questionData.options[1] ? questionData.options[1].text : '18-24'}
+            {questionData && questionData.options[1] ? questionData.options[1].text : t('ageGroup.option2')}
           </button>
           
           <button
@@ -171,7 +171,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            {questionData && questionData.options[2] ? questionData.options[2].text : '25-34'}
+            {questionData && questionData.options[2] ? questionData.options[2].text : t('ageGroup.option3')}
           </button>
           
           <button
@@ -184,7 +184,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(3)}
           >
-            {questionData && questionData.options[3] ? questionData.options[3].text : '35 and over'}
+            {questionData && questionData.options[3] ? questionData.options[3].text : t('ageGroup.option4')}
           </button>
           
           <button
@@ -197,7 +197,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
             }}
             onClick={() => handleOptionClick(4)}
           >
-            {questionData && questionData.options[4] ? questionData.options[4].text : 'Prefer not to answer'}
+            {questionData && questionData.options[4] ? questionData.options[4].text : t('ageGroup.option5')}
           </button>
         </div>
       </div>
@@ -245,7 +245,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
                 }
                 const ageText = questionData && selectedOption !== null && questionData.options[selectedOption]
                   ? questionData.options[selectedOption].text
-                  : ['Under 18', '18-24', '25-34', '35 and over', 'Prefer not to answer'][selectedOption!];
+                  : [t('ageGroup.option1'), t('ageGroup.option2'), t('ageGroup.option3'), t('ageGroup.option4'), t('ageGroup.option5')][selectedOption!];
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_age_group",
                   "eventProperties": {

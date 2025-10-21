@@ -103,12 +103,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(0)}
           >
-            Breakup of relationship stress
+            {t('sorryToHearThat.option1')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 1 ? '#F28C39' : '#E1E0D3'}`,
@@ -116,12 +116,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(1)}
           >
-            Career or academic pressure
+            {t('sorryToHearThat.option2')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 2 ? '#F28C39' : '#E1E0D3'}`,
@@ -129,12 +129,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(2)}
           >
-            Health issues
+            {t('sorryToHearThat.option3')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 3 ? '#F28C39' : '#E1E0D3'}`,
@@ -142,12 +142,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(3)}
           >
-            Burnout
+            {t('sorryToHearThat.option4')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 4 ? '#F28C39' : '#E1E0D3'}`,
@@ -155,12 +155,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(4)}
           >
-            Loneliness
+            {t('sorryToHearThat.option5')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 5 ? '#F28C39' : '#E1E0D3'}`,
@@ -168,12 +168,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(5)}
           >
-            Loss
+            {t('sorryToHearThat.option6')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 6 ? '#F28C39' : '#E1E0D3'}`,
@@ -181,12 +181,12 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(6)}
           >
-            Something else
+            {t('sorryToHearThat.option7')}
           </button>
-          
+
           <button
             className="w-full px-6 py-4 bg-white text-center font-medium transition-colors option-button"
-            style={{ 
+            style={{
               fontSize: 'min(4.5vw, 1.125rem)',
               borderRadius: '28px',
               border: `2px solid ${selectedOption === 7 ? '#F28C39' : '#E1E0D3'}`,
@@ -194,7 +194,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
             }}
             onClick={() => handleOptionClick(7)}
           >
-            Nothing specific
+            {t('sorryToHearThat.option8')}
           </button>
         </div>
       </div>
