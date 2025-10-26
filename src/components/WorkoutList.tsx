@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { sendToFlutter } from '../lib/quabbleFlutterChannel';
 import { useLanguage } from '../contexts/LanguageContext';
 
@@ -9,8 +9,6 @@ interface WorkoutListProps {
 
 export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
   const { t } = useLanguage();
-  const [visibleItems, setVisibleItems] = useState<number[]>([]);
-  const [showCTA, setShowCTA] = useState(false);
   
   useEffect(() => {
     sendToFlutter(JSON.stringify({
@@ -19,27 +17,6 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
         "onboarding_version": 6.0
       }
     }));
-
-    // 순차적으로 각 그리드 아이템을 표시
-    const animationTimers: NodeJS.Timeout[] = [];
-    
-    for (let i = 0; i < 18; i++) {
-      const timer = setTimeout(() => {
-        setVisibleItems(prev => [...prev, i]);
-      }, i * 100); // 100ms 간격으로 순차 등장
-      
-      animationTimers.push(timer);
-    }
-
-    // 모든 아이템이 나타난 후 CTA 표시
-    const ctaTimer = setTimeout(() => {
-      setShowCTA(true);
-    }, 18 * 100 + 300); // 모든 아이템 + 300ms 후
-
-    return () => {
-      animationTimers.forEach(timer => clearTimeout(timer));
-      clearTimeout(ctaTimer);
-    };
   }, []);
 
   return (
@@ -127,11 +104,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
               ].map((workout, index) => (
               <div 
                 key={index} 
-                className={`flex flex-col items-center workout-item transition-all duration-500 ease-out ${
-                  visibleItems.includes(index) 
-                    ? 'translate-y-0 opacity-100' 
-                    : 'translate-y-4 opacity-0'
-                }`}
+                className="flex flex-col items-center workout-item"
               >
                 <img
                   src={workout.image.startsWith('http') || workout.image.startsWith('/') && !workout.image.startsWith('/images/') ? 
@@ -166,11 +139,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
       </div>
 
       {/* CTA Container with integrated gradient - matching AgeGroup.tsx */}
-      <div 
-        className={`fixed bottom-0 left-0 right-0 z-50 transition-all duration-300 ease-out ${
-          showCTA ? 'translate-y-0' : 'translate-y-full'
-        }`}
-      >
+      <div className="fixed bottom-0 left-0 right-0 z-50">
         {/* Gradient frame above CTA */}
         <div 
           className="w-full gradient-frame"
