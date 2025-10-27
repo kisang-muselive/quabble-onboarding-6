@@ -57,11 +57,16 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
 
       <div className="flex flex-col items-center px-9 pb-32 main-content">
         <div className="flex flex-col items-center justify-center text-center max-w-sm title-container" style={{ marginTop: '24px' }}>
-          <h1 className="font-medium leading-snug title-text" style={{ 
+          <h1 className="font-medium leading-snug title-text" style={{
             color: '#4C4A3C',
             fontSize: 'min(5.5vw, 1.625rem)'
           }}>
-            Have you been experiencing<br />any of these?
+            {t('anxietySurvey1.title').split('\n').map((line, index) => (
+              <span key={index}>
+                {line}
+                {index < t('anxietySurvey1.title').split('\n').length - 1 && <br />}
+              </span>
+            ))}
           </h1>
           
           <p className="subtitle-text" style={{ 
