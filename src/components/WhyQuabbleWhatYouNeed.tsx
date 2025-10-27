@@ -14,7 +14,7 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_hello_i_am_quabble_duck",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -102,7 +102,7 @@ export function WhyQuabbleWhatYouNeed({ onBack, onNext }: WhyQuabbleWhatYouNeedP
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_info_hello_i_am_quabble_duck",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

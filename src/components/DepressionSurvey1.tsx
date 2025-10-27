@@ -25,7 +25,7 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_experiencing_any_of_these_depression",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -239,11 +239,11 @@ export function DepressionSurvey1({ onBack, onNext }: DepressionSurvey1Props) {
                     sendToFlutter(JSON.stringify({
                       "event": "click_next_survey_experiencing_any_of_these_depression",
                       "eventProperties": {
-                        "onboarding_version": 6.0
+                        "onboarding_version": 6.1
                       },
                       "userProperties": {
                         "survey_depression_experience": selectedTexts || "",
-                        "onboarding_version": 6.0
+                        "onboarding_version": 6.1
                       }
                     }));
                     onNext(selectedOptions[0]);

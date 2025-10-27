@@ -148,7 +148,7 @@ function AppContent() {
     sendToFlutter(JSON.stringify({
       "event": "heptic",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
     
@@ -172,7 +172,7 @@ function AppContent() {
         sendToFlutter(JSON.stringify({
           "event": "onboarding-complete",
           "eventProperties": {
-            "onboarding_version": 6.0
+            "onboarding_version": 6.1
           }
         }));
       }
@@ -193,7 +193,7 @@ function AppContent() {
         sendToFlutter(JSON.stringify({
           "event": "onboarding-complete",
           "eventProperties": {
-            "onboarding_version": 6.0
+            "onboarding_version": 6.1
           }
         }));
       }

@@ -67,7 +67,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
     sendToFlutter(JSON.stringify({
       "event": "view_ob_ask_recommended_routine",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
 
@@ -358,7 +358,7 @@ export function RoutineReady({ onBack, onNext, dealingWithSelection }: RoutineRe
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ask_recommended_routine",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

@@ -15,7 +15,7 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_quabble_just_what_you_need",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -97,7 +97,7 @@ export function ProfessionalCareIsImportant({ onBack, onNext }: ProfessionalCare
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_quabble_just_what_you_need",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

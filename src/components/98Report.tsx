@@ -22,7 +22,7 @@ export function NinetyEightReport({ onBack, onNext }: NinetyEightReportProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_quabble_help_manage",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -122,7 +122,7 @@ export function NinetyEightReport({ onBack, onNext }: NinetyEightReportProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_info_quabble_help_manage",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

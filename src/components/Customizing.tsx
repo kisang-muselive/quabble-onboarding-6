@@ -138,13 +138,13 @@ export function Customizing({ onBack, onNext, dealingWithSelection }: Customizin
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_customizing_routine",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_customizing_quote_anxiety",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
 

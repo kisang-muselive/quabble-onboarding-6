@@ -29,7 +29,7 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_age_group",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -249,11 +249,11 @@ export function AgeGroup({ onBack, onNext, questionData }: AgeGroupProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_age_group",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_age_group": ageText || "",
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

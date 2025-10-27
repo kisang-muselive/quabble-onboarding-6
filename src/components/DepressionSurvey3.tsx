@@ -14,7 +14,7 @@ export function DepressionSurvey3({ onBack, onNext }: DepressionSurvey3Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_good_news_you_can_learn",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -98,7 +98,7 @@ export function DepressionSurvey3({ onBack, onNext }: DepressionSurvey3Props) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_good_news_you_can_learn",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

@@ -14,7 +14,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_you_are_doing_great_final_step",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -107,7 +107,7 @@ export function FinalStep({ onBack, onNext }: FinalStepProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_info_you_are_doing_great_final_step",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

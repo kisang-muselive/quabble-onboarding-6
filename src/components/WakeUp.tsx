@@ -19,7 +19,7 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_wake_up",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -200,11 +200,11 @@ export function WakeUp({ onBack, onNext }: WakeUpProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_wake_up",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_wake_up": wakeUpTime,
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

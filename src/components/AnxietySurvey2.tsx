@@ -14,7 +14,7 @@ export function AnxietySurvey2({ onBack, onNext }: AnxietySurvey2Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_anxious_feeling_not_made_up",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -101,7 +101,7 @@ export function AnxietySurvey2({ onBack, onNext }: AnxietySurvey2Props) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_anxious_feeling_not_made_up",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

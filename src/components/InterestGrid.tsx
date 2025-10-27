@@ -89,7 +89,7 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_interested_activity",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
     
@@ -306,11 +306,11 @@ export function InterestGrid({ onBack, onNext, questionData }: InterestGridProps
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_interested_activity",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_interested_activity": selectedInterests || "",
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

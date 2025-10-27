@@ -40,7 +40,7 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_support_system",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
     
@@ -269,11 +269,11 @@ export function SupportSystem({ onBack, onNext, questionData }: SupportSystemPro
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_support_system",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_support_system": selectedSupportText,
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

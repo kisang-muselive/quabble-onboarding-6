@@ -14,7 +14,7 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_therapist_recommended",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -104,7 +104,7 @@ export function BackedByExperts({ onBack, onNext }: BackedByExpertsProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_info_therapist_recommended",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

@@ -25,7 +25,7 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_anxiety_experience",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -239,11 +239,11 @@ export function AnxietySurvey1({ onBack, onNext }: AnxietySurvey1Props) {
                     sendToFlutter(JSON.stringify({
                       "event": "click_next_ob_survey_anxiety_experience",
                       "eventProperties": {
-                        "onboarding_version": 6.0
+                        "onboarding_version": 6.1
                       },
                       "userProperties": {
                         "survey_anxiety_experience": selectedTexts || "",
-                        "onboarding_version": 6.0
+                        "onboarding_version": 6.1
                       }
                     }));
                     onNext(selectedOptions[0]);

@@ -18,7 +18,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_how_many_workout_done",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -127,7 +127,7 @@ export function TenMWorkoutCompleted({ onBack, onNext }: TenMWorkoutCompletedPro
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_info_how_many_workout_done",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 sendToFlutter('{"event":"request-signin"}');

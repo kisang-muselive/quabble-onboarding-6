@@ -43,7 +43,7 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_what_have_you_been_dealing_with",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -262,11 +262,11 @@ export function DealingWith({ onBack, onNext, onOptionSelect, questionData }: De
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_survey_what_have_you_been_dealing_with",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_what_dealing_with": optionText || "",
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext(selectedOption ?? undefined);

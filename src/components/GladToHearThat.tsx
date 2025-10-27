@@ -15,7 +15,7 @@ export function GladToHearThat({ onBack, onNext }: GladToHearThatProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_quabble_here_to_help",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -97,7 +97,7 @@ export function GladToHearThat({ onBack, onNext }: GladToHearThatProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_info_quabble_here_to_help",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

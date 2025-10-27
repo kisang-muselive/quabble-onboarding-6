@@ -25,7 +25,7 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_what_is_going_on",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -247,11 +247,11 @@ export function SorryToHearThat({ onBack, onNext }: SorryToHearThatProps) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_survey_what_is_going_on",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_what_is_going_on": selectedText,
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();

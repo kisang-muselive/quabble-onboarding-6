@@ -34,7 +34,7 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
     sendToFlutter(JSON.stringify({
       "event": "view_ob_survey_how_have_you_been",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -181,11 +181,11 @@ export function HowHaveYouBeen({ onBack, onNext, questionData }: HowHaveYouBeenP
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_ob_survey_how_have_you_been",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   },
                   "userProperties": {
                     "survey_how_have_you_been": optionText || "",
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext(selectedOption!);

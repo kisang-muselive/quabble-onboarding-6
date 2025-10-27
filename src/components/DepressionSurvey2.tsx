@@ -14,7 +14,7 @@ export function DepressionSurvey2({ onBack, onNext }: DepressionSurvey2Props) {
     sendToFlutter(JSON.stringify({
       "event": "view_ob_info_depression_change_sleep_energy_focus",
       "eventProperties": {
-        "onboarding_version": 6.0
+        "onboarding_version": 6.1
       }
     }));
   }, []);
@@ -98,7 +98,7 @@ export function DepressionSurvey2({ onBack, onNext }: DepressionSurvey2Props) {
                 sendToFlutter(JSON.stringify({
                   "event": "click_next_depression_change_sleep_energy_focus",
                   "eventProperties": {
-                    "onboarding_version": 6.0
+                    "onboarding_version": 6.1
                   }
                 }));
                 onNext();
