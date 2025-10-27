@@ -83,40 +83,40 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
             maxWidth: '400px'
           }}>
             {[
-                { image: 'quabble-tool-1.png', title: 'Mood Diary' },
-                { image: 'quabble-tool-2.png', title: 'Meditation' },
-                { image: 'quabble-tool-3.png', title: 'Bamboo Forest' },
-                { image: 'quabble-tool-4.png', title: '1min Breathing' },
-                { image: 'quabble-tool-5.png', title: 'Watermelon Tai Chi' },
-                { image: 'quabble-tool-6.png', title: 'Proud Dandelion' },
-                { image: 'quabble-tool-7.png', title: 'Gratitude Jar' },
-                { image: 'quabble-tool-8.png', title: 'Worry Box' },
-                { image: 'quabble-tool-9.png', title: 'Treasure Box' },
-                { image: 'quabble-tool-10.png', title: 'Safe Place' },
-                { image: 'quabble-tool-11.png', title: 'Moonlight' },
-                { image: 'quabble-tool-12.png', title: 'Outdoor Walk' },
-                { image: 'quabble-tool-13.png', title: '54321' },
-                { image: 'quabble-tool-14.png', title: 'Pleasant Activity' },
-                { image: 'quabble-tool-15.png', title: 'Thank You' },
-                { image: 'quabble-tool-16.png', title: 'Dear Self' },
-                { image: 'quabble-tool-17.png', title: 'SMART Goals' },
-                { image: 'quabble-tool-18.png', title: 'Mindful Eating' }
+                { image: 'quabble-tool-1.png', titleKey: 'workoutList.workout1' },
+                { image: 'quabble-tool-2.png', titleKey: 'workoutList.workout2' },
+                { image: 'quabble-tool-3.png', titleKey: 'workoutList.workout3' },
+                { image: 'quabble-tool-4.png', titleKey: 'workoutList.workout4' },
+                { image: 'quabble-tool-5.png', titleKey: 'workoutList.workout5' },
+                { image: 'quabble-tool-6.png', titleKey: 'workoutList.workout6' },
+                { image: 'quabble-tool-7.png', titleKey: 'workoutList.workout7' },
+                { image: 'quabble-tool-8.png', titleKey: 'workoutList.workout8' },
+                { image: 'quabble-tool-9.png', titleKey: 'workoutList.workout9' },
+                { image: 'quabble-tool-10.png', titleKey: 'workoutList.workout10' },
+                { image: 'quabble-tool-11.png', titleKey: 'workoutList.workout11' },
+                { image: 'quabble-tool-12.png', titleKey: 'workoutList.workout12' },
+                { image: 'quabble-tool-13.png', titleKey: 'workoutList.workout13' },
+                { image: 'quabble-tool-14.png', titleKey: 'workoutList.workout14' },
+                { image: 'quabble-tool-15.png', titleKey: 'workoutList.workout15' },
+                { image: 'quabble-tool-16.png', titleKey: 'workoutList.workout16' },
+                { image: 'quabble-tool-17.png', titleKey: 'workoutList.workout17' },
+                { image: 'quabble-tool-18.png', titleKey: 'workoutList.workout18' }
               ].map((workout, index) => (
               <div 
                 key={index} 
                 className="flex flex-col items-center workout-item"
               >
                 <img
-                  src={workout.image.startsWith('http') || workout.image.startsWith('/') && !workout.image.startsWith('/images/') ? 
+                  src={workout.image.startsWith('http') || workout.image.startsWith('/') && !workout.image.startsWith('/images/') ?
                     workout.image : `/images/${workout.image}`}
-                  alt={workout.title}
+                  alt={t(workout.titleKey)}
                   className="w-full h-auto object-contain"
-                  style={{ 
+                  style={{
                     aspectRatio: '1',
                     borderRadius: '8px'
                   }}
                 />
-                <p className="text-center workout-title" style={{ 
+                <p className="text-center workout-title" style={{
                   color: '#7B7968',
                   fontSize: 'min(3.2vw, 0.75rem)', // 반응형 크기 증가
                   fontWeight: '500',
@@ -130,7 +130,7 @@ export function WorkoutList({ onBack, onNext }: WorkoutListProps) {
                   overflow: 'hidden',
                   textOverflow: 'ellipsis'
                 }}>
-                  {workout.title}
+                  {t(workout.titleKey)}
                 </p>
               </div>
             ))}
