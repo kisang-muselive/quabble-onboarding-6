@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
+import { BASE_URL } from '../utils/apiConfig';
 
 interface SubmitSelectionsResult {
   success: boolean;
@@ -38,9 +39,7 @@ interface SelectionsProviderProps {
   children: ReactNode;
 }
 
-const API_ENDPOINT = process.env.NODE_ENV === 'development'
-  ? '/api/quabble/onboardings/v3/questions'  // Use proxy in development
-  : 'https://prod-canary-1-27.muse.live/api/quabble/onboardings/v3/questions'; // Direct URL in production
+const API_ENDPOINT = `${BASE_URL}/quabble/onboardings/v3/questions`;
 
 export const SelectionsProvider: React.FC<SelectionsProviderProps> = ({ children }) => {
   const [selections, setSelections] = useState<number[]>([]);

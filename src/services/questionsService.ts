@@ -1,3 +1,5 @@
+import { BASE_URL } from '../utils/apiConfig';
+
 export interface QuestionOption {
   id: number;
   text: string;
@@ -15,9 +17,7 @@ export interface QuestionsResponse {
   message: Question[];
 }
 
-const API_ENDPOINT = process.env.NODE_ENV === 'development'
-  ? '/api/quabble/onboardings/v3/questions'  // Use proxy in development
-  : 'https://prod-canary-1-27.muse.live/api/quabble/onboardings/v3/questions'; // Direct URL in production
+const API_ENDPOINT = `${BASE_URL}/quabble/onboardings/v3/questions`;
 
 export const fetchQuestions = async (): Promise<Question[]> => {
   try {

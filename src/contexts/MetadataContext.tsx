@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback } from 'react';
 import { useAuth } from './AuthContext';
+import { BASE_URL } from '../utils/apiConfig';
 
 interface MetadataItem {
   id: number;
@@ -52,11 +53,6 @@ export const MetadataProvider: React.FC<MetadataProviderProps> = ({ children }) 
   const [debugInfo, setDebugInfo] = useState<DebugInfo | null>(null);
   const { accessToken } = useAuth();
 
-  // API configuration - different URLs for dev vs production
-  const BASE_URL = (import.meta as any).env.DEV 
-    ? '/api'  // Development: use proxy
-    : 'https://prod-canary-1-27.muse.live/api';  // Production: direct URL
-  
   const getHeaders = () => ({
     'Authorization': `Bearer ${accessToken}`,
     'X-Is-Reader': 'yes',

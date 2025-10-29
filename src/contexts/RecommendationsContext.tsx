@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
 import { useAuth } from './AuthContext';
 import { getLanguageFromUrl } from '../utils/language';
+import { BASE_URL } from '../utils/apiConfig';
 
 interface FetchRecommendationsResult {
   success: boolean;
@@ -39,9 +40,7 @@ interface RecommendationsProviderProps {
   children: ReactNode;
 }
 
-const API_ENDPOINT = process.env.NODE_ENV === 'development'
-  ? '/api/quabble/onboardings/v3/recommendations/routines'  // Use proxy in development
-  : 'https://prod-canary-1-27.muse.live/api/quabble/onboardings/v3/recommendations/routines'; // Direct URL in production
+const API_ENDPOINT = `${BASE_URL}/quabble/onboardings/v3/recommendations/routines`;
 
 export const RecommendationsProvider: React.FC<RecommendationsProviderProps> = ({ children }) => {
   const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null);
